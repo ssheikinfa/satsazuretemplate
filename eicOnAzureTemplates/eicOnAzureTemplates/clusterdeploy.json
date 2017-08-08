@@ -105,7 +105,7 @@
               "name": "[concat(variables('clusterStorageName'),'.blob.core.windows.net')]",
               "isDefault": true,
               "container": "[parameters('clusterName')]",
-              "key": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('clusterStorageAccountName')), variables('defaultApiVersion')).keys[0].value]"
+              "key": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('clusterStorageName')), variables('defaultApiVersion')).keys[0].value]"
             }
           ]
         },
