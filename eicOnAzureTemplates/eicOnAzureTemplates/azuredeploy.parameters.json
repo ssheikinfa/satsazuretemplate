@@ -5,7 +5,7 @@
 
     //Cluster Parameters
     "clusterName": {
-      "value": "robtestcluster"
+      "value": "robtesthd"
     },
     "clusterLoginUserName": {
       "value": "admin"
@@ -26,13 +26,13 @@
       "value": "hadoop"
     },
     "clusterHeadNodeCount": {
-      "value": "2"
+      "value": 2
     },
     "clusterHeadNodeVmType": {
       "value": "Standard_D3"
     },
     "clusterWorkerNodeCount": {
-      "value": "2"
+      "value": 2
     },
     "clusterWorkerNodeVmtype": {
       "value": "Standard_D3"

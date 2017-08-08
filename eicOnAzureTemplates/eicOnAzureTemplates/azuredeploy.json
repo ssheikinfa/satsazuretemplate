@@ -99,7 +99,7 @@
     },
     "clusterHdinsightVersion": {
       "defaultValue": "3.5",
-      "type": "Int",
+      "type": "String",
       "metadata": {
         "description": "The HDInsight cluster version."
       }
@@ -113,8 +113,8 @@
     }
   },
   "variables": {
-    "baseUri": null,
-    "clusterDeployTemplateUri": null
+    "baseUrl": "https://raw.githubusercontent.com/robsharm/gitrepo/master/eicOnAzureTemplates/eicOnAzureTemplates/",
+    "clusterDeployTemplateUri": "[concat(variables('baseUrl'), 'clusterdeploy.json')]"
   },
   "resources": [
     {
@@ -130,7 +130,7 @@
 
         "parameters": {
           "baseUri": {
-            "value": "[variables('baseUri')]"
+            "value": "[variables('baseUrl')]"
           },
           "clusterHdinsightVersion": {
             "value": "[parameters('clusterHdinsightVersion')]"
