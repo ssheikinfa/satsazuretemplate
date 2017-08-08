@@ -80,7 +80,7 @@
       "type": "Microsoft.HDInsight/clusters",
       "name": "[parameters('clusterName')]",
       "apiVersion": "[variables('clusterApiVersion')]",
-      "location": "[parameters('location')]",
+      "location": "[parameters('clusterLocation')]",
       "tags": {},
       "dependsOn": [
         "Microsoft.Resources/deployments/clusterStorageSetup"
