@@ -129,7 +129,7 @@
         },
 
         "parameters": {
-          "baseUri": {
+          "baseUrl": {
             "value": "[variables('baseUrl')]"
           },
           "clusterHdinsightVersion": {
@@ -145,6 +145,9 @@
             "value": "[parameters('clusterLoginPassword')]"
           },
           "sshUserName": {
+            "value": "[parameters('sshPassword')]"
+          },
+          "sshPassword": {
             "value": "[parameters('sshPassword')]"
           },
           "clusterLocation": {
