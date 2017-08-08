@@ -2,5 +2,114 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+
+    //Cluster Parameters
+    "clusterName": {
+      "value": "robtestcluster"
+    },
+    "clusterLoginUserName": {
+      "value": "admin"
+    },
+    "clusterLoginPassword": {
+      "value": "Robtest12321"
+    },
+    "sshUserName": {
+      "value": "sshuser"
+    },
+    "sshPassword": {
+      "value": "Robtest12321"
+    },
+    "clusterLocation": {
+      "value": "Southeast Asia"
+    },
+    "clusterType": {
+      "value": "hadoop"
+    },
+    "clusterHeadNodeCount": {
+      "value": "2"
+    },
+    "clusterHeadNodeVmType": {
+      "value": "Standard_D3"
+    },
+    "clusterWorkerNodeCount": {
+      "value": "2"
+    },
+    "clusterWorkerNodeVmtype": {
+      "value": "Standard_D3"
+    },
+
+    "clusterHdinsightVersion": {
+      "value": "3.5"
+    },
+
+    "clusterStorageType": {
+      "value": "Standard_LRS"
+    },
+
+    //Domain Node Parameters
+    "infaDomainNodeLocation" {
+      "value": "Southeast Asia"
+    },
+    "infaDomainNodeName": {
+      "value": "infaDomainNode"
+    },
+    "infaDomainNodeType": {
+      "value": "Standard_D2_v2"
+    },
+    "infaDomainNodeAdminUsername" {
+      "value": "robtest"
+    },
+    "infaDomainNodeAdminPassword": {
+      "value": "Robtest12321"
+    },
+
+
+    //MS SQL Server DB Details
+
+
+
+    //Infa Domain and Services details
+    "infaDomainName": {
+      "value": "Domain"
+    },
+    "infaDomainUser": {
+      "value": "robtest"
+    },
+    "infaNodeName": {
+      "value": "Node"
+    },
+    "infaLicense": {
+      "value": ""
+    },
+    "infaMRSName": {
+      "value": "MRS"
+    },
+    "infaMRSDBUser": {
+      "value": "mrs"
+    },
+    "infaMRSDBPswd": {
+      "value": "mrs"
+    },
+    "infaDISName": {
+      "value": "DIS"
+    },
+    "infaDISDBUser": {
+      "value": "dis"
+    },
+    "infaDISDBPswd": {
+      "value": "dis"
+    },
+    "infaCMSName": {
+      "value": "CMS"
+    },
+    "infaCMSDBUser": {
+      "value": "cms"
+    },
+    "infaCMSDBPswd": {
+      "value": "cms"
+    },
+    "infaCSName": {
+      "value": "CS"
+    }
   }
 }

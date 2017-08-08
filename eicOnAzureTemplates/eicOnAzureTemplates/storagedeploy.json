@@ -1,0 +1,39 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "storageLocation": {
+      "type": "String"
+    },
+    "storageName": {
+      "type": "String"
+    },
+    "storageType": {
+      "type":  "String"
+    }
+  },
+  "variables": {
+    "apiVersion": "2016-01-01"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "sku": {
+        "name": "[parameters('storageType')]"
+      },
+      "kind": "Storage",
+      "apiVersion": "[variables('apiVersion')]",
+      "name": "[parameters('storageName')]",
+      "location": "[parameters('storageLocation')]",
+      "tags": {},
+      "properties": {},
+      "dependsOn": []
+    }
+  ],
+  "outputs": {
+    "cluster": {
+      "type": "Object",
+      "value": "[reference(resourceId('Microsoft.Storage/storageAccounts',parameters('storageName')))]"
+    }
+  }
+}

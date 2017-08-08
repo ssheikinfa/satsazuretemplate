@@ -1,0 +1,151 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "baseUri": {
+      "type": "String"
+    },
+    "clusterName": {
+      "type": "String"
+    },
+    "clusterLoginUserName": {
+      "type": "String"
+    },
+    "clusterLoginPassword": {
+      "type": "SecureString"
+    },
+    "sshUserName": {
+      "type": "String"
+    },
+    "sshPassword": {
+      "type": "SecureString"
+    },
+    "clusterLocation": {
+      "type": "String"
+    },
+    "clusterType": {
+      "type": "String"
+    },
+    "clusterHeadNodeCount": {
+      "type": "Int"
+    },
+    "clusterHeadNodeVmType": {
+      "type": "String"
+    },
+    "clusterWorkerNodeCount": {
+      "type": "Int"
+    },
+    "clusterWorkerNodeVmType": {
+      "type": "String"
+    },
+    "clusterHdinsightVersion": {
+      "type": "String"
+    },
+    "clusterStorageType": {
+      "type": "String"
+    }
+  },
+  "variables": {
+    "defaultApiVersion": "2016-01-01",
+    "clusterApiVersion": "2015-03-01-preview",
+    "clusterStorageName": "[concat(parameters('clusterName'),'store')]",
+    "storageDeployTemplateUri": "[parameters('baseUri')]",
+    "clusterStorageLocation": "[parameters('clusterLocation')]"
+  },
+  "resources": [
+    {
+      "name": "clusterStorageSetup",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+        "uri": "[variables('storageDeployTemplateUri')]",
+        "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "storageLocation": {
+            "value": "[variables('clusterStorageLocation')]"
+          },
+          "storageName": {
+            "value": "[variables('clusterStorageName')]"
+          },
+          "storageType": {
+            "value": "[parameters('clusterStorageType')]"
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.HDInsight/clusters",
+      "name": "[parameters('clusterName')]",
+      "apiVersion": "[variables('clusterApiVersion')]",
+      "location": "[parameters('location')]",
+      "tags": {},
+      "dependsOn": [
+        "Microsoft.Resources/deployments/clusterStorageSetup"
+      ],
+      "properties": {
+        "clusterVersion": "[parameters('clusterHdinsightVersion')]",
+        "osType": "Linux",
+        "tier": "standard",
+        "clusterDefinition": {
+          "kind": "[parameters('clusterType')]",
+          "configurations": {
+            "gateway": {
+              "restAuthCredential.isEnabled": true,
+              "restAuthCredential.username": "[parameters('clusterLoginUserName')]",
+              "restAuthCredential.password": "[parameters('clusterLoginPassword')]"
+            }
+          }
+        },
+        "storageProfile": {
+          "storageaccounts": [
+            {
+              "name": "[concat(variables('clusterStorageName'),'.blob.core.windows.net')]",
+              "isDefault": true,
+              "container": "[parameters('clusterName')]",
+              "key": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('clusterStorageAccountName')), variables('defaultApiVersion')).keys[0].value]"
+            }
+          ]
+        },
+        "computeProfile": {
+          "roles": [
+            {
+              "name": "headnode",
+              "targetInstanceCount": "[parameters('clusterHeadNodeCount')]",
+              "hardwareProfile": {
+                "vmSize": "[parameters('clusterHeadNodeVmType')]"
+              },
+              "osProfile": {
+                "linuxOperatingSystemProfile": {
+                  "username": "[parameters('sshUserName')]",
+                  "password": "[parameters('sshPassword')]"
+                }
+              }
+            },
+            {
+              "name": "workernode",
+              "targetInstanceCount": "[parameters('clusterWorkerNodeCount')]",
+              "hardwareProfile": {
+                "vmSize": "[parameters('clusterWorkerNodeVmType')]"
+              },
+              "osProfile": {
+                "linuxOperatingSystemProfile": {
+                  "username": "[parameters('sshUserName')]",
+                  "password": "[parameters('sshPassword')]"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "cluster": {
+      "type": "Object",
+      "value": "[reference(resourceId('Microsoft.HDInsight/clusters',parameters('clusterName')))]"
+    }
+  }
+}
