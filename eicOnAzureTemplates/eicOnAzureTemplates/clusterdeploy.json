@@ -2,9 +2,7 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "baseUrl": {
-      "type": "String"
-    },
+
     "clusterName": {
       "type": "String"
     },
@@ -41,50 +39,23 @@
     "clusterHdinsightVersion": {
       "type": "String"
     },
-    "clusterStorageType": {
+    "storageName": {
       "type": "String"
     }
   },
   "variables": {
     "defaultApiVersion": "2016-01-01",
-    "clusterApiVersion": "2015-03-01-preview",
-    "clusterStorageName": "[concat(parameters('clusterName'),'store')]",
-    "storageDeployTemplateUri": "[concat(parameters('baseUrl'), 'storagedeploy.json')]",
-    "clusterStorageLocation": "[parameters('clusterLocation')]"
+    "clusterApiVersion": "2015-03-01-preview"    
   },
   "resources": [
-    {
-      "name": "clusterStorageSetup",
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-        "uri": "[variables('storageDeployTemplateUri')]",
-        "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "storageLocation": {
-            "value": "[variables('clusterStorageLocation')]"
-          },
-          "storageName": {
-            "value": "[variables('clusterStorageName')]"
-          },
-          "storageType": {
-            "value": "[parameters('clusterStorageType')]"
-          }
-        }
-      }
-    },
+
     {
       "type": "Microsoft.HDInsight/clusters",
       "name": "[parameters('clusterName')]",
       "apiVersion": "[variables('clusterApiVersion')]",
       "location": "[parameters('clusterLocation')]",
       "tags": {},
-      "dependsOn": [
-        "Microsoft.Resources/deployments/clusterStorageSetup"
-      ],
+      "dependsOn": [],
       "properties": {
         "clusterVersion": "[parameters('clusterHdinsightVersion')]",
         "osType": "Linux",
@@ -102,10 +73,10 @@
         "storageProfile": {
           "storageaccounts": [
             {
-              "name": "[concat(variables('clusterStorageName'),'.blob.core.windows.net')]",
+              "name": "[concat(parameters('storageName'),'.blob.core.windows.net')]",
               "isDefault": true,
               "container": "[parameters('clusterName')]",
-              "key": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('clusterStorageName')), variables('defaultApiVersion')).keys[0].value]"
+              "key": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageName')), variables('defaultApiVersion')).keys[0].value]"
             }
           ]
         },

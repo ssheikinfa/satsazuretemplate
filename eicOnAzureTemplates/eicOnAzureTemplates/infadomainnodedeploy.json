@@ -1,0 +1,131 @@
+﻿{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "infaDomainNodeLocation": {
+      "type": "String"
+    },
+    "infaDomainNodeName": {
+      "type": "String"
+    },
+    "infaDomainNodeSize": {
+      "type": "String"
+    },
+    "infaDomainNodeAdminUsername": {
+      "type": "String"
+    },
+    "infaDomainNodeAdminPassword": {
+      "type": "SecureString"
+    },
+    "subnetId": {
+      "type": "String"
+    },
+    "nsgName": {
+      "type": "String"
+    },
+    "storageName": {
+      "type": "String"
+    }
+  },
+  "variables": {
+    "index": 0,
+    "nodeDNSName": "[toLower(concat(parameters('infaDomainNodeName'), uniqueString(resourceGroup().id)))]",
+    "nodeNicName": "[concat(parameters('infaDomainNodeName'),'Nic')]"
+  },
+  "resources": [
+    {
+      "name": "[variables('nodeDNSName')]",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "location": "[parameters('infaDomainNodeLocation')]",
+      "apiVersion": "2016-10-01",
+      "dependsOn": [],
+
+      "tags": {},
+      "properties": {
+        "publicIPAllocationMethod": "Dynamic",
+        "dnsSettings": {
+          "domainNameLabel": "[variables('nodeDNSName')]"
+        }
+      }
+    },
+    {
+      "name": "[variables('nodeNicName')]",
+      "type": "Microsoft.Network/networkInterfaces",
+      "location": "[parameters('infaDomainNodeLocation')]",
+      "apiVersion": "2016-10-01",
+      "dependsOn": [
+        "[concat('Microsoft.Network/publicIPAddresses/', variables('nodeDNSName'))]"
+      ],
+      "tags": {},
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[parameters('subnetId')]"
+              },
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('nodeDNSName'))]"
+              }
+            }
+          }
+        ],
+        "networkSecurityGroup": {
+          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('nsgName'))]"
+        }
+      }
+    },
+    {
+      "name": "[parameters('infaDomainNodeName')]",
+      "type": "Microsoft.Compute/virtualMachines",
+      "location": "[parameters('infaDomainNodeLocation')]",
+      "apiVersion": "2016-03-30",
+
+      "dependsOn": [
+        "[concat('Microsoft.Network/networkInterfaces/', variables('nodeNicName'))]"
+      ],
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[parameters('infaDomainNodeSize')]"
+        },
+        "osProfile": {
+          "computerName": "[parameters('infaDomainNodeName')]",
+          "adminUsername": "[parameters('infaDomainNodeAdminUsername')]",
+          "adminPassword": "[parameters('infaDomainNodeAdminPassword')]"
+        },
+        //For Testing - Start - Remove after image being staged
+        "storageProfile": {
+          "osDisk": {
+            "name": "VMDisk",
+            "osType": "linux",
+            "caching": "ReadWrite",
+            "createOption": "FromImage",
+            "image": {
+              "uri": "https://robtestdisks707.blob.core.windows.net/system/Microsoft.Compute/Images/vhd/robtestvm-osDisk.18db327e-b980-49e8-b44e-4c87bdce83b1.vhd"
+            },
+            "vhd": {
+              "uri": "https://robtestdisks707.blob.core.windows.net/vmcontainer7009d499-8925-4a0a-b6b3-a2bc085fafa4/osDisk.7009d499-8925-4a0a-b6b3-a2bc085fafa4.vhd"
+            }
+          }
+        },
+        //For Testing - End - Remove after image being staged
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nodeNicName'))]"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "fqdn": {
+      "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', parameters('infaDomainNodeName')), '2016-10-01').dnsSettings.fqdn]",
+      "type": "string"
+    }
+
+  }
+}

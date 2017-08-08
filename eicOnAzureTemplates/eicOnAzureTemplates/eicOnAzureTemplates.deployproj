@@ -27,12 +27,20 @@
   <ItemGroup>
     <Content Include="azuredeploy.json" />
     <Content Include="azuredeploy.parameters.json" />
-    <None Include="clusterdeploy.json" />
+    <Content Include="networksecuritygroupdeploy.json" />
+    <Content Include="virtualnetworkdeploy.json" />
+    <Content Include="clusterdeploy.json" />
     <None Include="Deployment.targets">
       <Visible>False</Visible>
     </None>
     <Content Include="Deploy-AzureResourceGroup.ps1" />
-    <None Include="storagedeploy.json" />
+    <Content Include="storagedeploy.json" />
+    <Content Include="infadomainnodedeploy.json" />
   </ItemGroup>
   <Target Name="GetReferenceAssemblyPaths" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties infadomainnodedeploy_1json__JSONSchema="https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

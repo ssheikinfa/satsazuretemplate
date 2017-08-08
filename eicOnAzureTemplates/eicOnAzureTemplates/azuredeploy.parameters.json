@@ -42,7 +42,7 @@
       "value": "3.5"
     },
 
-    "clusterStorageType": {
+    "storageType": {
       "value": "Standard_LRS"
     }
   }

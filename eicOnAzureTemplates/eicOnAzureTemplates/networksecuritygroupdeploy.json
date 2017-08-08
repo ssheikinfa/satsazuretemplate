@@ -1,0 +1,48 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "networkSecurityGroupName": {
+      "type": "string"
+    },
+    "networkSecurityGroupLocation": {
+      "type": "string"
+    }
+  },
+  "variables": {
+    "defaultApiVersion": "2016-01-01",
+    "clusterApiVersion": "2015-03-01-preview"    
+  },
+  "resources": [
+
+    {
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[parameters('networkSecurityGroupName')]",
+      "apiVersion": "2016-09-01",
+      "location": "[parameters('networkSecurityGroupLocation')]",
+      "properties": {
+        "securityRules": [
+          {
+            "name": "default-allow-ssh",
+            "properties": {
+              "priority": 1000,
+              "sourceAddressPrefix": "*",
+              "protocol": "TCP",
+              "destinationPortRange": "22",
+              "access": "Allow",
+              "direction": "Inbound",
+              "sourcePortRange": "*",
+              "destinationAddressPrefix": "*"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "outputs": {
+    "cluster": {
+      "type": "Object",
+      "value": "[reference(resourceId('Microsoft.HDInsight/clusters',parameters('networkSecurityGroupName')))]"
+    }
+  }
+}

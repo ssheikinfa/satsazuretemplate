@@ -104,23 +104,190 @@
         "description": "The HDInsight cluster version."
       }
     },
-    "clusterStorageType": {
+    "storageType": {
       "defaultValue": "Standard_LRS",
       "type": "String",
       "metadata": {
         "description": "The SKU for cluster storage."
       }
+    },
+    "infaDomainNodeName": {
+      "defaultValue": "infadomainnode",
+      "type": "String",
+      "metadata": {
+        "description": "The name of infa domain node VM."
+      }
+    },
+    "infaDomainNodeSize": {
+      "defaultValue": "Standard_D2_v2",
+      "type": "String",
+      "metadata": {
+        "description": "The SKU for infa domain node VM."
+      }
+    },
+
+    "infaDomainNodeAdminUsername": {
+      "defaultValue": "sshuser",
+      "type": "String",
+      "metadata": {
+        "description": "The ssh user for infa domain node."
+      }
+    },
+    "infaDomainNodeAdminPassword": {
+      "type": "SecureString",
+      "metadata": {
+        "description": "The ssh user password for infa domain node."
+      }
+    },
+    "vnetName": {
+      "defaultValue": "infavnet",
+      "type": "String",
+      "metadata": {
+        "description": "The virtual network name."
+      }
+    },
+    "vnetAddressPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.1.0/24",
+      "metadata": {
+        "description": "The virtual network address prefix."
+      }
+    },
+    "subnetName": {
+      "type": "string",
+      "defaultValue": "infasubnet",
+      "metadata": {
+        "description": "The subnet name."
+      }
+    },
+    "subnetPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.1.0/24",
+      "metadata": {
+        "description": "The subnet address prefix."
+      }
+    },
+    "nsgName": {
+      "type": "string",
+      "defaultValue": "infansg",
+      "metadata": {
+        "description": "The network security group name."
+      }
     }
   },
   "variables": {
     "baseUrl": "https://raw.githubusercontent.com/robsharm/gitrepo/master/eicOnAzureTemplates/eicOnAzureTemplates/",
-    "clusterDeployTemplateUri": "[concat(variables('baseUrl'), 'clusterdeploy.json')]"
+    "clusterDeployTemplateUri": "[concat(variables('baseUrl'), 'clusterdeploy.json')]",
+    "storageName": "[concat(parameters('clusterName'),'store')]",
+    "storageDeployTemplateUri": "[concat(variables('baseUrl'), 'storagedeploy.json')]",
+    "storageLocation": "[parameters('clusterLocation')]",
+    "infaDomainNodeDeployTemplateUri": "[concat(variables('baseUrl'), 'infadomainnodedeploy.json')]",
+    "infaDomainNodeLocation": "[parameters('clusterLocation')]",
+    "virtualNetworkDeployTemplateUri": "[concat(variables('baseUrl'), 'virtualnetworkdeploy.json')]",
+    "vnetLocation": "[parameters('clusterLocation')]",
+    "vnetId": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]",
+    "subnetId": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
+    "nsgDeployTemplateUri": "[concat(variables('baseUrl'), 'networksecuritygroupdeploy.json')]",
+    "nsgLocation": "[parameters('clusterLocation')]"
   },
+
   "resources": [
+
+    //Storage setup
+
     {
-      "name": "clusterDeploySetup",
+      "name": "storageSetup",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
+      "dependsOn": [],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('storageDeployTemplateUri')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "storageLocation": {
+            "value": "[variables('storageLocation')]"
+          },
+          "storageName": {
+            "value": "[variables('storageName')]"
+          },
+          "storageType": {
+            "value": "[parameters('storageType')]"
+          }
+        }
+      }
+    },
+
+
+    //Virtual network setup
+
+    {
+      "name": "vnetSetup",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "dependsOn": [],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('virtualNetworkDeployTemplateUri')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "vnetLocation": {
+            "value": "[variables('vnetLocation')]"
+          },
+          "vnetName": {
+            "value": "[parameters('vnetName')]"
+          },
+          "vnetAddressPrefix": {
+            "value": "[parameters('vnetAddressPrefix')]"
+          },
+          "subnetName": {
+            "value": "[parameters('subnetName')]"
+          },
+          "subnetPrefix": {
+            "value": "[parameters('subnetPrefix')]"
+          }
+        }
+      }
+    },
+
+    // Network security group setup
+    {
+      "name": "nsgSetup",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2016-09-01",
+      "dependsOn": [],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('nsgDeployTemplateUri')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "networkSecurityGroupLocation": {
+            "value": "[variables('nsgLocation')]"
+          },
+          "networkSecurityGroupName": {
+            "value": "[parameters('nsgName')]"
+          }
+        }
+      }
+    },
+
+
+    //HDInsight cluster setup
+
+    {
+      "name": "clusterSetup",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "dependsOn": [
+        "Microsoft.Resources/deployments/storageSetup",
+        "Microsoft.Resources/deployments/vnetSetup"
+      ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -129,9 +296,6 @@
         },
 
         "parameters": {
-          "baseUrl": {
-            "value": "[variables('baseUrl')]"
-          },
           "clusterHdinsightVersion": {
             "value": "[parameters('clusterHdinsightVersion')]"
           },
@@ -168,12 +332,65 @@
           "clusterWorkerNodeVmtype": {
             "value": "[parameters('clusterWorkerNodeVmtype')]"
           },
-          "clusterStorageType": {
-            "value": "[parameters('clusterStorageType')]"
+          "storageName": {
+            "value": "[variables('storageName')]"
+          }
+        }
+      }
+    },
+
+
+
+
+    //Infa domain node VM setup
+
+    {
+      "name": "infaDomainNodeSetup",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "dependsOn": [
+        "Microsoft.Resources/deployments/storageSetup",
+        "Microsoft.Resources/deployments/vnetSetup",
+        "Microsoft.Resources/deployments/clusterSetup",
+        "Microsoft.Resources/deployments/nsgSetup"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('infaDomainNodeDeployTemplateUri')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "infaDomainNodeLocation": {
+            "value": "[variables('infaDomainNodeLocation')]"
+          },
+          "infaDomainNodeName": {
+            "value": "[parameters('infaDomainNodeName')]"
+          },
+          "infaDomainNodeSize": {
+            "value": "[parameters('infaDomainNodeSize')]"
+          },
+          "infaDomainNodeAdminUsername": {
+            "value": "[parameters('infaDomainNodeAdminUsername')]"
+          },
+          "infaDomainNodeAdminPassword": {
+            "value": "[parameters('infaDomainNodeAdminPassword')]"
+          },
+          "subnetId": {
+            "value": "[variables('subnetId')]"
+          },
+          "nsgName": {
+            "value": "[parameters('nsgName')]"
+          },
+          "storageName": {
+            "value": "[variables('storageName')]"
           }
         }
       }
     }
+
+
+
   ],
   "outputs": {}
 }
