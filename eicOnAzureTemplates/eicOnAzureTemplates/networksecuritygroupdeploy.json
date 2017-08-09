@@ -42,7 +42,7 @@
   "outputs": {
     "cluster": {
       "type": "Object",
-      "value": "[reference(resourceId('Microsoft.HDInsight/clusters',parameters('networkSecurityGroupName')))]"
+      "value": "[reference(resourceId('Microsoft.Network/networkSecurityGroups',parameters('networkSecurityGroupName')))]"
     }
   }
 }

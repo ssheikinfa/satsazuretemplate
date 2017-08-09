@@ -44,6 +44,9 @@
 
     "storageType": {
       "value": "Standard_LRS"
+    },
+    "infaDomainNodeAdminPassword": {
+      "value": "Robtest12321"
     }
   }
 }
