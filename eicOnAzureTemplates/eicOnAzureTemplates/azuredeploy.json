@@ -35,7 +35,7 @@
       }
     },
     "clusterLocation": {
-      "defaultValue": "South India",
+      "defaultValue": "Southeast Asia",
       "allowedValues": [
         "East US",
         "East US 2",
@@ -149,7 +149,7 @@
     },
     "vnetAddressPrefix": {
       "type": "string",
-      "defaultValue": "10.0.1.0/24",
+      "defaultValue": "10.0.0.0/16",
       "metadata": {
         "description": "The virtual network address prefix."
       }
@@ -163,7 +163,7 @@
     },
     "subnetPrefix": {
       "type": "string",
-      "defaultValue": "10.0.1.0/24",
+      "defaultValue": "10.0.0.0/24",
       "metadata": {
         "description": "The subnet address prefix."
       }
