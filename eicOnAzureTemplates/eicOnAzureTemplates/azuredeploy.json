@@ -35,10 +35,11 @@
       }
     },
     "clusterLocation": {
-      "defaultValue": "Southeast Asia",
+      "defaultValue": "South India",
       "allowedValues": [
         "East US",
         "East US 2",
+        "South India",
         "North Central US",
         "South Central US",
         "West US",
