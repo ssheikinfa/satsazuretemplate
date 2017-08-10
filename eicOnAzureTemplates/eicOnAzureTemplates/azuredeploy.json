@@ -120,7 +120,7 @@
       }
     },
     "infaDomainNodeSize": {
-      "defaultValue": "Standard_D2_v2",
+      "defaultValue": "Standard_E2s_v3",
       "type": "String",
       "metadata": {
         "description": "The SKU for infa domain node VM."
@@ -342,7 +342,6 @@
 
 
     
-
     //Infa domain node VM setup
 
     {

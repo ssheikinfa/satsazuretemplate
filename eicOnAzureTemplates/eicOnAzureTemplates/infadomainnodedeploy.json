@@ -103,10 +103,10 @@
             "caching": "ReadWrite",
             "createOption": "FromImage",
             "image": {
-              "uri": "https://infavmvhd.blob.core.windows.net/system/Microsoft.Compute/Images/vhd/infavm1-osDisk.356c9263-1183-476a-8d13-ac4f9d6e398c.vhd"
+              "uri": "https://eicvmforvhdstorage.blob.core.windows.net/system/Microsoft.Compute/Images/vhd/eicvmforvhd-osDisk.527e641b-d466-47c5-86c1-4d92335ff6a4.vhd"
             },
             "vhd": {
-              "uri": "[concat('https://infavmvhd.blob.core.windows.net/linuxvhd/', parameters('infaDomainNodeName'),uniquestring(resourceGroup().id), '.osdisk.vhd')]"
+              "uri": "[concat('https://eicvmforvhdstorage.blob.core.windows.net/linuxvhd/', parameters('infaDomainNodeName'),uniquestring(resourceGroup().id), '.osdisk.vhd')]"
             }
           }
         },
