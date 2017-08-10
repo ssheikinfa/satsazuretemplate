@@ -25,6 +25,12 @@
     },
     "storageName": {
       "type": "String"
+    },
+    "infaDomainNodeVmImageUri": {
+      "type": "String"
+    },
+    "infaDomainNodeVmVhdLocation": {
+      "type": "String"
     }
   },
   "variables": {
@@ -103,10 +109,10 @@
             "caching": "ReadWrite",
             "createOption": "FromImage",
             "image": {
-              "uri": "https://eicvmforvhdstorage.blob.core.windows.net/system/Microsoft.Compute/Images/vhd/eicvmforvhd-osDisk.527e641b-d466-47c5-86c1-4d92335ff6a4.vhd"
+              "uri": "[parameters('infaDomainNodeVmImageUri')]"
             },
             "vhd": {
-              "uri": "[concat('https://eicvmforvhdstorage.blob.core.windows.net/linuxvhd/', parameters('infaDomainNodeName'),uniquestring(resourceGroup().id), '.osdisk.vhd')]"
+              "uri": "[concat(parameters('infaDomainNodeVmVhdLocation'), parameters('infaDomainNodeName'),uniquestring(resourceGroup().id), '.osdisk.vhd')]"
             }
           }
         },

@@ -2,7 +2,9 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-
+    "clusterHdinsightVersion": {
+      "type": "String"
+    },
     "clusterName": {
       "type": "String"
     },
@@ -36,10 +38,19 @@
     "clusterWorkerNodeVmType": {
       "type": "String"
     },
-    "clusterHdinsightVersion": {
+    "zookeeperNodeCount": {
+      "type": "Int"
+    },
+    "zookeeperNodeVmtype": {
       "type": "String"
     },
     "storageName": {
+      "type": "String"
+    },
+    "vnetId": {
+      "type": "String"
+    },
+    "subnetId": {
       "type": "String"
     }
   },
@@ -93,6 +104,10 @@
                   "username": "[parameters('sshUserName')]",
                   "password": "[parameters('sshPassword')]"
                 }
+              },
+              "virtualNetworkProfile": {
+                "id": "[parameters('vnetId')]",
+                "subnet": "[parameters('subnetId')]"
               }
             },
             {
@@ -106,6 +121,27 @@
                   "username": "[parameters('sshUserName')]",
                   "password": "[parameters('sshPassword')]"
                 }
+              },
+              "virtualNetworkProfile": {
+                "id": "[parameters('vnetId')]",
+                "subnet": "[parameters('subnetId')]"
+              }
+            },
+            {
+              "name": "zookeepernode",
+              "targetInstanceCount": "[parameters('zookeeperNodeCount')]",
+              "hardwareProfile": {
+                "vmSize": "[parameters('zookeeperNodeVmtype')]"
+              },
+              "osProfile": {
+                "linuxOperatingSystemProfile": {
+                  "username": "[parameters('sshUserName')]",
+                  "password": "[parameters('sshPassword')]"
+                }
+              },
+              "virtualNetworkProfile": {
+                "id": "[parameters('vnetId')]",
+                "subnet": "[parameters('subnetId')]"
               }
             }
           ]

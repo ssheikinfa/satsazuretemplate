@@ -88,7 +88,7 @@
       "defaultValue": 2,
       "type": "Int",
       "metadata": {
-        "description": "The number of nodes in the HDInsight cluster."
+        "description": "The number of worker nodes in the HDInsight cluster."
       }
     },
     "clusterWorkerNodeVmType": {
@@ -96,6 +96,20 @@
       "type": "String",
       "metadata": {
         "description": "The SKU for worker nodes VMs."
+      }
+    },
+    "zookeeperNodeCount": {
+      "defaultValue": 3,
+      "type": "Int",
+      "metadata": {
+        "description": "The number of zookeeper nodes in the HDInsight cluster."
+      }
+    },
+    "zookeeperNodeVmType": {
+      "defaultValue": "Small",
+      "type": "String",
+      "metadata": {
+        "description": "The SKU for zookeeper nodes VMs."
       }
     },
     "clusterHdinsightVersion": {
@@ -173,6 +187,20 @@
       "defaultValue": "infansg",
       "metadata": {
         "description": "The network security group name."
+      }
+    },
+    "infaDomainNodeVmImageUri": {
+      "type": "string",
+      "defaultValue": "https://eicvmforvhdstorage.blob.core.windows.net/system/Microsoft.Compute/Images/vhd/eicvmforvhd-osDisk.527e641b-d466-47c5-86c1-4d92335ff6a4.vhd",
+      "metadata": {
+        "description": "The infa domain node VM image URI."
+      }
+    },
+    "infaDomainNodeVmVhdLocation": {
+      "type": "string",
+      "defaultValue": "https://eicvmforvhdstorage.blob.core.windows.net/linuxvhd/",
+      "metadata": {
+        "description": "The infa domain node VM vhd generation location."
       }
     }
   },
@@ -310,7 +338,7 @@
             "value": "[parameters('clusterLoginPassword')]"
           },
           "sshUserName": {
-            "value": "[parameters('sshPassword')]"
+            "value": "[parameters('sshUserName')]"
           },
           "sshPassword": {
             "value": "[parameters('sshPassword')]"
@@ -333,8 +361,20 @@
           "clusterWorkerNodeVmtype": {
             "value": "[parameters('clusterWorkerNodeVmtype')]"
           },
+          "zookeeperNodeCount": {
+            "value": "[parameters('zookeeperNodeCount')]"
+          },
+          "zookeeperNodeVmtype": {
+            "value": "[parameters('zookeeperNodeVmtype')]"
+          },
           "storageName": {
             "value": "[variables('storageName')]"
+          },
+          "vnetId": {
+            "value": "[variables('vnetId')]"
+          },
+          "subnetId": {
+            "value": "[variables('subnetId')]"
           }
         }
       }
@@ -384,6 +424,12 @@
           },
           "storageName": {
             "value": "[variables('storageName')]"
+          },
+          "infaDomainNodeVmImageUri": {
+            "value": "[parameters('infaDomainNodeVmImageUri')]"
+          },
+          "infaDomainNodeVmVhdLocation": {
+            "value": "[parameters('infaDomainNodeVmVhdLocation')]"
           }
         }
       }
