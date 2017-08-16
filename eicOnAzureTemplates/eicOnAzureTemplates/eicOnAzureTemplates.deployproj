@@ -28,6 +28,7 @@
     <Content Include="azuredeploy.json" />
     <Content Include="azuredeploy.parameters.json" />
     <Content Include="networksecuritygroupdeploy.json" />
+    <Content Include="createUIdefinition.json" />
     <Content Include="virtualnetworkdeploy.json" />
     <Content Include="clusterdeploy.json" />
     <None Include="Deployment.targets">
