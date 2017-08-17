@@ -100,6 +100,105 @@
             "visible": true
           }
         ]
+      },
+
+
+
+
+      {
+        "name": "nodeVMConfiguration",
+        "label": "Informatica Domain Node Settings",
+        "subLabel": {
+          "preValidation": "Configure machine settings for the Informatica domain node VM",
+          "postValidation": "Done"
+        },
+        "bladeTitle": "Node Settings",
+        "elements": [
+          {
+            "name": "nodeVMName",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Node VM Name",
+            "defaultValue": "infadomainvm",
+            "toolTip": "Name for Informatica domain node VM.",
+            "constraints": {
+              "required": true,
+              "regex": "^([a-zA-Z][a-z0-9A-Z\\-]{1,29})$",
+              "validationMessage": "Node name should begin with alphabets. Only alphanumeric characters, and hyphen are allowed. The value must be 2-29 characters long"
+            }
+          },
+          {
+            "name": "nodeVMLoginUsername",
+            "type": "Microsoft.Compute.UserNameTextBox",
+            "defaultValue": "sshuser",
+            "label": "VM Login Username",
+            "toolTip": "Login username for the node VM.",
+            "osPlatform": "Linux",
+            "constraints": {
+              "required": true
+            }
+          },
+          {
+            "name": "nodeVMLoginPassword",
+            "type": "Microsoft.Compute.CredentialsCombo",
+            "label": {
+              "authenticationType": "Authentication type",
+              "password": "Password",
+              "confirmPassword": "Confirm password"
+            },
+            "toolTip": {
+              "authenticationType": "",
+              "password": ""
+            },
+            "constraints": {
+              "required": true
+            },
+            "options": {
+              "hideConfirmation": false,
+              "hidePassword": false
+            },
+            "osPlatform": "Linux"
+          },
+          {
+            "name": "nodeVMSize",
+            "type": "Microsoft.Compute.SizeSelector",
+            "label": "VM size",
+            "toolTip": "The size of the machine",
+            "recommendedSizes": [
+              "Standard_DS11",
+              "Standard_DS11_v2",
+              "Standard_DS3",
+              "Standard_DS3_v2",
+              "Standard_DS4",
+              "Standard_DS4_v2"
+            ],
+            "constraints": {
+              "excludedSizes": [
+                "Standard_DS1_v2",
+                "Standard_D1_v2",
+                "Standard_DS1",
+                "Standard_D1",
+                "Standard_A1_v2",
+                "Standard_A2_v2",
+                "Standard_A0",
+                "Standard_A1",
+                "Standard_A2",
+                "Standard_F1s",
+                "Standard_F2s",
+                "Standard_F1",
+                "Standard_F2",
+                "Basic_A0",
+                "Basic_A1",
+                "Basic_A2"
+              ]
+            },
+            "osPlatform": "Linux",
+            "imageReference": {
+              "publisher": "informatica",
+              "offer": "eic-10.2.0",
+              "sku": "eic-10.2.0"
+            }
+          }
+        ]
       }
     ],
     "outputs": {
@@ -108,7 +207,11 @@
       "infaDomainUser": "[steps('infaDomainConfiguration').infaDomainUser]",
       "infaDomainPassword": "[steps('infaDomainConfiguration').infaDomainPassword]",
       "infaDomainEncryptionKeyword": "[steps('infaDomainConfiguration').infaDomainEncryptionKeyword]",
-      "infaDomainLicense": "[steps('infaDomainConfiguration').infaDomainLicense]"
+      "infaDomainLicense": "[steps('infaDomainConfiguration').infaDomainLicense]",
+      "nodeVMName": "[steps('nodeVMConfiguration').nodeVMName]",
+      "nodeVMLoginUsername": "[steps('nodeVMConfiguration').nodeVMLoginUsername]",
+      "nodeVMLoginPassword": "[steps('nodeVMConfiguration').nodeVMLoginPassword]",
+      "nodeVMSize": "[steps('nodeVMConfiguration').nodeVMSize]"
     }
   }
 }
