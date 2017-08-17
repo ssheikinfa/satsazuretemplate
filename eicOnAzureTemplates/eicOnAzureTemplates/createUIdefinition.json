@@ -91,6 +91,119 @@
         ]
       },
       {
+        "name": "infaDomainHostConf",
+        "label": "Infa Domain Host Settings",
+        "subLabel": {
+          "preValidation": "Configure host settings",
+          "postValidation": "Done"
+        },
+        "bladeTitle": "Informatica Domain Host Settings",
+        "elements": [
+          {
+            "name": "hostOS",
+            "type": "Microsoft.Common.DropDown",
+            "label": "Select the OS for the host",
+            "defaultValue": "Red Hat Enterprise Linux 7.3",
+            "toolTip": "OS platform of the host.",
+            "constraints": {
+              "allowedValues": [
+                {
+                  "label": "Red Hat Enterprise Linux 7.3",
+                  "value": "linux"
+                }
+              ]
+            }
+          },
+          {
+            "name": "hostName",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Machine prefix",
+            "defaultValue": "infadomainhost",
+            "toolTip": "Informatica domain host name",
+            "constraints": {
+              "required": true,
+              "regex": "^([a-zA-Z][a-z0-9A-Z\\-]{1,29})$",
+              "validationMessage": "Host name should begin with alphabets. Only alphanumeric characters, and hyphen are allowed. The value must be 2-29 characters long"
+            }
+          },
+          {
+            "name": "hostLoginUserName",
+            "type": "Microsoft.Compute.UserNameTextBox",
+            "label": "Host login Username",
+            "toolTip": "Login username for the host.",
+            "osPlatform": "Linux",
+            "constraints": {
+              "required": true
+            },
+            "visible": "true"
+          },
+          {
+            "name": "hostLoginPasswd",
+            "type": "Microsoft.Compute.CredentialsCombo",
+            "label": {
+              "authenticationType": "Authentication type",
+              "password": "Password",
+              "confirmPassword": "Confirm password",
+              "sshPublicKey": "SSH public key"
+            },
+            "toolTip": {
+              "authenticationType": "",
+              "password": "",
+              "sshPublicKey": ""
+            },
+            "constraints": {
+              "required": true
+            },
+            "options": {
+              "hideConfirmation": false,
+              "hidePassword": false
+            },
+            "osPlatform": "Linux"
+          },
+          {
+            "name": "hostSize",
+            "type": "Microsoft.Compute.SizeSelector",
+            "label": "Machine size",
+            "toolTip": "The size of the host",
+            "recommendedSizes": [
+              "Standard_DS11",
+              "Standard_DS11_v2",
+              "Standard_DS3",
+              "Standard_DS3_v2",
+              "Standard_DS4",
+              "Standard_DS4_v2"
+            ],
+            "constraints": {
+              "excludedSizes": [
+                "Standard_DS1_v2",
+                "Standard_D1_v2",
+                "Standard_DS1",
+                "Standard_D1",
+                "Standard_A1_v2",
+                "Standard_A2_v2",
+                "Standard_A0",
+                "Standard_A1",
+                "Standard_A2",
+                "Standard_F1s",
+                "Standard_F2s",
+                "Standard_F1",
+                "Standard_F2",
+                "Basic_A0",
+                "Basic_A1",
+                "Basic_A2"
+              ]
+            },
+            "osPlatform": "Linux",
+            "imageReference": {
+              "publisher": "informatica",
+              "offer": "eic10-1-1-u2-preview",
+              "sku": "eic-10-1-1-u2"
+            }
+          }
+        ]
+      },
+
+      {
         "label": "Informatica Enterprise Information Catalog Settings",
         "name": "infaEICConfiguration",
         "subLabel": {
@@ -181,6 +294,7 @@
               "validationMessage": "Only postive number is allowed. Should be less than or equal to 10"
             }
           },
+
           {
             "name": "clusterHeadNodeVmType",
             "type": "Microsoft.Compute.SizeSelector",
@@ -213,6 +327,10 @@
               ]
             }
           },
+
+
+
+
           {
             "name": "clusterWorkerNodeCount",
             "type": "Microsoft.Common.TextBox",
@@ -258,10 +376,73 @@
             }
           }
         ]
+      },
+      {
+        "label": "EIC Services Settings",
+        "name": "infaDomainServicesConfiguration",
+        "subLabel": {
+          "preValidation": "Configure MRS, DIS, CMS for EIC",
+          "postValidation": "Done"
+        },
+        "bladeTitle": "EIC Services Settings",
+        "elements": [
+          {
+            "name": "infamrsservicename",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Model Repository Service name(MRS)",
+            "defaultValue": "MRS",
+            "toolTip": "MRS Name to be created in Domain",
+            "constraints": {
+              "required": true,
+              "regex": "^[a-z0-9A-Z_]{3,30}$",
+              "validationMessage": "Only alphanumeric characters and underscore are allowed. The value must be 3-30"
+            }
+          },
+          {
+            "name": "infadisservicename",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Data Integration Service name(DIS)",
+            "defaultValue": "DIS",
+            "toolTip": "DIS Name to be created in Domain",
+            "constraints": {
+              "required": true,
+              "regex": "^[a-z0-9A-Z_]{3,30}$",
+              "validationMessage": "Only alphanumeric characters and underscore are allowed. The value must be 3-30"
+            }
+          },
+          {
+            "name": "infacmsservicename",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Content Management Service name(CMS)",
+            "defaultValue": "CMS",
+            "toolTip": "CMS Name to be created in Domain",
+            "constraints": {
+              "required": true,
+              "regex": "^[a-z0-9A-Z_]{3,30}$",
+              "validationMessage": "Only alphanumeric characters and underscore are allowed. The value must be 3-30"
+            }
+          },
+          {
+            "name": "infacatalogservicename",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Catalog Service name(CMS)",
+            "defaultValue": "CATALOG",
+            "toolTip": "Catalog service name to be created in Domain",
+            "constraints": {
+              "required": true,
+              "regex": "^[a-z0-9A-Z_]{3,30}$",
+              "validationMessage": "Only alphanumeric characters and underscore are allowed. The value must be 3-30"
+            }
+          }
+        ]
       }
     ],
+
     "outputs": {
-      "nodeVMNamePrefix": "steps('infaDomainConfiguration').infaDomainName"
+      "infaDomainName": "steps('infaDomainConfiguration').infaDomainName",
+      "infacatalogservicename": "steps('infaDomainServicesConfiguration').infacatalogservicename",
+      "clusterName": "steps('infaEICConfiguration').clusterName",
+      "hostOs": "steps('infaDomainHostConf').hostOS"
     }
   }
 }
