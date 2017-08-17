@@ -442,7 +442,7 @@
     ],
 
     "outputs": {
-   
+      "nodeVMNamePrefix": "steps('infaDomainConfiguration').infaDomainName"
     }
   }
 }
