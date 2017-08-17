@@ -387,7 +387,7 @@
           "preValidation": "Configure MRS, DIS, CMS for EIC",
           "postValidation": "Done"
         },
-        "bladeTitle": "BDM Services Settings",
+        "bladeTitle": "EIC Services Settings",
         "elements": [
           {
             "name": "infamrsservicename",
