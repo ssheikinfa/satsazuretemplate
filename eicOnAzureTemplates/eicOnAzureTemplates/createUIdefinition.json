@@ -293,7 +293,7 @@
               "validationMessage": "Only postive number is allowed. Allowed number is 1 to 5."
             }
           },
-          {
+          /*{
             "name": "clusterHeadNodeVMSize",
             "type": "Microsoft.Compute.SizeSelector",
             "label": "Cluster Head Node VM Size",
@@ -327,7 +327,7 @@
                 "Basic_A2"
               ]
             }
-          },
+          },*/
           {
             "name": "clusterWorkerNodeCount",
             "type": "Microsoft.Common.TextBox",
@@ -340,7 +340,7 @@
               "validationMessage": "Only postive number is allowed. Allowed number is 1 to 9."
             }
           },
-          {
+          /*{
             "name": "clusterWorkerNodeVMSize",
             "type": "Microsoft.Compute.SizeSelector",
             "label": "Cluster Worker Node VM Size",
@@ -374,7 +374,7 @@
                 "Basic_A2"
               ]
             }
-          },
+          },*/
           {
             "name": "clusterZookeeperNodeCount",
             "type": "Microsoft.Common.TextBox",
@@ -386,8 +386,8 @@
               "regex": "^([3-9])$",
               "validationMessage": "Only postive number is allowed. Allowed number is 3 to 9."
             }
-          },
-          {
+          }
+          /*{
             "name": "clusterZookeeperNodeVMSize",
             "type": "Microsoft.Compute.SizeSelector",
             "label": "Cluster Zookeeper Node VM Size",
@@ -421,7 +421,7 @@
                 "Basic_A2"
               ]
             }
-          }
+          }*/
 
         ]
       }
