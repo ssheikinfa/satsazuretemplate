@@ -12,43 +12,54 @@
           "preValidation": "Configure domain settings",
           "postValidation": "Done"
         },
-        "bladeTitle": "Informatica 10.1.1U2 Settings",
+        "bladeTitle": "Informatica 10.2.0 Settings",
         "elements": [
+          {
+            "name": "infaVersion",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Informatica EIC version",
+            "defaultValue": "10.2.0",
+            "toolTip": "Informatica Enterpise Information Catalog version.",
+            "constraints": {
+              "required": true
+            },
+            "visible": false
+          },
           {
             "name": "infaDomainName",
             "type": "Microsoft.Common.TextBox",
-            "label": "Informatica domain name",
-            "defaultValue": "Infa_Domain",
-            "toolTip": "Specify a name for the Domain",
+            "label": "Informatica Domain Name",
+            "defaultValue": "Domain",
+            "toolTip": "Specify a name for Informatica domain.",
             "constraints": {
               "required": true,
               "regex": "^[a-z0-9A-Z_]{3,30}$",
-              "validationMessage": "Only alphanumeric characters and underscore are allowed. The value must be 3-30"
+              "validationMessage": "Only alphanumeric characters and underscore are allowed. The value must be 3-30 characters long."
             }
           },
           {
             "name": "infaDomainUser",
             "type": "Microsoft.Common.TextBox",
-            "label": "Informatica domain administrator name",
+            "label": "Informatica Domain Administrator Name",
             "defaultValue": "Administrator",
-            "toolTip": "Domain administrator user name",
+            "toolTip": "Specify name for Informatica domain administrator user.",
             "constraints": {
               "required": true,
               "regex": "^[a-z0-9A-Z_]{3,30}$",
-              "validationMessage": "Only alphanumeric characters and underscore are allowed. The value must be 3-30"
+              "validationMessage": "Only alphanumeric characters and underscore are allowed. The value must be 3-30 character long."
             }
           },
           {
             "name": "infaDomainPassword",
             "type": "Microsoft.Common.PasswordBox",
             "label": {
-              "password": "Informatica domain password",
-              "confirmPassword": "Confirm Informatica domain password"
+              "password": "Informatica Domain Password",
+              "confirmPassword": "Confirm Informatica Domain Password"
             },
             "constraints": {
               "required": true,
               "regex": "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^\\s\\w])(?!.*[\"$]).{8,123}$",
-              "validationMessage": "Password must be at least 8 characters in length. Should contain at least one special character, number, upper-case and lower-case character. Double quote(\") and dollar($) is not allowed"
+              "validationMessage": "Password must be at least 8 characters in length. Should contain at least one special character, number, upper-case and lower-case character. Double quote(\") and dollar($) are not allowed."
             },
             "options": {
               "hideConfirmation": false
@@ -57,10 +68,10 @@
           {
             "name": "infaDomainEncryptionKeyword",
             "type": "Microsoft.Common.PasswordBox",
-            "toolTip": "Keyphrase for generating encryption key for domain",
+            "toolTip": "Keyphrase for generating encryption key for Informatica domain.",
             "label": {
-              "password": "Keyphrase for encryption key",
-              "confirmPassword": "Confirm keyphrase for encryption key"
+              "password": "Keyphrase For Encryption Key",
+              "confirmPassword": "Confirm Keyphrase For Encryption Key"
             },
             "constraints": {
               "required": true,
@@ -74,8 +85,8 @@
           {
             "name": "infaDomainLicense",
             "type": "Microsoft.Common.FileUpload",
-            "label": "Informatica license file",
-            "toolTip": "Provide a valid Informatica License key file",
+            "label": "Informatica License File",
+            "toolTip": "Provide a valid Informatica License key file.",
             "constraints": {
               "required": true,
               "accept": ".key"
@@ -89,360 +100,15 @@
             "visible": true
           }
         ]
-      },
-      {
-        "name": "infaDomainHostConf",
-        "label": "Infa Domain Host Settings",
-        "subLabel": {
-          "preValidation": "Configure host settings",
-          "postValidation": "Done"
-        },
-        "bladeTitle": "Informatica Domain Host Settings",
-        "elements": [
-          {
-            "name": "hostOS",
-            "type": "Microsoft.Common.DropDown",
-            "label": "Select the OS for the host",
-            "defaultValue": "Red Hat Enterprise Linux 7.3",
-            "toolTip": "OS platform of the host.",
-            "constraints": {
-              "allowedValues": [
-                {
-                  "label": "Red Hat Enterprise Linux 7.3",
-                  "value": "linux"
-                }
-              ]
-            }
-          },
-          {
-            "name": "hostName",
-            "type": "Microsoft.Common.TextBox",
-            "label": "Machine prefix",
-            "defaultValue": "infadomainhost",
-            "toolTip": "Informatica domain host name",
-            "constraints": {
-              "required": true,
-              "regex": "^([a-zA-Z][a-z0-9A-Z\\-]{1,29})$",
-              "validationMessage": "Host name should begin with alphabets. Only alphanumeric characters, and hyphen are allowed. The value must be 2-29 characters long"
-            }
-          },
-          {
-            "name": "hostLoginUserName",
-            "type": "Microsoft.Compute.UserNameTextBox",
-            "label": "Host login Username",
-            "toolTip": "Login username for the host.",
-            "osPlatform": "Linux",
-            "constraints": {
-              "required": true
-            },
-            "visible": "true"
-          },
-          {
-            "name": "hostLoginPasswd",
-            "type": "Microsoft.Compute.CredentialsCombo",
-            "label": {
-              "authenticationType": "Authentication type",
-              "password": "Password",
-              "confirmPassword": "Confirm password",
-              "sshPublicKey": "SSH public key"
-            },
-            "toolTip": {
-              "authenticationType": "",
-              "password": "",
-              "sshPublicKey": ""
-            },
-            "constraints": {
-              "required": true
-            },
-            "options": {
-              "hideConfirmation": false,
-              "hidePassword": false
-            },
-            "osPlatform": "Linux"
-          },
-          {
-            "name": "hostSize",
-            "type": "Microsoft.Compute.SizeSelector",
-            "label": "Machine size",
-            "toolTip": "The size of the host",
-            "recommendedSizes": [
-              "Standard_DS11",
-              "Standard_DS11_v2",
-              "Standard_DS3",
-              "Standard_DS3_v2",
-              "Standard_DS4",
-              "Standard_DS4_v2"
-            ],
-            "constraints": {
-              "excludedSizes": [
-                "Standard_DS1_v2",
-                "Standard_D1_v2",
-                "Standard_DS1",
-                "Standard_D1",
-                "Standard_A1_v2",
-                "Standard_A2_v2",
-                "Standard_A0",
-                "Standard_A1",
-                "Standard_A2",
-                "Standard_F1s",
-                "Standard_F2s",
-                "Standard_F1",
-                "Standard_F2",
-                "Basic_A0",
-                "Basic_A1",
-                "Basic_A2"
-              ]
-            },
-            "osPlatform": "Linux",
-            "imageReference": {
-              "publisher": "informatica",
-              "offer": "eic10-1-1-u2-preview",
-              "sku": "eic-10-1-1-u2"
-            }
-          }
-        ]
-      },
-
-      {
-        "label": "Informatica Enterprise Information Catalog Settings",
-        "name": "infaEICConfiguration",
-        "subLabel": {
-          "preValidation": "Configure the Informatica HDInsight Cluster settings",
-          "postValidation": "Done"
-        },
-        "bladeTitle": "Informatica Enterprise Information Catalog settings",
-        "elements": [
-          {
-            "name": "clusterName",
-            "type": "Microsoft.Common.TextBox",
-            "label": "The name of the HDInsight cluster to create",
-            "defaultValue": "eiccluster",
-            "toolTip": "HDInsight cluster name",
-            "constraints": {
-              "required": true,
-              "regex": "^([a-zA-Z][a-z0-9A-Z\\-]{1,59})$",
-              "validationMessage": "The name must be 59 characters or less and can contain letters, numbers, and hyphens (but the first and last character must be a letter or number). The name can not contain a reserved key word."
-            }
-          },
-          {
-            "name": "clusterLoginUserName",
-            "type": "Microsoft.Common.TextBox",
-            "label": "HDInsight cluster username",
-            "defaultValue": "admin",
-            "toolTip": "The cluster login username",
-            "constraints": {
-              "required": true,
-              "regex": "^([a-zA-Z][a-z0-9A-Z\\-\\!\\#\\$\\%\\&\\'\\(\\)\\-\\^\\_\\`\\{\\}\\~]{2,100})$",
-              "validationMessage": "The username must be at least two characters in length and can only consist of digits, upper or lowercase letters, and/or the following special characters: ! # $ % & ' ( ) - ^ _ ` { } ~"
-            }
-          },
-          {
-            "name": "clusterLoginPassword",
-            "type": "Microsoft.Common.PasswordBox",
-            "label": {
-              "password": "Password",
-              "confirmPassword": "Confirm password"
-            },
-            "toolTip": "The cluster login password",
-            "constraints": {
-              "required": true,
-              "regex": "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^\\s\\w]).{10,123}$",
-              "validationMessage": "The password must be at least 10 characters in length and must contain at least one digit, one non-alphanumeric character, and one upper or lower case letter."
-            },
-            "options": {
-              "hideConfirmation": true
-            }
-          },
-          {
-            "name": "clusterSSHUsername",
-            "type": "Microsoft.Common.TextBox",
-            "label": "The cluster SSH username",
-            "defaultValue": "",
-            "toolTip": "The cluster SSH Login Username",
-            "constraints": {
-              "required": true,
-              "regex": "^([a-zA-Z][a-z0-9A-Z\\-\\#\\$\\%\\&\\'\\(\\)\\-\\^\\_\\`\\{\\}\\~]{2,100})$",
-              "validationMessage": "The SSH username must be at least two characters in length and can only consist of digits, upper or lowercase letters, and/or the following special characters: # $ % & ' ( ) - ^ _ ` { } ~"
-            }
-          },
-          {
-            "name": "clusterSSHPassword",
-            "type": "Microsoft.Common.PasswordBox",
-            "label": {
-              "password": "Password",
-              "confirmPassword": "Confirm password"
-            },
-            "toolTip": "The cluster SSH Login Password",
-            "constraints": {
-              "required": true,
-              "regex": "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^\\s\\w]).{10,123}$",
-              "validationMessage": "The password must be at least 10 characters in length and must contain at least one digit, one non-alphanumeric character, and one upper or lower case letter."
-            },
-            "options": {
-              "hideConfirmation": true
-            }
-          },
-          {
-            "name": "clusterHeadNodeCount",
-            "type": "Microsoft.Common.TextBox",
-            "label": "Number of head nodes",
-            "defaultValue": "1",
-            "toolTip": "The number of head nodes in the HDInsight cluster. Allowed number of nodes is 1 to 10",
-            "constraints": {
-              "required": true,
-              "regex": "^(([1-2]?[1-9]$)|([1-3][0]$)){1,2}",
-              "validationMessage": "Only postive number is allowed. Should be less than or equal to 10"
-            }
-          },
-
-          {
-            "name": "clusterHeadNodeVmType",
-            "type": "Microsoft.Compute.SizeSelector",
-            "label": "Cluster head node size",
-            "toolTip": "The SKU for head nodes VMs",
-            "recommendedSizes": [
-              "Standard_DS3",
-              "Standard_DS3_v2",
-              "Standard_DS4",
-              "Standard_DS4_v2"
-            ],
-            "constraints": {
-              "excludedSizes": [
-                "Standard_DS1_v2",
-                "Standard_D1_v2",
-                "Standard_DS1",
-                "Standard_D1",
-                "Standard_A1_v2",
-                "Standard_A2_v2",
-                "Standard_A0",
-                "Standard_A1",
-                "Standard_A2",
-                "Standard_F1s",
-                "Standard_F2s",
-                "Standard_F1",
-                "Standard_F2",
-                "Basic_A0",
-                "Basic_A1",
-                "Basic_A2"
-              ]
-            }
-          },
-
-
-
-
-          {
-            "name": "clusterWorkerNodeCount",
-            "type": "Microsoft.Common.TextBox",
-            "label": "Number of worker nodes",
-            "defaultValue": "1",
-            "toolTip": "The number of worker nodes in the HDInsight cluster. Allowed number of nodes is 1 to 10",
-            "constraints": {
-              "required": true,
-              "regex": "^(([1-2]?[1-9]$)|([1-3][0]$)){1,2}",
-              "validationMessage": "Only postive number is allowed. Should be less than or equal to 10"
-            }
-          },
-          {
-            "name": "clusterWorkerNodeVmType",
-            "type": "Microsoft.Compute.SizeSelector",
-            "label": "Cluster worker node size",
-            "toolTip": "The SKU for worker nodes VMs",
-            "recommendedSizes": [
-              "Standard_DS3",
-              "Standard_DS3_v2",
-              "Standard_DS4",
-              "Standard_DS4_v2"
-            ],
-            "constraints": {
-              "excludedSizes": [
-                "Standard_DS1_v2",
-                "Standard_D1_v2",
-                "Standard_DS1",
-                "Standard_D1",
-                "Standard_A1_v2",
-                "Standard_A2_v2",
-                "Standard_A0",
-                "Standard_A1",
-                "Standard_A2",
-                "Standard_F1s",
-                "Standard_F2s",
-                "Standard_F1",
-                "Standard_F2",
-                "Basic_A0",
-                "Basic_A1",
-                "Basic_A2"
-              ]
-            }
-          }
-        ]
-      },
-      {
-        "label": "EIC Services Settings",
-        "name": "infaDomainServicesConfiguration",
-        "subLabel": {
-          "preValidation": "Configure MRS, DIS, CMS for EIC",
-          "postValidation": "Done"
-        },
-        "bladeTitle": "EIC Services Settings",
-        "elements": [
-          {
-            "name": "infamrsservicename",
-            "type": "Microsoft.Common.TextBox",
-            "label": "Model Repository Service name(MRS)",
-            "defaultValue": "MRS",
-            "toolTip": "MRS Name to be created in Domain",
-            "constraints": {
-              "required": true,
-              "regex": "^[a-z0-9A-Z_]{3,30}$",
-              "validationMessage": "Only alphanumeric characters and underscore are allowed. The value must be 3-30"
-            }
-          },
-          {
-            "name": "infadisservicename",
-            "type": "Microsoft.Common.TextBox",
-            "label": "Data Integration Service name(DIS)",
-            "defaultValue": "DIS",
-            "toolTip": "DIS Name to be created in Domain",
-            "constraints": {
-              "required": true,
-              "regex": "^[a-z0-9A-Z_]{3,30}$",
-              "validationMessage": "Only alphanumeric characters and underscore are allowed. The value must be 3-30"
-            }
-          },
-          {
-            "name": "infacmsservicename",
-            "type": "Microsoft.Common.TextBox",
-            "label": "Content Management Service name(CMS)",
-            "defaultValue": "CMS",
-            "toolTip": "CMS Name to be created in Domain",
-            "constraints": {
-              "required": true,
-              "regex": "^[a-z0-9A-Z_]{3,30}$",
-              "validationMessage": "Only alphanumeric characters and underscore are allowed. The value must be 3-30"
-            }
-          },
-          {
-            "name": "infacatalogservicename",
-            "type": "Microsoft.Common.TextBox",
-            "label": "Catalog Service name(CMS)",
-            "defaultValue": "CATALOG",
-            "toolTip": "Catalog service name to be created in Domain",
-            "constraints": {
-              "required": true,
-              "regex": "^[a-z0-9A-Z_]{3,30}$",
-              "validationMessage": "Only alphanumeric characters and underscore are allowed. The value must be 3-30"
-            }
-          }
-        ]
       }
     ],
-
     "outputs": {
-      "infaDomainName": "steps('infaDomainConfiguration').infaDomainName",
-      "infacatalogservicename": "steps('infaDomainServicesConfiguration').infacatalogservicename",
-      "clusterName": "steps('infaEICConfiguration').clusterName",
-      "hostOs": "steps('infaDomainHostConf').hostOS"
+      "location": "[location()]",
+      "infaDomainName": "[steps('infaDomainConfiguration').infaDomainName]",
+      "infaDomainUser": "[steps('infaDomainConfiguration').infaDomainUser]",
+      "infaDomainPassword": "[steps('infaDomainConfiguration').infaDomainPassword]",
+      "infaDomainEncryptionKeyword": "[steps('infaDomainConfiguration').infaDomainEncryptionKeyword]",
+      "infaDomainLicense": "[steps('infaDomainConfiguration').infaDomainLicense]"
     }
   }
 }

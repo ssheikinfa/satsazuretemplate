@@ -28,9 +28,9 @@
     <Content Include="azuredeploy.json" />
     <Content Include="azuredeploy.parameters.json" />
     <Content Include="networksecuritygroupdeploy.json" />
-    <Content Include="createUIdefinition.json" />
     <Content Include="virtualnetworkdeploy.json" />
     <Content Include="clusterdeploy.json" />
+    <Content Include="createUiDefinition.json" />
     <None Include="Deployment.targets">
       <Visible>False</Visible>
     </None>
@@ -41,7 +41,7 @@
   <Target Name="GetReferenceAssemblyPaths" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties infadomainnodedeploy_1json__JSONSchema="https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#" createUIdefinition_1json__JSONSchema="https://schema.management.azure.com/schemas/0.1.2-preview/CreateUIDefinition.MultiVm.json#" />
+      <UserProperties infadomainnodedeploy_1json__JSONSchema="https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
