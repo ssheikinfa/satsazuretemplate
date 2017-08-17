@@ -289,7 +289,7 @@
             "toolTip": "Number of cluster head nodes. Allowed number is 1 to 5",
             "constraints": {
               "required": true,
-              "regex": "^([1-5])$",
+         //     "regex": "^([1-5])$",
               "validationMessage": "Only postive number is allowed. Allowed number is 1 to 5."
             }
           },
@@ -336,7 +336,7 @@
             "toolTip": "Number of cluster worker nodes. Allowed number is 1 to 9",
             "constraints": {
               "required": true,
-              "regex": "^([1-9])$",
+           //   "regex": "^([1-9])$",
               "validationMessage": "Only postive number is allowed. Allowed number is 1 to 9."
             }
           },
@@ -383,7 +383,7 @@
             "toolTip": "Number of cluster zookeeper nodes. Allowed number is 3 to 9",
             "constraints": {
               "required": true,
-              "regex": "^([3-9])$",
+            //  "regex": "^([3-9])$",
               "validationMessage": "Only postive number is allowed. Allowed number is 3 to 9."
             }
           }
