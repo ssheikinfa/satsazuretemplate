@@ -162,6 +162,7 @@
             "name": "nodeVMSize",
             "type": "Microsoft.Compute.SizeSelector",
             "label": "VM size",
+            "defaultValue": "Standard_DS3",
             "toolTip": "The size of the machine",
             "recommendedSizes": [
               "Standard_DS11",
@@ -199,7 +200,234 @@
             }
           }
         ]
+      },
+
+      {
+        "label": "HDInsight Cluster Settings",
+        "name": "clusterConfiguration",
+        "subLabel": {
+          "preValidation": "Configure the HDInsight Cluster settings",
+          "postValidation": "Done"
+        },
+        "bladeTitle": "HDInsight Cluster Settings",
+        "elements": [
+          {
+            "name": "clusterName",
+            "type": "Microsoft.Common.TextBox",
+            "label": "HDInsight Cluster Name",
+            "defaultValue": "eiccluster",
+            "toolTip": "The name of HDInsight cluster to create.",
+            "constraints": {
+              "required": true,
+              "regex": "^[a-z0-9]{1,30}$",
+              "validationMessage": "Only lowercase alphanumeric characters are allowed, and the value must be 1-30 characters long."
+            }
+          },
+          {
+            "name": "clusterLoginUserName",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Cluster Login Username",
+            "defaultValue": "admin",
+            "toolTip": "The login username for cluster.",
+            "constraints": {
+              "required": true,
+              "regex": "^([a-zA-Z][a-z0-9A-Z\\-\\!\\#\\$\\%\\&\\'\\(\\)\\-\\^\\_\\`\\{\\}\\~]{2,100})$",
+              "validationMessage": "The username must be at least two characters in length and can only consist of digits, upper or lowercase letters, and/or the following special characters: ! # $ % & ' ( ) - ^ _ ` { } ~"
+            }
+          },
+          {
+            "name": "clusterLoginPassword",
+            "type": "Microsoft.Common.PasswordBox",
+            "label": {
+              "password": "Password",
+              "confirmPassword": "Confirm password"
+            },
+            "toolTip": "The login password for cluster.",
+            "constraints": {
+              "required": true,
+              "regex": "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^\\s\\w]).{10,123}$",
+              "validationMessage": "The password must be at least 10 characters in length and must contain at least one digit, one non-alphanumeric character, and one upper or lower case letter."
+            },
+            "options": {
+              "hideConfirmation": true
+            }
+          },
+          {
+            "name": "clusterSSHUsername",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Cluster SSH Username",
+            "defaultValue": "",
+            "toolTip": "The cluster SSH Login Username.",
+            "constraints": {
+              "required": true,
+              "regex": "^([a-zA-Z][a-z0-9A-Z\\-\\#\\$\\%\\&\\'\\(\\)\\-\\^\\_\\`\\{\\}\\~]{2,100})$",
+              "validationMessage": "The SSH username must be at least two characters in length and can only consist of digits, upper or lowercase letters, and/or the following special characters: # $ % & ' ( ) - ^ _ ` { } ~"
+            }
+          },
+          {
+            "name": "clusterSSHPassword",
+            "type": "Microsoft.Common.PasswordBox",
+            "label": {
+              "password": "Password",
+              "confirmPassword": "Confirm password"
+            },
+            "toolTip": "The cluster SSH Login Password.",
+            "constraints": {
+              "required": true,
+              "regex": "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^\\s\\w]).{10,123}$",
+              "validationMessage": "The password must be at least 10 characters in length and must contain at least one digit, one non-alphanumeric character, and one upper or lower case letter."
+            },
+            "options": {
+              "hideConfirmation": true
+            }
+          },
+          {
+            "name": "clusterHeadNodeCount",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Cluster Head Nodes Count",
+            "defaultValue": "2",
+            "toolTip": "Number of cluster head nodes. Allowed number is 1 to 5",
+            "constraints": {
+              "required": true,
+              "regex": "^([1-5])$",
+              "validationMessage": "Only postive number is allowed. Allowed number is 1 to 5."
+            }
+          },
+          {
+            "name": "clusterHeadNodeVMSize",
+            "type": "Microsoft.Compute.SizeSelector",
+            "label": "Cluster Head Node VM Size",
+            "defaultValue": "Standard_DS3",
+            "toolTip": "The size of cluster head node VM.",
+            "recommendedSizes": [
+              "Standard_DS11",
+              "Standard_DS11_v2",
+              "Standard_DS3",
+              "Standard_DS3_v2",
+              "Standard_DS4",
+              "Standard_DS4_v2"
+            ],
+            "constraints": {
+              "excludedSizes": [
+                "Standard_DS1_v2",
+                "Standard_D1_v2",
+                "Standard_DS1",
+                "Standard_D1",
+                "Standard_A1_v2",
+                "Standard_A2_v2",
+                "Standard_A0",
+                "Standard_A1",
+                "Standard_A2",
+                "Standard_F1s",
+                "Standard_F2s",
+                "Standard_F1",
+                "Standard_F2",
+                "Basic_A0",
+                "Basic_A1",
+                "Basic_A2"
+              ]
+            }
+          },
+          {
+            "name": "clusterWorkerNodeCount",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Cluster Worker Nodes Count",
+            "defaultValue": "1",
+            "toolTip": "Number of cluster worker nodes. Allowed number is 1 to 9",
+            "constraints": {
+              "required": true,
+              "regex": "^([1-9])$",
+              "validationMessage": "Only postive number is allowed. Allowed number is 1 to 9."
+            }
+          },
+          {
+            "name": "clusterWorkerNodeVMSize",
+            "type": "Microsoft.Compute.SizeSelector",
+            "label": "Cluster Worker Node VM Size",
+            "defaultValue": "Standard_DS3",
+            "toolTip": "The size of cluster worker node VM.",
+            "recommendedSizes": [
+              "Standard_DS11",
+              "Standard_DS11_v2",
+              "Standard_DS3",
+              "Standard_DS3_v2",
+              "Standard_DS4",
+              "Standard_DS4_v2"
+            ],
+            "constraints": {
+              "excludedSizes": [
+                "Standard_DS1_v2",
+                "Standard_D1_v2",
+                "Standard_DS1",
+                "Standard_D1",
+                "Standard_A1_v2",
+                "Standard_A2_v2",
+                "Standard_A0",
+                "Standard_A1",
+                "Standard_A2",
+                "Standard_F1s",
+                "Standard_F2s",
+                "Standard_F1",
+                "Standard_F2",
+                "Basic_A0",
+                "Basic_A1",
+                "Basic_A2"
+              ]
+            }
+          },
+          {
+            "name": "clusterZookeeperNodeCount",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Cluster Zookeeper Nodes Count",
+            "defaultValue": "3",
+            "toolTip": "Number of cluster zookeeper nodes. Allowed number is 3 to 9",
+            "constraints": {
+              "required": true,
+              "regex": "^([3-9])$",
+              "validationMessage": "Only postive number is allowed. Allowed number is 3 to 9."
+            }
+          },
+          {
+            "name": "clusterZookeeperNodeVMSize",
+            "type": "Microsoft.Compute.SizeSelector",
+            "label": "Cluster Zookeeper Node VM Size",
+            "defaultValue": "Standard_DS11",
+            "toolTip": "The size of cluster zookeeper node VM.",
+            "recommendedSizes": [
+              "Standard_DS11",
+              "Standard_DS11_v2",
+              "Standard_DS3",
+              "Standard_DS3_v2",
+              "Standard_DS4",
+              "Standard_DS4_v2"
+            ],
+            "constraints": {
+              "excludedSizes": [
+                "Standard_DS1_v2",
+                "Standard_D1_v2",
+                "Standard_DS1",
+                "Standard_D1",
+                "Standard_A1_v2",
+                "Standard_A2_v2",
+                "Standard_A0",
+                "Standard_A1",
+                "Standard_A2",
+                "Standard_F1s",
+                "Standard_F2s",
+                "Standard_F1",
+                "Standard_F2",
+                "Basic_A0",
+                "Basic_A1",
+                "Basic_A2"
+              ]
+            }
+          }
+
+        ]
       }
+
+
+
     ],
     "outputs": {
       "location": "[location()]",
