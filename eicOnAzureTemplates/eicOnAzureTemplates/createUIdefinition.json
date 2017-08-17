@@ -280,8 +280,8 @@
             "options": {
               "hideConfirmation": true
             }
-          },
-          {
+          }
+       /*   {
             "name": "clusterHeadNodeCount",
             "type": "Microsoft.Common.TextBox",
             "label": "Cluster Head Nodes Count",
@@ -289,11 +289,11 @@
             "toolTip": "Number of cluster head nodes. Allowed number is 1 to 5",
             "constraints": {
               "required": true,
-         //     "regex": "^([1-5])$",
+              "regex": "^([1-5])$",
               "validationMessage": "Only postive number is allowed. Allowed number is 1 to 5."
             }
           },
-          /*{
+          {
             "name": "clusterHeadNodeVMSize",
             "type": "Microsoft.Compute.SizeSelector",
             "label": "Cluster Head Node VM Size",
@@ -327,7 +327,7 @@
                 "Basic_A2"
               ]
             }
-          },*/
+          },
           {
             "name": "clusterWorkerNodeCount",
             "type": "Microsoft.Common.TextBox",
@@ -336,11 +336,11 @@
             "toolTip": "Number of cluster worker nodes. Allowed number is 1 to 9",
             "constraints": {
               "required": true,
-           //   "regex": "^([1-9])$",
+              "regex": "^([1-9])$",
               "validationMessage": "Only postive number is allowed. Allowed number is 1 to 9."
             }
           },
-          /*{
+          {
             "name": "clusterWorkerNodeVMSize",
             "type": "Microsoft.Compute.SizeSelector",
             "label": "Cluster Worker Node VM Size",
@@ -374,7 +374,7 @@
                 "Basic_A2"
               ]
             }
-          },*/
+          },
           {
             "name": "clusterZookeeperNodeCount",
             "type": "Microsoft.Common.TextBox",
@@ -383,11 +383,11 @@
             "toolTip": "Number of cluster zookeeper nodes. Allowed number is 3 to 9",
             "constraints": {
               "required": true,
-            //  "regex": "^([3-9])$",
+              "regex": "^([3-9])$",
               "validationMessage": "Only postive number is allowed. Allowed number is 3 to 9."
             }
-          }
-          /*{
+          },
+          {
             "name": "clusterZookeeperNodeVMSize",
             "type": "Microsoft.Compute.SizeSelector",
             "label": "Cluster Zookeeper Node VM Size",
@@ -422,7 +422,6 @@
               ]
             }
           }*/
-
         ]
       }
 
