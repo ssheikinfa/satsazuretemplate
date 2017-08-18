@@ -281,7 +281,67 @@
               "hideConfirmation": true
             }
           }
- 
+
+        ]
+      },
+
+      {
+        "label": "EIC Services Settings",
+        "name": "infaDomainServicesConfiguration",
+        "subLabel": {
+          "preValidation": "Configure MRS, DIS, CMS for EIC",
+          "postValidation": "Done"
+        },
+        "bladeTitle": "EIC Services Settings",
+        "elements": [
+          {
+            "name": "infamrsservicename",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Model Repository Service name(MRS)",
+            "defaultValue": "MRS",
+            "toolTip": "MRS Name to be created in Domain",
+            "constraints": {
+              "required": true,
+              "regex": "^[a-z0-9A-Z_]{3,30}$",
+              "validationMessage": "Only alphanumeric characters and underscore are allowed. The value must be 3-30"
+            }
+          },
+          {
+            "name": "infadisservicename",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Data Integration Service name(DIS)",
+            "defaultValue": "DIS",
+            "toolTip": "DIS Name to be created in Domain",
+            "constraints": {
+              "required": true,
+              "regex": "^[a-z0-9A-Z_]{3,30}$",
+              "validationMessage": "Only alphanumeric characters and underscore are allowed. The value must be 3-30"
+            }
+          },
+          {
+            "name": "infacmsservicename",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Content Management Service name(CMS)",
+            "defaultValue": "CMS",
+            "toolTip": "CMS Name to be created in Domain",
+            "constraints": {
+              "required": true,
+              "regex": "^[a-z0-9A-Z_]{3,30}$",
+              "validationMessage": "Only alphanumeric characters and underscore are allowed. The value must be 3-30"
+            }
+          },
+          {
+            "name": "infacatalogservicename",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Catalog Service name(CMS)",
+            "defaultValue": "CATALOG",
+            "toolTip": "Catalog service name to be created in Domain",
+            "constraints": {
+              "required": true,
+              "regex": "^[a-z0-9A-Z_]{3,30}$",
+              "validationMessage": "Only alphanumeric characters and underscore are allowed. The value must be 3-30"
+            }
+          }
         ]
       }
 
