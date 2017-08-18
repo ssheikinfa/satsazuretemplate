@@ -217,7 +217,8 @@
     "vnetId": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]",
     "subnetId": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
     "nsgDeployTemplateUri": "[concat(variables('baseUrl'), 'networksecuritygroupdeploy.json')]",
-    "nsgLocation": "[parameters('clusterLocation')]"
+    "nsgLocation": "[parameters('clusterLocation')]",
+    "sqlDbDeployUri": "[concat(variables('baseUrl'), 'sqldatabasedeploy.json')]"
   },
 
   "resources": [
@@ -380,8 +381,32 @@
       }
     },
 
+    //DB setup
 
-    
+
+    {
+      "name": "dbSetup",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2015-01-01",
+      "dependsOn": [
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('sqlDbDeployUri')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "sqlAdministratorLoginPassword": {
+            "value": "[parameters('infaDomainNodeAdminPassword')]"
+          },
+          "sqlLocation": {
+            "value": "[parameters('clusterLocation')]"
+          }
+        }
+      }
+    },
+
     //Infa domain node VM setup
 
     {

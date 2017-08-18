@@ -1,0 +1,102 @@
+﻿{
+  "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "sqlAdministratorLoginPassword": {
+      "type": "securestring"
+    },
+    "sqlLocation": {
+      "type": "string"
+    }
+  },
+  "variables": {
+    "sqlAdministratorLogin": "dbuser",
+    "sqlCollation": "SQL_Latin1_General_CP1_CI_AS",
+    "sqlDatabaseNameDomain": "domain",
+    "sqlDatabaseNameMRS": "mrs",
+    "sqlDatabaseNameDIS": "dis",
+    "sqlDatabaseNameCMS": "cms",
+    "sqlEdition": "Standard",
+    "sqlServerName": "infasqldb"
+  },
+  "resources": [
+    {
+      "apiVersion": "2015-05-01-preview",
+      "type": "Microsoft.Sql/servers",
+      "location": "[parameters('sqlLocation')]",
+      "name": "[variables('sqlServerName')]",
+      "properties": {
+        "administratorLogin": "[variables('sqlAdministratorLogin')]",
+        "administratorLoginPassword": "[parameters('sqlAdministratorLoginPassword')]",
+        "version": "12.0"
+      },
+      "resources": [
+        {
+          "apiVersion": "2014-04-01-preview",
+          "dependsOn": [
+            "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
+          ],
+          "location": "[parameters('sqlLocation')]",
+          "name": "[variables('sqlDatabaseNameDomain')]",
+          "properties": {
+            "collation": "[variables('sqlCollation')]",
+            "edition": "[variables('sqlEdition')]"
+          },
+          "type": "databases"
+        },
+        {
+          "apiVersion": "2014-04-01-preview",
+          "dependsOn": [
+            "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
+          ],
+          "location": "[parameters('sqlLocation')]",
+          "name": "[variables('sqlDatabaseNameMRS')]",
+          "properties": {
+            "collation": "[variables('sqlCollation')]",
+            "edition": "[variables('sqlEdition')]"
+          },
+          "type": "databases"
+        },
+        {
+          "apiVersion": "2014-04-01-preview",
+          "dependsOn": [
+            "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
+          ],
+          "location": "[parameters('sqlLocation')]",
+          "name": "[variables('sqlDatabaseNameDIS')]",
+          "properties": {
+            "collation": "[variables('sqlCollation')]",
+            "edition": "[variables('sqlEdition')]"
+          },
+          "type": "databases"
+        },
+        {
+          "apiVersion": "2014-04-01-preview",
+          "dependsOn": [
+            "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
+          ],
+          "location": "[parameters('sqlLocation')]",
+          "name": "[variables('sqlDatabaseNameCMS')]",
+          "properties": {
+            "collation": "[variables('sqlCollation')]",
+            "edition": "[variables('sqlEdition')]"
+          },
+          "type": "databases"
+        },
+        {
+          "apiVersion": "2014-04-01-preview",
+          "type": "firewallrules",
+          "dependsOn": [
+            "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
+          ],
+          "location": "[parameters('sqlLocation')]",
+          "name": "AllowAllWindowsAzureIps",
+          "properties": {
+            "endIpAddress": "0.0.0.0",
+            "startIpAddress": "0.0.0.0"
+          }
+        }
+      ]
+    }
+  ]
+}
