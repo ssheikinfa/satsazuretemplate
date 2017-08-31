@@ -137,7 +137,6 @@
       "type": "Microsoft.Compute/virtualMachines",
       "location": "[parameters('infaDomainNodeLocation')]",
       "apiVersion": "2016-03-30",
-
       "dependsOn": [
         "[concat('Microsoft.Network/publicIPAddresses/', variables('nodeDNSName'))]",
         "[concat('Microsoft.Network/networkInterfaces/', variables('nodeNicName'))]"
@@ -174,30 +173,33 @@
             }
           ]
         }
-      }
-    },
-    {
-      "name": "scriptExtension",
-      "type": "extensions",
-      "location": "[parameters('infaDomainNodeLocation')]",
-      "apiVersion": "2015-06-15",
-      "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', parameters('infaDomainNodeName'))]"
-      ],
-
-      "properties": {
-        "publisher": "Microsoft.Azure.Extensions",
-        "type": "CustomScript",
-        "typeHandlerVersion": "2.0",
-        "autoUpgradeMinorVersion": true,
-        "settings": {
-          "fileUris": [
-            "[variables('launchServicesScriptUri')]"
+      },
+      "resources": [
+        {
+          "name": "scriptExtension",
+          "type": "extensions",
+          "location": "[parameters('infaDomainNodeLocation')]",
+          "apiVersion": "2015-06-15",
+          "dependsOn": [
+            "[concat('Microsoft.Compute/virtualMachines/', parameters('infaDomainNodeName'))]"
           ],
-          "commandToExecute": "[concat('./launchServices.sh ',parameters('infaDomainLicenseLocation'),' ',parameters('sqlDbServerUser'),' ',parameters('sqlDbServerPassword'),' ',parameters('sqlDbserverName'),' ',parameters('infaAdministratorLoginUser'),' ',parameters('infaAdministratorLoginPassword'),' ',parameters('domainDbName'),' ',parameters('mrsDbName'),' ',parameters('disDbName'),' ',parameters('cmsDbName'),' ',parameters('clusterName'),' ',parameters('clusterLoginUserName'),' ',parameters('clusterLoginPassword'),' ',parameters('sshUserName'),' ',parameters('sshPassword'))]"
+
+          "properties": {
+            "publisher": "Microsoft.Azure.Extensions",
+            "type": "CustomScript",
+            "typeHandlerVersion": "2.0",
+            "autoUpgradeMinorVersion": true,
+            "settings": {
+              "fileUris": [
+                "[variables('launchServicesScriptUri')]"
+              ],
+              "commandToExecute": "[concat('./launchServices.sh ',parameters('infaDomainLicenseLocation'),' ',parameters('sqlDbServerUser'),' ',parameters('sqlDbServerPassword'),' ',parameters('sqlDbserverName'),' ',parameters('infaAdministratorLoginUser'),' ',parameters('infaAdministratorLoginPassword'),' ',parameters('domainDbName'),' ',parameters('mrsDbName'),' ',parameters('disDbName'),' ',parameters('cmsDbName'),' ',parameters('clusterName'),' ',parameters('clusterLoginUserName'),' ',parameters('clusterLoginPassword'),' ',parameters('sshUserName'),' ',parameters('sshPassword'))]"
+            }
+          }
         }
-      }
+      ]
     }
+    
   ],
   "outputs": {
     "fqdn": {
