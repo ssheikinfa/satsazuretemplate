@@ -157,7 +157,8 @@ sed -ie "s/^CLUSTER_HADOOP_DISTRIBUTION_URL_USER=.*/CLUSTER_HADOOP_DISTRIBUTION_
 sed -ie "s/^CLUSTER_HADOOP_DISTRIBUTION_URL_PASSWD=.*/CLUSTER_HADOOP_DISTRIBUTION_URL_PASSWD=$clusterLoginPassword/" $installerLocation/SilentInput.properties
 
 echo "Running Informatica Silent Installer..."
-$installerLocation/silentinstall.sh
+cd $installerLocation
+./silentinstall.sh
 
 
 
