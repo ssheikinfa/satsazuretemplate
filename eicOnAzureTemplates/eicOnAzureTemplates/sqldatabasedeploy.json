@@ -7,17 +7,38 @@
     },
     "sqlLocation": {
       "type": "string"
+    },
+    "sqlDbDeployUri": {
+      "type": "string"
+    },
+    "sqlDbServerUser": {
+      "type": "string"
+    },
+    "sqlDbserverName": {
+      "type": "string"
+    },
+    "domainDbName": {
+      "type": "string"
+    },
+    "mrsDbName": {
+      "type": "string"
+    },
+    "disDbName": {
+      "type": "string"
+    },
+    "cmsDbName": {
+      "type": "string"
     }
   },
   "variables": {
-    "sqlAdministratorLogin": "dbuser",
+    "sqlAdministratorLogin": "[parameters('sqlDbServerUser')]",
     "sqlCollation": "SQL_Latin1_General_CP1_CI_AS",
-    "sqlDatabaseNameDomain": "domain",
-    "sqlDatabaseNameMRS": "mrs",
-    "sqlDatabaseNameDIS": "dis",
-    "sqlDatabaseNameCMS": "cms",
+    "sqlDatabaseNameDomain": "[parameters('domainDbName')]",
+    "sqlDatabaseNameMRS": "[parameters('mrsDbName')]",
+    "sqlDatabaseNameDIS": "[parameters('disDbName')]",
+    "sqlDatabaseNameCMS": "[parameters('cmsDbName')]",
     "sqlEdition": "Standard",
-    "sqlServerName": "infasqldb"
+    "sqlServerName": "[parameters('sqlDbserverName')]"
   },
   "resources": [
     {

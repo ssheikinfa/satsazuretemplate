@@ -38,6 +38,7 @@
     <Content Include="Deploy-AzureResourceGroup.ps1" />
     <Content Include="storagedeploy.json" />
     <Content Include="infadomainnodedeploy.json" />
+    <None Include="launchServices.sh" />
   </ItemGroup>
   <Target Name="GetReferenceAssemblyPaths" />
   <ProjectExtensions>

@@ -202,6 +202,27 @@
       "metadata": {
         "description": "The infa domain node VM vhd generation location."
       }
+    },
+    "infaDomainLicenseLocation": {
+      "type": "string",
+      "defaultValue": "/opt/Informatica/10.2.0/Both_EIC_BDM_Enabled_2324241_8822.key",
+      "metadata": {
+        "description": "The infa domain node VM vhd generation location."
+      }
+    },
+    "infaAdministratorLoginUser": {
+      "type": "string",
+      "defaultValue": "Administrator",
+      "metadata": {
+        "description": "The Informatica Administrator login user."
+      }
+    },
+    "infaAdministratorLoginPassword": {
+      "type": "string",
+      "defaultValue": "Administrator",
+      "metadata": {
+        "description": "The Informatica Administrator login password."
+      }
     }
   },
   "variables": {
@@ -218,14 +239,21 @@
     "subnetId": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
     "nsgDeployTemplateUri": "[concat(variables('baseUrl'), 'networksecuritygroupdeploy.json')]",
     "nsgLocation": "[parameters('clusterLocation')]",
-    "sqlDbDeployUri": "[concat(variables('baseUrl'), 'sqldatabasedeploy.json')]"
+    "sqlDbDeployUri": "[concat(variables('baseUrl'), 'sqldatabasedeploy.json')]",
+    "sqlDbServerUser": "dbuser",
+    "sqlDbServerPassword": "[parameters('infaDomainNodeAdminPassword')]",
+    "sqlDbserverName": "infasqldb",
+    "mrsDbName": "mrs",
+    "disDbName": "dis",
+    "cmsDbName": "cms",
+    "domainDbName": "domain"
   },
 
   "resources": [
 
     //Storage setup
 
-    {
+   /*  {
       "name": "storageSetup",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
@@ -379,8 +407,8 @@
           }
         }
       }
-    },
-
+    },*/
+    
     //DB setup
 
 
@@ -398,26 +426,48 @@
         },
         "parameters": {
           "sqlAdministratorLoginPassword": {
-            "value": "[parameters('infaDomainNodeAdminPassword')]"
+            "value": "[variables('sqlDbServerPassword')]"
           },
           "sqlLocation": {
             "value": "[parameters('clusterLocation')]"
+          },
+          "sqlDbDeployUri": {
+            "value": "[variables('sqlDbDeployUri')]"
+          },
+          "sqlDbServerUser": {
+            "value": "[variables('sqlDbServerUser')]"
+          },
+          "sqlDbserverName": {
+            "value": "[variables('sqlDbserverName')]"
+          },
+          "domainDbName": {
+            "value": "[variables('domainDbName')]"
+          },
+          "mrsDbName": {
+            "value": "[variables('mrsDbName')]"
+          },
+          "disDbName": {
+            "value": "[variables('disDbName')]"
+          },
+          "cmsDbName": {
+            "value": "[variables('cmsDbName')]"
           }
         }
       }
     },
-
+    
     //Infa domain node VM setup
-
+    
     {
       "name": "infaDomainNodeSetup",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
-        "Microsoft.Resources/deployments/storageSetup",
-        "Microsoft.Resources/deployments/vnetSetup",
-        "Microsoft.Resources/deployments/clusterSetup",
-        "Microsoft.Resources/deployments/nsgSetup"
+       // "Microsoft.Resources/deployments/storageSetup",
+      //  "Microsoft.Resources/deployments/vnetSetup",
+      //  "Microsoft.Resources/deployments/clusterSetup",
+      //  "Microsoft.Resources/deployments/nsgSetup",
+       "Microsoft.Resources/deployments/dbSetup"
       ],
       "properties": {
         "mode": "Incremental",
@@ -455,11 +505,58 @@
           },
           "infaDomainNodeVmVhdLocation": {
             "value": "[parameters('infaDomainNodeVmVhdLocation')]"
+          },
+          "infaDomainLicenseLocation": {
+            "value": "[parameters('infaDomainLicenseLocation')]"
+          },
+          "sqlDbServerUser": {
+            "value": "[variables('sqlDbServerUser')]"
+          },
+          "sqlDbServerPassword": {
+            "value": "[variables('sqlDbServerPassword')]"
+          },
+          "sqlDbserverName": {
+            "value": "[variables('sqlDbserverName')]"
+          },
+          "mrsDbName": {
+            "value": "[variables('mrsDbName')]"
+          },
+          "domainDbName": {
+            "value": "[variables('domainDbName')]"
+          },
+          "disDbName": {
+            "value": "[variables('disDbName')]"
+          },
+          "cmsDbName": {
+            "value": "[variables('cmsDbName')]"
+          },
+          "baseUrl": {
+            "value": "[variables('baseUrl')]"
+          },
+          "infaAdministratorLoginUser": {
+            "value": "[parameters('infaAdministratorLoginUser')]"
+          },
+          "infaAdministratorLoginPassword": {
+            "value": "[parameters('infaAdministratorLoginPassword')]"
+          },
+          "clusterName": {
+            "value": "[parameters('clusterName')]"
+          },
+          "clusterLoginUserName": {
+            "value": "[parameters('clusterLoginUserName')]"
+          },
+          "clusterLoginPassword": {
+            "value": "[parameters('clusterLoginPassword')]"
+          },
+          "sshUserName": {
+            "value": "[parameters('sshUserName')]"
+          },
+          "sshPassword": {
+            "value": "[parameters('sshPassword')]"
           }
         }
       }
     }
-
 
 
   ],
