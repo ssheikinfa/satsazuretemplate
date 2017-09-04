@@ -203,7 +203,7 @@
   ],
   "outputs": {
     "fqdn": {
-      "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', parameters('infaDomainNodeName')), '2016-10-01').dnsSettings.fqdn]",
+      "value": "[reference(resourceId('Microsoft.Network/publicIPAddresses', variables('nodeDNSName')), '2016-10-01').dnsSettings.fqdn]",
       "type": "string"
     }
 
