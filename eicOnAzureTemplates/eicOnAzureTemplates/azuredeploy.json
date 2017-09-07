@@ -242,11 +242,11 @@
     "sqlDbDeployUri": "[concat(variables('baseUrl'), 'sqldatabasedeploy.json')]",
     "sqlDbServerUser": "dbuser",
     "sqlDbServerPassword": "[parameters('infaDomainNodeAdminPassword')]",
-    "sqlDbserverName": "infasqldb1",
-    "mrsDbName": "mrs1",
-    "disDbName": "dis1",
-    "cmsDbName": "cms1",
-    "domainDbName": "domain1"
+    "sqlDbserverName": "infasqldb",
+    "mrsDbName": "mrs",
+    "disDbName": "dis",
+    "cmsDbName": "cms",
+    "domainDbName": "domain"
   },
 
   "resources": [

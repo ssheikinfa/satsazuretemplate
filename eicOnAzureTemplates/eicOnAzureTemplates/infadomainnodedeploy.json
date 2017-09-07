@@ -173,8 +173,8 @@
             }
           ]
         }
-      },
-      "resources": [
+      }
+     /* "resources": [
         {
           "name": "scriptExtension",
           "type": "extensions",
@@ -197,7 +197,7 @@
             }
           }
         }
-      ]
+      ]*/
     }
     
   ],

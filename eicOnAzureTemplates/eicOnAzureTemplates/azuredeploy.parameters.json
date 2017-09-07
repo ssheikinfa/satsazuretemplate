@@ -55,10 +55,10 @@
       "value": "https://eicvmforvhdstorage.blob.core.windows.net/system/Microsoft.Compute/Images/vhd/vmforvhd-osDisk.dbc8dc2f-ba4f-4218-a931-8f2f751ebd54.vhd"
     },
     "infaDomainNodeName": {
-      "value": "infadomainnode1"
+      "value": "infadomainnode"
     },
     "infaDomainNodeVmVhdLocation": {
-      "value": "https://eicvmforvhdstorage.blob.core.windows.net/linuxvhd1/"
+      "value": "https://eicvmforvhdstorage.blob.core.windows.net/linuxvhd/"
     }
   }
 }
