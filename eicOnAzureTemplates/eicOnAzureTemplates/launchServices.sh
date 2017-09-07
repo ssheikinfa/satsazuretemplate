@@ -76,10 +76,10 @@ analystServiceName=Analyst_Service
 #Getting storage account key and certificate
 sshpass -p $clusterSshPassword ssh -o StrictHostKeyChecking=no $clusterSshUser@$clusterSshAddress "sudo cp /usr/lib/hdinsight-common/scripts/decrypt.sh /tmp"
 mkdir -p /usr/lib/hdinsight-common/scripts/
-sshpass -p $clusterSshPassword scp  $clusterSshUser@$clusterSshAddress:/tmp/decrypt.sh /usr/lib/hdinsight-common/scripts/
+sshpass -p $clusterSshPassword scp -o StrictHostKeyChecking=no $clusterSshUser@$clusterSshAddress:/tmp/decrypt.sh /usr/lib/hdinsight-common/scripts/
 sshpass -p $clusterSshPassword ssh -o StrictHostKeyChecking=no $clusterSshUser@$clusterSshAddress "sudo cp /usr/lib/hdinsight-common/certs/key_decryption_cert.prv /tmp"
 mkdir -p /usr/lib/hdinsight-common/certs/
-sshpass -p $clusterSshPassword scp  $clusterSshUser@$clusterSshAddress:/tmp/key_decryption_cert.prv /usr/lib/hdinsight-common/certs/
+sshpass -p $clusterSshPassword scp -o StrictHostKeyChecking=no $clusterSshUser@$clusterSshAddress:/tmp/key_decryption_cert.prv /usr/lib/hdinsight-common/certs/
 
 #Creating Catalog Service HDFS Directory
 sshpass -p $clusterSshPassword ssh -o StrictHostKeyChecking=no $clusterSshUser@$clusterSshAddress "sudo hdfs dfs -mkdir -p $catalogHdfsDir"
