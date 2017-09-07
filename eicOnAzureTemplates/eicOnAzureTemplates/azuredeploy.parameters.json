@@ -58,7 +58,7 @@
       "value": "infadomainnode"
     },
     "infaDomainNodeVmVhdLocation": {
-      "value": "https://eicvmforvhdstorage.blob.core.windows.net/linuxvhd/"
+      "value": "https://eicvmforvhdstorage.blob.core.windows.net/imagevhd/"
     }
   }
 }

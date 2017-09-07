@@ -2,16 +2,13 @@
 #Purpose: To install EIC services
 #Author: robsharm
 
-
-echo "ulimit -n 32000" >> ~/.bashrc
-ulimit -n 32000
-
 #Installer Variables
 installerLocation=/opt/Informatica/10.2.0/installer
 installedLocation=/opt/Informatica/10.2.0/installed
 licenseLocation=$1
 encrptKeyDestLocation=$installedLocation/isp/config/keys/
-licenseName="10.2.0_License_infadomainnode_8822"
+licenseName="10.2.0_Services_License"
+javaBinDir=/opt/java/jdk1.8.0_144/bin
 
 #DB Variables
 dbServerUser=$2
@@ -22,143 +19,190 @@ dbServerAddress="$dbServerName$dbServerNameSuffix"
 dbServerPort="1433"
 dbAccessSSLSuffix=";encryptionMethod=SSL;ValidateServerCertificate=true"
 dbServerCompleteAddress="$dbServerAddress:$dbServerPort"
+dbType="MSSQLServer"
 
 #Domain Variables
-domainName="Domain"
-domainUsername=$5
-domainPassword=$6
-domainDB=$7
-domainNode="Node"
-domainHostname=$(hostname -f)
+domainName=$5
+domainUsername=$6
+domainPassword=$7
+domainDB=$8
+domainNode=$9
+domainHostname=$(hostname)
 domainDBServiceName="$domainDB$dbAccessSSLSuffix"
+createServices="0"
 
 #Model Repository Service Variables
 mrsName="Model_Repository_Service"
-mrsContentsBackupPath=$installerLocation/mrsBackup/Latest_TTT_AfterDeletingDD.mrep
-mrsDB=$8
+mrsContentsBackupPath=$installerLocation/dataBackup/mrsBackup.mrep
+mrsDB=${10}
 mrsDBServiceName="$mrsDB$dbAccessSSLSuffix"
 
 #Data Integration Service Variables
 disName="Data_Integration_Service"
-disDB=$9
+disDB=${11}
 pwhDataAccessConnectString="$dbServerAddress@$disDB"
 pwhDBServiceName="$disDB$dbAccessSSLSuffix"
 
 #Content Management Service Variables
 cmsName="Content_Management_Service"
-cmsDB=${10}
+cmsDB=${12}
 cmsDataAccessConnectString="$dbServerAddress@$cmsDB"
 cmsDBServiceName="$cmsDB$dbAccessSSLSuffix"
-cmsLaunchByInstaller="1"
 
 #Catalog Service Variables
 catName="Catalog_Service"
-catalogBackup=$installerLocation/catalogBackup/TTT_Bkp_AfterAddingCustomAttribute.zip
+catalogBackup=$installerLocation/dataBackup/ldmBackup.zip
 underscore="_"
 catalogHdfsDir="/Informatica/LDM/$domainName$underscore$catName"
+loadType=${13}
+importSampleData=${14}
+
 
 #Cluster Variables
-clusterName=${11}
+clusterName=${15}
 clusterNameSuffix=".azurehdinsight.net"
 clusterUrl="https://$clusterName$clusterNameSuffix"
-clusterLoginUsername=${12}
-clusterLoginPassword=${13}
+clusterLoginUsername=${16}
+clusterLoginPassword=${17}
 clusterDistro="HortonWorks"
 clusterSshAddressPrefix="$clusterName-ssh"
 clusterSshAddress="$clusterSshAddressPrefix$clusterNameSuffix"
-clusterSshUser=${14}
-clusterSshPassword=${15}
+clusterSshUser=${18}
+clusterSshPassword=${19}
 
+#Analyst Service Variables
+analystServiceName=Analyst_Service
+
+#Getting storage account key and certificate
 sshpass -p $clusterSshPassword ssh -o StrictHostKeyChecking=no $clusterSshUser@$clusterSshAddress "sudo cp /usr/lib/hdinsight-common/scripts/decrypt.sh /tmp"
 mkdir -p /usr/lib/hdinsight-common/scripts/
 sshpass -p $clusterSshPassword scp  $clusterSshUser@$clusterSshAddress:/tmp/decrypt.sh /usr/lib/hdinsight-common/scripts/
 sshpass -p $clusterSshPassword ssh -o StrictHostKeyChecking=no $clusterSshUser@$clusterSshAddress "sudo cp /usr/lib/hdinsight-common/certs/key_decryption_cert.prv /tmp"
 mkdir -p /usr/lib/hdinsight-common/certs/
 sshpass -p $clusterSshPassword scp  $clusterSshUser@$clusterSshAddress:/tmp/key_decryption_cert.prv /usr/lib/hdinsight-common/certs/
+
+#Creating Catalog Service HDFS Directory
 sshpass -p $clusterSshPassword ssh -o StrictHostKeyChecking=no $clusterSshUser@$clusterSshAddress "sudo hdfs dfs -mkdir -p $catalogHdfsDir"
 
 #Updating SilentInput.properties
 
 
 pathFormatforSed=`echo $licenseLocation | sed -e "s/\//\\\\\\\\\//g"`
-sed -ie "s/^LICENSE_KEY_LOC=.*/LICENSE_KEY_LOC=$pathFormatforSed/" $installerLocation/SilentInput.properties
+sed -i -e "s/^LICENSE_KEY_LOC=.*/LICENSE_KEY_LOC=$pathFormatforSed/" $installerLocation/SilentInput.properties
 
 pathFormatforSed=`echo $installedLocation | sed -e "s/\//\\\\\\\\\//g"`
-sed -ie "s/^USER_INSTALL_DIR=.*/USER_INSTALL_DIR=$pathFormatforSed/" $installerLocation/SilentInput.properties
+sed -i -e "s/^USER_INSTALL_DIR=.*/USER_INSTALL_DIR=$pathFormatforSed/" $installerLocation/SilentInput.properties
  
 pathFormatforSed=`echo $encrptKeyDestLocation | sed -e "s/\//\\\\\\\\\//g"`
-sed -ie "s/^KEY_DEST_LOCATION=.*/KEY_DEST_LOCATION=$pathFormatforSed/" $installerLocation/SilentInput.properties
+sed -i -e "s/^KEY_DEST_LOCATION=.*/KEY_DEST_LOCATION=$pathFormatforSed/" $installerLocation/SilentInput.properties
 
-sed -ie "s/^DB_UNAME=.*/DB_UNAME=$dbServerUser/" $installerLocation/SilentInput.properties
+sed -i -e "s/^DB_UNAME=.*/DB_UNAME=$dbServerUser/" $installerLocation/SilentInput.properties
 
-sed -ie "s/^DB_PASSWD=.*/DB_PASSWD=$dbServerPassword/" $installerLocation/SilentInput.properties
+sed -i -e "s/^DB_PASSWD=.*/DB_PASSWD=$dbServerPassword/" $installerLocation/SilentInput.properties
 
-sed -ie "s/^DB_SERVICENAME=.*/DB_SERVICENAME=$domainDBServiceName/" $installerLocation/SilentInput.properties
+sed -i -e "s/^DB_SERVICENAME=.*/DB_SERVICENAME=$domainDBServiceName/" $installerLocation/SilentInput.properties
 
-sed -ie "s/^DB_ADDRESS=.*/DB_ADDRESS=$dbServerCompleteAddress/" $installerLocation/SilentInput.properties
+sed -i -e "s/^DB_ADDRESS=.*/DB_ADDRESS=$dbServerCompleteAddress/" $installerLocation/SilentInput.properties
 
-sed -ie "s/^DOMAIN_NAME=.*/DOMAIN_NAME=$domainName/" $installerLocation/SilentInput.properties
+sed -i -e "s/^DOMAIN_NAME=.*/DOMAIN_NAME=$domainName/" $installerLocation/SilentInput.properties
 
-sed -ie "s/^DOMAIN_HOST_NAME=.*/DOMAIN_HOST_NAME=$domainHostname/" $installerLocation/SilentInput.properties
+sed -i -e "s/^DOMAIN_HOST_NAME=.*/DOMAIN_HOST_NAME=$domainHostname/" $installerLocation/SilentInput.properties
 
-sed -ie "s/^NODE_NAME=.*/NODE_NAME=$domainNode/" $installerLocation/SilentInput.properties
+sed -i -e "s/^NODE_NAME=.*/NODE_NAME=$domainNode/" $installerLocation/SilentInput.properties
 
-sed -ie "s/^DOMAIN_USER=.*/DOMAIN_USER=$domainUsername/" $installerLocation/SilentInput.properties
+sed -i -e "s/^DOMAIN_USER=.*/DOMAIN_USER=$domainUsername/" $installerLocation/SilentInput.properties
 
-sed -ie "s/^DOMAIN_PSSWD=.*/DOMAIN_PSSWD=$domainPassword/" $installerLocation/SilentInput.properties
+sed -i -e "s/^DOMAIN_PSSWD=.*/DOMAIN_PSSWD=$domainPassword/" $installerLocation/SilentInput.properties
 
-sed -ie "s/^DOMAIN_CNFRM_PSSWD=.*/DOMAIN_CNFRM_PSSWD=$domainPassword/" $installerLocation/SilentInput.properties
+sed -i -e "s/^DOMAIN_CNFRM_PSSWD=.*/DOMAIN_CNFRM_PSSWD=$domainPassword/" $installerLocation/SilentInput.properties
 
-sed -ie "s/^MRS_DB_UNAME=.*/MRS_DB_UNAME=$dbServerUser/" $installerLocation/SilentInput.properties
+sed -i -e "s/^CREATE_SERVICES=.*/CREATE_SERVICES=$createServices/" $installerLocation/SilentInput.properties
 
-sed -ie "s/^MRS_DB_PASSWD=.*/MRS_DB_PASSWD=$dbServerPassword/" $installerLocation/SilentInput.properties
+#Updating Config template for Mercury installer
 
-sed -ie "s/^MRS_DB_SERVICENAME=.*/MRS_DB_SERVICENAME=$mrsDBServiceName/" $installerLocation/SilentInput.properties
+pathFormatforSed="$installerLocation/"
+pathFormatforSed=`echo $pathFormatforSed | sed -e "s/\//\\\\\\\\\//g"`
+sed -i -e "s/installerPath/$pathFormatforSed/g" $installerLocation/config_template.xml
 
-sed -ie "s/^MRS_DB_ADDRESS=.*/MRS_DB_ADDRESS=$dbServerCompleteAddress/" $installerLocation/SilentInput.properties
+pathFormatforSed="$installedLocation/"
+pathFormatforSed=`echo $pathFormatforSed | sed -e "s/\//\\\\\\\\\//g"`
+sed -i -e "s/installedPath/$pathFormatforSed/g" $installerLocation/config_template.xml
 
-sed -ie "s/^MRS_SERVICE_NAME=.*/MRS_SERVICE_NAME=$mrsName/" $installerLocation/SilentInput.properties
+sed -i -e "s/domainname/$domainName/g" $installerLocation/config_template.xml
 
-sed -ie "s/^DIS_SERVICE_NAME=.*/DIS_SERVICE_NAME=$disName/" $installerLocation/SilentInput.properties
+sed -i -e "s/nodename/$domainNode/g" $installerLocation/config_template.xml
 
-sed -ie "s/^PWH_DB_UNAME=.*/PWH_DB_UNAME=$dbServerUser/" $installerLocation/SilentInput.properties
+sed -i -e "s/DomainHostValue/$domainHostname/g" $installerLocation/config_template.xml
 
-sed -ie "s/^PWH_DB_PASSWD=.*/PWH_DB_PASSWD=$dbServerPassword/" $installerLocation/SilentInput.properties
+sed -i -e "s/adminusername/$domainUsername/g" $installerLocation/config_template.xml
 
-sed -ie "s/^PWH_DB_SERVICENAME=.*/PWH_DB_SERVICENAME=$pwhDBServiceName/" $installerLocation/SilentInput.properties
+sed -i -e "s/adminpassword/$domainPassword/g" $installerLocation/config_template.xml
 
-sed -ie "s/^PWH_DB_ADDRESS=.*/PWH_DB_ADDRESS=$dbServerCompleteAddress/" $installerLocation/SilentInput.properties
+sed -i -e "s/dbtypevalue/$dbType/g" $installerLocation/config_template.xml
 
-sed -ie "s/^PWH_DATA_ACCESS_CONNECT_STRING=.*/PWH_DATA_ACCESS_CONNECT_STRING=$pwhDataAccessConnectString/" $installerLocation/SilentInput.properties
+sed -i -e "s/dbloginvalue/$dbServerUser/g" $installerLocation/config_template.xml
 
-sed -ie "s/^LOAD_DATA_DOMAIN=.*/LOAD_DATA_DOMAIN=$cmsLaunchByInstaller/" $installerLocation/SilentInput.properties
+sed -i -e "s/dbpasswordvalue/$dbServerPassword/g" $installerLocation/config_template.xml
 
-sed -ie "s/^CMS_SERVICE_NAME=.*/CMS_SERVICE_NAME=$cmsName/" $installerLocation/SilentInput.properties
+sed -i -e "s/dbhostname/$dbServerAddress/g" $installerLocation/config_template.xml
 
-sed -ie "s/^CMS_DB_UNAME=.*/CMS_DB_UNAME=$dbServerUser/" $installerLocation/SilentInput.properties
+sed -i -e "s/dbportvalue/$dbServerPort/g" $installerLocation/config_template.xml
 
-sed -ie "s/^CMS_DB_PASSWD=.*/CMS_DB_PASSWD=$dbServerPassword/" $installerLocation/SilentInput.properties
+sed -i -e "s/dbservicenamevalue/$domainDBServiceName/g" $installerLocation/config_template.xml
 
-sed -ie "s/^CMS_DB_SERVICENAME=.*/CMS_DB_SERVICENAME=$cmsDBServiceName/" $installerLocation/SilentInput.properties
+sed -i -e "s/dbservicenamevalue/$domainDBServiceName/g" $installerLocation/config_template.xml
 
-sed -ie "s/^CMS_DB_ADDRESS=.*/CMS_DB_ADDRESS=$dbServerCompleteAddress/" $installerLocation/SilentInput.properties
+pathFormatforSed=`echo $licenseLocation | sed -e "s/\//\\\\\\\\\//g"`
+sed -i -e "s/licenseLocation/$pathFormatforSed/g" $installerLocation/config_template.xml
 
-sed -ie "s/^CMS_DATA_ACCESS_CONNECT_STRING=.*/CMS_DATA_ACCESS_CONNECT_STRING=$cmsDataAccessConnectString/" $installerLocation/SilentInput.properties
+sed -i -e "s/licensename/$licenseName/g" $installerLocation/config_template.xml
 
-sed -ie "s/^CLUSTER_HADOOP_DISTRIBUTION_TYPE=.*/CLUSTER_HADOOP_DISTRIBUTION_TYPE=$clusterDistro/" $installerLocation/SilentInput.properties
+sed -i -e "s/cmsdbname/$cmsDBServiceName/g" $installerLocation/config_template.xml
 
-sed -ie "s/^CATALOGUE_SERVICE_NAME=.*/CATALOGUE_SERVICE_NAME=$catName/" $installerLocation/SilentInput.properties
+sed -i -e "s/pwhdbname/$pwhDBServiceName/g" $installerLocation/config_template.xml
 
-pathFormatforSed=`echo $clusterUrl | sed -e "s/\//\\\\\\\\\//g"`
-sed -ie "s/^CLUSTER_HADOOP_DISTRIBUTION_URL=.*/CLUSTER_HADOOP_DISTRIBUTION_URL=$pathFormatforSed/" $installerLocation/SilentInput.properties
+sed -i -e "s/Model_Repository_Service/$mrsName/g" $installerLocation/config_template.xml
 
-sed -ie "s/^CLUSTER_HADOOP_DISTRIBUTION_URL_USER=.*/CLUSTER_HADOOP_DISTRIBUTION_URL_USER=$clusterLoginUsername/" $installerLocation/SilentInput.properties
+sed -i -e "s/mrsservicename/$mrsDBServiceName/g" $installerLocation/config_template.xml
 
-sed -ie "s/^CLUSTER_HADOOP_DISTRIBUTION_URL_PASSWD=.*/CLUSTER_HADOOP_DISTRIBUTION_URL_PASSWD=$clusterLoginPassword/" $installerLocation/SilentInput.properties
+pathFormatforSed=`echo $mrsContentsBackupPath | sed -e "s/\//\\\\\\\\\//g"`
+sed -i -e "s/mrsBackupFile/$pathFormatforSed/g" $installerLocation/config_template.xml
 
-echo "Running Informatica Silent Installer..."
-cd $installerLocation
-#./silentinstall.sh
+sed -i -e "s/Data_Integration_Service/$disName/g" $installerLocation/config_template.xml
+
+sed -i -e "s/Data_Integration_Service/$disName/g" $installerLocation/config_template.xml
+
+sed -i -e "s/Content_Management_Service/$cmsName/g" $installerLocation/config_template.xml
+
+sed -i -e "s/importsampledata/$importSampleData/g" $installerLocation/config_template.xml
 
 
 
+echo "Running Informatica Installer..."
+$javaBinDir/java -jar $installerLocation/mercury_setup.jar -cf $installerLocation/config_template.xml -s -uei
+
+echo "Creating Catalog Service..."
+$installedLocation/isp/bin/infacmd.sh  LDM createService -dn $domainName -nn $domainNode -un $domainUsername -pd $domainPassword -mrs $mrsName -mrsun Administrator -mrspd Administrator -dis $disName -sn $catName -p 6705 -ise true -chdt HortonWorks -chdu $clusterUrl -chduu $clusterLoginUsername -chdup $clusterLoginPassword
+
+echo "Assigning License to Catalog Service..."
+$installedLocation/isp/bin/infacmd.sh  assignLicense -dn $domainName -un $domainUsername -pd $domainPassword -ln $licenseName -sn $catName
+
+echo "Setting Load Type for Catalog Service..."
+$installedLocation/isp/bin/infacmd.sh  ldm updateServiceOptions --dn $domainName -un $domainUsername -pd $domainPassword -sn $catName -o "LdmCustomOptions.loadType=$loadType"
+
+echo "Restoring Catalog Service Sample Contents..."
+$installedLocation/isp/bin/infacmd.sh ldm restoreContents -dn $domainName -un $domainUsername -pd $domainPassword -sn $catName -if $catalogBackup
+
+sleep 15
+
+echo "Enabling Catalog Service..."
+$installedLocation/isp/bin/infacmd.sh enableService -dn $domainName -un $domainUsername -pd $domainPassword -sn $catName
+
+echo "Creating Analyst Service..."
+$installedLocation/isp/bin/infacmd.sh createService -dn $domainName -nn $domainNode -sn $analystServiceName -un $domainUsername -pd $domainPassword -rs $mrsName -ds $disName -ffl /tmp -cs catName -csau Administrator -csap Administrator -au Administrator -ap Administrator -bgefd /tmp -HttpPort 8089
+
+echo "Assigning License to Analyst Service..."
+$installedLocation/isp/bin/infacmd.sh  assignLicense -dn $domainName -un $domainUsername -pd $domainPassword -ln $licenseName -sn $analystServiceName
+
+echo "Enabling Analyst Service..."
+$installedLocation/isp/bin/infacmd.sh enableService -dn $domainName -un $domainUsername -pd $domainPassword -sn $analystServiceName

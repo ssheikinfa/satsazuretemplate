@@ -223,6 +223,20 @@
       "metadata": {
         "description": "The Informatica Administrator login password."
       }
+    },
+    "loadType": {
+      "type": "string",
+      "defaultValue": "default",
+      "metadata": {
+        "description": "The Catalog Service data load type."
+      }
+    },
+    "importSampleData": {
+      "type": "string",
+      "defaultValue": "true",
+      "metadata": {
+        "description": "Import Sample Contents."
+      }
     }
   },
   "variables": {
@@ -554,6 +568,12 @@
           "sshPassword": {
             "value": "[parameters('sshPassword')]"
           }
+        },
+        "loadType": {
+          "value": "[parameters('loadType')]"
+        },
+        "importSampleData": {
+          "value": "[parameters('importSampleData')]"
         }
       }
     }

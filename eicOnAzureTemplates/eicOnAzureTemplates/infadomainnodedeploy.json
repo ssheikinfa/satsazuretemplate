@@ -79,6 +79,12 @@
     },
     "sshPassword": {
       "type": "String"
+    },
+    "loadType": {
+      "type": "String"
+    },
+    "importSampleData": {
+      "type": "String"
     }
   },
   "variables": {
@@ -173,8 +179,8 @@
             }
           ]
         }
-      }
-     /* "resources": [
+      },
+      "resources": [
         {
           "name": "scriptExtension",
           "type": "extensions",
@@ -193,13 +199,13 @@
               "fileUris": [
                 "[variables('launchServicesScriptUri')]"
               ],
-              "commandToExecute": "[concat('./launchServices.sh ',parameters('infaDomainLicenseLocation'),' ',parameters('sqlDbServerUser'),' ',parameters('sqlDbServerPassword'),' ',parameters('sqlDbserverName'),' ',parameters('infaAdministratorLoginUser'),' ',parameters('infaAdministratorLoginPassword'),' ',parameters('domainDbName'),' ',parameters('mrsDbName'),' ',parameters('disDbName'),' ',parameters('cmsDbName'),' ',parameters('clusterName'),' ',parameters('clusterLoginUserName'),' ',parameters('clusterLoginPassword'),' ',parameters('sshUserName'),' ',parameters('sshPassword'))]"
+              "commandToExecute": "[concat('./launchServices.sh ',parameters('infaDomainLicenseLocation'),' ',parameters('sqlDbServerUser'),' ',parameters('sqlDbServerPassword'),' ',parameters('sqlDbserverName'),' ',parameters('infaAdministratorLoginUser'),' ',parameters('infaAdministratorLoginPassword'),' ',parameters('domainDbName'),' ',parameters('mrsDbName'),' ',parameters('disDbName'),' ',parameters('cmsDbName'),' ',parameters('loadType'),' ',parameters('importSampleData'),' ',parameters('clusterName'),' ',parameters('clusterLoginUserName'),' ',parameters('clusterLoginPassword'),' ',parameters('sshUserName'),' ',parameters('sshPassword'))]"
             }
           }
         }
-      ]*/
+      ]
     }
-    
+
   ],
   "outputs": {
     "fqdn": {
