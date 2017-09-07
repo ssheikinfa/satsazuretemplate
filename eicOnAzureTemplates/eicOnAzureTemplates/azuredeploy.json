@@ -426,7 +426,7 @@
     //DB setup
 
 
-  /*  {
+    {
       "name": "dbSetup",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
@@ -468,20 +468,20 @@
           }
         }
       }
-    },*/
+    },
     
     //Infa domain node VM setup
-    
+
     {
       "name": "infaDomainNodeSetup",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
-       // "Microsoft.Resources/deployments/storageSetup",
-      //  "Microsoft.Resources/deployments/vnetSetup",
-      //  "Microsoft.Resources/deployments/clusterSetup",
-      //  "Microsoft.Resources/deployments/nsgSetup",
-      // "Microsoft.Resources/deployments/dbSetup"
+        // "Microsoft.Resources/deployments/storageSetup",
+        //  "Microsoft.Resources/deployments/vnetSetup",
+        //  "Microsoft.Resources/deployments/clusterSetup",
+        //  "Microsoft.Resources/deployments/nsgSetup",
+         "Microsoft.Resources/deployments/dbSetup"
       ],
       "properties": {
         "mode": "Incremental",
@@ -567,13 +567,13 @@
           },
           "sshPassword": {
             "value": "[parameters('sshPassword')]"
+          },
+          "loadType": {
+            "value": "[parameters('loadType')]"
+          },
+          "importSampleData": {
+            "value": "[parameters('importSampleData')]"
           }
-        },
-        "loadType": {
-          "value": "[parameters('loadType')]"
-        },
-        "importSampleData": {
-          "value": "[parameters('importSampleData')]"
         }
       }
     }
