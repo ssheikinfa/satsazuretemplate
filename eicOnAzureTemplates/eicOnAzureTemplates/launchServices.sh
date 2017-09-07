@@ -22,11 +22,11 @@ dbServerCompleteAddress="$dbServerAddress:$dbServerPort"
 dbType="MSSQLServer"
 
 #Domain Variables
-domainName=$5
-domainUsername=$6
-domainPassword=$7
-domainDB=$8
-domainNode=$9
+domainName="Domain"
+domainUsername=$5
+domainPassword=$6
+domainDB=$7
+domainNode="Node"
 domainHostname=$(hostname)
 domainDBServiceName="$domainDB$dbAccessSSLSuffix"
 createServices="0"
@@ -34,18 +34,18 @@ createServices="0"
 #Model Repository Service Variables
 mrsName="Model_Repository_Service"
 mrsContentsBackupPath=$installerLocation/dataBackup/mrsBackup.mrep
-mrsDB=${10}
+mrsDB=$8
 mrsDBServiceName="$mrsDB$dbAccessSSLSuffix"
 
 #Data Integration Service Variables
 disName="Data_Integration_Service"
-disDB=${11}
+disDB=$9
 pwhDataAccessConnectString="$dbServerAddress@$disDB"
 pwhDBServiceName="$disDB$dbAccessSSLSuffix"
 
 #Content Management Service Variables
 cmsName="Content_Management_Service"
-cmsDB=${12}
+cmsDB=${10}
 cmsDataAccessConnectString="$dbServerAddress@$cmsDB"
 cmsDBServiceName="$cmsDB$dbAccessSSLSuffix"
 
@@ -54,21 +54,21 @@ catName="Catalog_Service"
 catalogBackup=$installerLocation/dataBackup/ldmBackup.zip
 underscore="_"
 catalogHdfsDir="/Informatica/LDM/$domainName$underscore$catName"
-loadType=${13}
-importSampleData=${14}
+loadType=${11}
+importSampleData=${12}
 
 
 #Cluster Variables
-clusterName=${15}
+clusterName=${13}
 clusterNameSuffix=".azurehdinsight.net"
 clusterUrl="https://$clusterName$clusterNameSuffix"
-clusterLoginUsername=${16}
-clusterLoginPassword=${17}
+clusterLoginUsername=${14}
+clusterLoginPassword=${15}
 clusterDistro="HortonWorks"
 clusterSshAddressPrefix="$clusterName-ssh"
 clusterSshAddress="$clusterSshAddressPrefix$clusterNameSuffix"
-clusterSshUser=${18}
-clusterSshPassword=${19}
+clusterSshUser=${16}
+clusterSshPassword=${17}
 
 #Analyst Service Variables
 analystServiceName=Analyst_Service
