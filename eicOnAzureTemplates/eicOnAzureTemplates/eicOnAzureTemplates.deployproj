@@ -27,6 +27,7 @@
   <ItemGroup>
     <Content Include="azuredeploy.json" />
     <Content Include="azuredeploy.parameters.json" />
+    <Content Include="linuxVMDeployForTest.json" />
     <Content Include="networksecuritygroupdeploy.json" />
     <Content Include="sqldatabasedeploy.json" />
     <Content Include="virtualnetworkdeploy.json" />

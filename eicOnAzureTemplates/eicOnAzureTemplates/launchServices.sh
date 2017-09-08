@@ -73,6 +73,8 @@ clusterSshPassword=${17}
 #Analyst Service Variables
 analystServiceName=Analyst_Service
 
+ulimit -n 32000
+
 #Getting storage account key and certificate
 sshpass -p $clusterSshPassword ssh -o StrictHostKeyChecking=no $clusterSshUser@$clusterSshAddress "sudo cp /usr/lib/hdinsight-common/scripts/decrypt.sh /tmp"
 mkdir -p /usr/lib/hdinsight-common/scripts/
@@ -188,7 +190,7 @@ echo "Assigning License to Catalog Service..."
 $installedLocation/isp/bin/infacmd.sh  assignLicense -dn $domainName -un $domainUsername -pd $domainPassword -ln $licenseName -sn $catName
 
 echo "Setting Load Type for Catalog Service..."
-$installedLocation/isp/bin/infacmd.sh  ldm updateServiceOptions --dn $domainName -un $domainUsername -pd $domainPassword -sn $catName -o "LdmCustomOptions.loadType=$loadType"
+$installedLocation/isp/bin/infacmd.sh  ldm updateServiceOptions -dn $domainName -un $domainUsername -pd $domainPassword -sn $catName -o "LdmCustomOptions.loadType=$loadType"
 
 echo "Restoring Catalog Service Sample Contents..."
 $installedLocation/isp/bin/infacmd.sh ldm restoreContents -dn $domainName -un $domainUsername -pd $domainPassword -sn $catName -if $catalogBackup
@@ -199,7 +201,7 @@ echo "Enabling Catalog Service..."
 $installedLocation/isp/bin/infacmd.sh enableService -dn $domainName -un $domainUsername -pd $domainPassword -sn $catName
 
 echo "Creating Analyst Service..."
-$installedLocation/isp/bin/infacmd.sh createService -dn $domainName -nn $domainNode -sn $analystServiceName -un $domainUsername -pd $domainPassword -rs $mrsName -ds $disName -ffl /tmp -cs catName -csau Administrator -csap Administrator -au Administrator -ap Administrator -bgefd /tmp -HttpPort 8089
+$installedLocation/isp/bin/infacmd.sh as createService -dn $domainName -nn $domainNode -sn $analystServiceName -un $domainUsername -pd $domainPassword -rs $mrsName -ds $disName -ffl /tmp -cs $catName -csau Administrator -csap Administrator -au Administrator -ap Administrator -bgefd /tmp -HttpPort 8089
 
 echo "Assigning License to Analyst Service..."
 $installedLocation/isp/bin/infacmd.sh  assignLicense -dn $domainName -un $domainUsername -pd $domainPassword -ln $licenseName -sn $analystServiceName
