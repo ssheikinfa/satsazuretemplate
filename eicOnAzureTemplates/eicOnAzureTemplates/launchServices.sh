@@ -181,7 +181,7 @@ sed -i -e "s/importsampledata/$importSampleData/g" $installerLocation/config_tem
 
 
 echo "Running Informatica Installer..."
-$javaBinDir/java -jar $installerLocation/mercury_setup.jar -cf $installerLocation/config_template.xml -s -uei
+$javaBinDir/java -jar $installerLocation/mercuryInstaller/mercury_setup.jar -cf $installerLocation/config_template.xml -s -uei
 
 echo "Creating Catalog Service..."
 $installedLocation/isp/bin/infacmd.sh  LDM createService -dn $domainName -nn $domainNode -un $domainUsername -pd $domainPassword -mrs $mrsName -mrsun Administrator -mrspd Administrator -dis $disName -sn $catName -p 6705 -ise true -chdt HortonWorks -chdu $clusterUrl -chduu $clusterLoginUsername -chdup $clusterLoginPassword
