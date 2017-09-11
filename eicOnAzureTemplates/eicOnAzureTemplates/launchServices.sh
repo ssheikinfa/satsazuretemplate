@@ -192,10 +192,12 @@ $installedLocation/isp/bin/infacmd.sh  assignLicense -dn $domainName -un $domain
 echo "Setting Load Type for Catalog Service..."
 $installedLocation/isp/bin/infacmd.sh  ldm updateServiceOptions -dn $domainName -un $domainUsername -pd $domainPassword -sn $catName -o "LdmCustomOptions.loadType=$loadType"
 
-echo "Restoring Catalog Service Sample Contents..."
-$installedLocation/isp/bin/infacmd.sh ldm restoreContents -dn $domainName -un $domainUsername -pd $domainPassword -sn $catName -if $catalogBackup
-
-sleep 15
+if [ "$importSampleData" == "true" ]
+then
+	echo "Restoring Catalog Service Sample Contents..."
+	$installedLocation/isp/bin/infacmd.sh ldm restoreContents -dn $domainName -un $domainUsername -pd $domainPassword -sn $catName -if $catalogBackup
+fi
+sleep 5
 
 echo "Enabling Catalog Service..."
 $installedLocation/isp/bin/infacmd.sh enableService -dn $domainName -un $domainUsername -pd $domainPassword -sn $catName

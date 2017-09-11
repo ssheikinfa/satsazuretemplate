@@ -52,13 +52,16 @@
       "value": "Standard_DS4_v2"
     },
     "infaDomainNodeVmImageUri": {
-      "value": "https://eicvmforvhdstorage.blob.core.windows.net/system/Microsoft.Compute/Images/vhd/infadomainnode-osDisk.7e23afd4-6590-4f83-a942-10524e3c01f1.vhd"
+      "value": "https://eicvmforvhdstorage.blob.core.windows.net/system/Microsoft.Compute/Images/vhd/infadomainnode-osDisk.35a11977-69ec-42c1-94a8-52ff472e7b58.vhd"
     },
     "infaDomainNodeName": {
       "value": "infadomainnode"
     },
     "infaDomainNodeVmVhdLocation": {
-      "value": "https://eicvmforvhdstorage.blob.core.windows.net/base2/"
+      "value": "https://eicvmforvhdstorage.blob.core.windows.net/testf77/"
+    },
+    "importSampleData": {
+      "value": "false"
     }
   }
 }
