@@ -266,8 +266,8 @@
   "resources": [
 
     //Storage setup
-
-   /*  {
+/*
+    {
       "name": "storageSetup",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
@@ -421,8 +421,8 @@
           }
         }
       }
-    },
-    */
+    },*/
+    
     //DB setup
 
 
@@ -477,11 +477,11 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
-        // "Microsoft.Resources/deployments/storageSetup",
-        //  "Microsoft.Resources/deployments/vnetSetup",
-        //  "Microsoft.Resources/deployments/clusterSetup",
-        //  "Microsoft.Resources/deployments/nsgSetup",
-         "Microsoft.Resources/deployments/dbSetup"
+       //  "Microsoft.Resources/deployments/storageSetup",
+         // "Microsoft.Resources/deployments/vnetSetup",
+          //"Microsoft.Resources/deployments/clusterSetup",
+          //"Microsoft.Resources/deployments/nsgSetup",
+        "Microsoft.Resources/deployments/dbSetup"
       ],
       "properties": {
         "mode": "Incremental",
