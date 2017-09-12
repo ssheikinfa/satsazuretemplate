@@ -61,7 +61,8 @@
           "name": "[variables('sqlDatabaseNameDomain')]",
           "properties": {
             "collation": "[variables('sqlCollation')]",
-            "edition": "[variables('sqlEdition')]"
+            "edition": "[variables('sqlEdition')]",
+            "requestedServiceObjectiveName": "S2"
           },
           "type": "databases"
         },
@@ -74,7 +75,8 @@
           "name": "[variables('sqlDatabaseNameMRS')]",
           "properties": {
             "collation": "[variables('sqlCollation')]",
-            "edition": "[variables('sqlEdition')]"
+            "edition": "[variables('sqlEdition')]",
+            "requestedServiceObjectiveName": "S2"
           },
           "type": "databases"
         },
@@ -87,7 +89,8 @@
           "name": "[variables('sqlDatabaseNameDIS')]",
           "properties": {
             "collation": "[variables('sqlCollation')]",
-            "edition": "[variables('sqlEdition')]"
+            "edition": "[variables('sqlEdition')]",
+            "requestedServiceObjectiveName": "S2"
           },
           "type": "databases"
         },
@@ -100,7 +103,8 @@
           "name": "[variables('sqlDatabaseNameCMS')]",
           "properties": {
             "collation": "[variables('sqlCollation')]",
-            "edition": "[variables('sqlEdition')]"
+            "edition": "[variables('sqlEdition')]",
+            "requestedServiceObjectiveName": "S2"
           },
           "type": "databases"
         },

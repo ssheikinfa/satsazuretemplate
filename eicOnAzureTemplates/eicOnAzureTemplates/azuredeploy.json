@@ -245,7 +245,7 @@
     "storageName": "[concat(parameters('clusterName'),'store')]",
     "storageDeployTemplateUri": "[concat(variables('baseUrl'), 'storagedeploy.json')]",
     "storageLocation": "[parameters('clusterLocation')]",
-    "infaDomainNodeDeployTemplateUri": "[concat(variables('baseUrl'), 'infadomainnodedeploy.json')]",
+    "infaDomainNodeDeployTemplateUri": "[concat(variables('baseUrl'), 'linuxVMDeployForTest.json')]",
     "infaDomainNodeLocation": "[parameters('clusterLocation')]",
     "virtualNetworkDeployTemplateUri": "[concat(variables('baseUrl'), 'virtualnetworkdeploy.json')]",
     "vnetLocation": "[parameters('clusterLocation')]",
@@ -266,7 +266,7 @@
   "resources": [
 
     //Storage setup
-/*
+
     {
       "name": "storageSetup",
       "type": "Microsoft.Resources/deployments",
@@ -421,7 +421,7 @@
           }
         }
       }
-    },*/
+    },
     
     //DB setup
 
@@ -477,11 +477,11 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
-       //  "Microsoft.Resources/deployments/storageSetup",
-         // "Microsoft.Resources/deployments/vnetSetup",
-          //"Microsoft.Resources/deployments/clusterSetup",
-          //"Microsoft.Resources/deployments/nsgSetup",
-        "Microsoft.Resources/deployments/dbSetup"
+        "Microsoft.Resources/deployments/storageSetup",
+          "Microsoft.Resources/deployments/vnetSetup",
+          "Microsoft.Resources/deployments/clusterSetup",
+          "Microsoft.Resources/deployments/nsgSetup",
+       "Microsoft.Resources/deployments/dbSetup"
       ],
       "properties": {
         "mode": "Incremental",
