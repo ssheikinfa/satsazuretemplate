@@ -2,49 +2,49 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "clusterHdinsightVersion": {
+    "hdinsightClusterVersion": {
       "type": "String"
     },
-    "clusterName": {
+    "hdinsightClusterName": {
       "type": "String"
     },
-    "clusterLoginUserName": {
+    "hdinsightClusterLoginUsername": {
       "type": "String"
     },
-    "clusterLoginPassword": {
+    "hdinsightClusterLoginPassword": {
       "type": "SecureString"
     },
-    "sshUserName": {
+    "hdinsightClusterHostSshUsername": {
       "type": "String"
     },
-    "sshPassword": {
+    "hdinsightClusterHostSshPassword": {
       "type": "SecureString"
     },
-    "clusterLocation": {
+    "clusterDeployLocation": {
       "type": "String"
     },
-    "clusterType": {
+    "hdinsightClusterType": {
       "type": "String"
     },
-    "clusterHeadNodeCount": {
+    "hdinsightClusterHeadNodeCount": {
       "type": "Int"
     },
-    "clusterHeadNodeVmType": {
+    "hdinsightClusterHeadNodeType": {
       "type": "String"
     },
-    "clusterWorkerNodeCount": {
+    "hdinsightClusterWorkerNodeCount": {
       "type": "Int"
     },
-    "clusterWorkerNodeVmType": {
+    "hdinsightClusterWorkerNodeType": {
       "type": "String"
     },
-    "zookeeperNodeCount": {
+    "hdinsightClusterZookeeperNodeCount": {
       "type": "Int"
     },
-    "zookeeperNodeVmtype": {
+    "hdinsightClusterZookeeperNodeType": {
       "type": "String"
     },
-    "storageName": {
+    "azureStorageName": {
       "type": "String"
     },
     "vnetId": {
@@ -62,32 +62,32 @@
 
     {
       "type": "Microsoft.HDInsight/clusters",
-      "name": "[parameters('clusterName')]",
+      "name": "[parameters('hdinsightClusterName')]",
       "apiVersion": "[variables('clusterApiVersion')]",
-      "location": "[parameters('clusterLocation')]",
+      "location": "[parameters('clusterDeployLocation')]",
       "tags": {},
       "dependsOn": [],
       "properties": {
-        "clusterVersion": "[parameters('clusterHdinsightVersion')]",
+        "clusterVersion": "[parameters('hdinsightClusterVersion')]",
         "osType": "Linux",
         "tier": "standard",
         "clusterDefinition": {
-          "kind": "[parameters('clusterType')]",
+          "kind": "[parameters('hdinsightClusterType')]",
           "configurations": {
             "gateway": {
               "restAuthCredential.isEnabled": true,
-              "restAuthCredential.username": "[parameters('clusterLoginUserName')]",
-              "restAuthCredential.password": "[parameters('clusterLoginPassword')]"
+              "restAuthCredential.username": "[parameters('hdinsightClusterLoginUsername')]",
+              "restAuthCredential.password": "[parameters('hdinsightClusterLoginPassword')]"
             }
           }
         },
         "storageProfile": {
           "storageaccounts": [
             {
-              "name": "[concat(parameters('storageName'),'.blob.core.windows.net')]",
+              "name": "[concat(parameters('azureStorageName'),'.blob.core.windows.net')]",
               "isDefault": true,
-              "container": "[parameters('clusterName')]",
-              "key": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageName')), variables('defaultApiVersion')).keys[0].value]"
+              "container": "[parameters('hdinsightClusterName')]",
+              "key": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('azureStorageName')), variables('defaultApiVersion')).keys[0].value]"
             }
           ]
         },
@@ -95,14 +95,14 @@
           "roles": [
             {
               "name": "headnode",
-              "targetInstanceCount": "[parameters('clusterHeadNodeCount')]",
+              "targetInstanceCount": "[parameters('hdinsightClusterHeadNodeCount')]",
               "hardwareProfile": {
-                "vmSize": "[parameters('clusterHeadNodeVmType')]"
+                "vmSize": "[parameters('hdinsightClusterHeadNodeType')]"
               },
               "osProfile": {
                 "linuxOperatingSystemProfile": {
-                  "username": "[parameters('sshUserName')]",
-                  "password": "[parameters('sshPassword')]"
+                  "username": "[parameters('hdinsightClusterHostSshUsername')]",
+                  "password": "[parameters('hdinsightClusterHostSshPassword')]"
                 }
               },
               "virtualNetworkProfile": {
@@ -112,14 +112,14 @@
             },
             {
               "name": "workernode",
-              "targetInstanceCount": "[parameters('clusterWorkerNodeCount')]",
+              "targetInstanceCount": "[parameters('hdinsightClusterWorkerNodeCount')]",
               "hardwareProfile": {
-                "vmSize": "[parameters('clusterWorkerNodeVmType')]"
+                "vmSize": "[parameters('hdinsightClusterWorkerNodeType')]"
               },
               "osProfile": {
                 "linuxOperatingSystemProfile": {
-                  "username": "[parameters('sshUserName')]",
-                  "password": "[parameters('sshPassword')]"
+                  "username": "[parameters('hdinsightClusterHostSshUsername')]",
+                  "password": "[parameters('hdinsightClusterHostSshPassword')]"
                 }
               },
               "virtualNetworkProfile": {
@@ -129,14 +129,14 @@
             },
             {
               "name": "zookeepernode",
-              "targetInstanceCount": "[parameters('zookeeperNodeCount')]",
+              "targetInstanceCount": "[parameters('hdinsightClusterZookeeperNodeCount')]",
               "hardwareProfile": {
-                "vmSize": "[parameters('zookeeperNodeVmtype')]"
+                "vmSize": "[parameters('hdinsightClusterZookeeperNodeType')]"
               },
               "osProfile": {
                 "linuxOperatingSystemProfile": {
-                  "username": "[parameters('sshUserName')]",
-                  "password": "[parameters('sshPassword')]"
+                  "username": "[parameters('hdinsightClusterHostSshUsername')]",
+                  "password": "[parameters('hdinsightClusterHostSshPassword')]"
                 }
               },
               "virtualNetworkProfile": {
@@ -152,7 +152,7 @@
   "outputs": {
     "cluster": {
       "type": "Object",
-      "value": "[reference(resourceId('Microsoft.HDInsight/clusters',parameters('clusterName')))]"
+      "value": "[reference(resourceId('Microsoft.HDInsight/clusters',parameters('hdinsightClusterName')))]"
     }
   }
 }

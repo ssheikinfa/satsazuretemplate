@@ -5,16 +5,16 @@
     "vnetLocation": {
       "type": "string"
     },
-    "vnetName": {
+    "informaticaVirtualNetworkName": {
       "type": "string"
     },
-    "vnetAddressPrefix": {
+    "informaticaVirtualNetworkAddressPrefix": {
       "type": "string"
     },
-    "subnetName": {
+    "informaticaSubnetName": {
       "type": "string"
     },
-    "subnetPrefix": {
+    "informaticaSubnetAddressPrefix": {
       "type": "string"
     }
   },
@@ -23,7 +23,7 @@
   },
   "resources": [
     {
-      "name": "[parameters('vnetName')]",
+      "name": "[parameters('informaticaVirtualNetworkName')]",
       "type": "Microsoft.Network/virtualNetworks",
       "location": "[parameters('vnetLocation')]",
       "apiVersion": "2016-10-01",
@@ -34,14 +34,14 @@
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
-            "[parameters('vnetAddressPrefix')]"
+            "[parameters('informaticaVirtualNetworkAddressPrefix')]"
           ]
         },
         "subnets": [
           {
-            "name": "[parameters('subnetName')]",
+            "name": "[parameters('informaticaSubnetName')]",
             "properties": {
-              "addressPrefix": "[parameters('subnetPrefix')]"
+              "addressPrefix": "[parameters('informaticaSubnetAddressPrefix')]"
             }
           }
         ]
@@ -50,7 +50,7 @@
   ],
   "outputs": {
     "vnetId": {
-      "value": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vnetName'))]",
+      "value": "[resourceId('Microsoft.Network/virtualNetworks', parameters('informaticaVirtualNetworkName'))]",
       "type": "string"
     }
   }

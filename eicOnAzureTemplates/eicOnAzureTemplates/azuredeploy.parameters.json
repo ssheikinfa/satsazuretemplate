@@ -29,13 +29,10 @@
       "value": 2
     },
     "clusterHeadNodeVmType": {
-      "value": "Standard_D3"
+      "value": "Standard_D3_v2"
     },
     "clusterWorkerNodeCount": {
       "value": 2
-    },
-    "clusterWorkerNodeVmtype": {
-      "value": "Standard_D3"
     },
 
     "clusterHdinsightVersion": {
@@ -58,7 +55,7 @@
       "value": "infadomainnode"
     },
     "infaDomainNodeVmVhdLocation": {
-      "value": "https://eicvmforvhdstorage.blob.core.windows.net/testf7/"
+      "value": "https://eicvmforvhdstorage.blob.core.windows.net/testf77/"
     },
     "importSampleData": {
       "value": "false"
@@ -71,6 +68,9 @@
     },
     "nsgName": {
       "value": "infansg"
+    },
+    "clusterWorkerNodeVmType": {
+      "value": "Standard_D4_v2"
     }
   }
 }

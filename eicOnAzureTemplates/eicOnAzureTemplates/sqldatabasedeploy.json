@@ -2,19 +2,19 @@
   "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "sqlAdministratorLoginPassword": {
+    "sqlServerPassword": {
       "type": "securestring"
     },
-    "sqlLocation": {
+    "sqlServerDeployLocation": {
       "type": "string"
     },
     "sqlDbDeployUri": {
       "type": "string"
     },
-    "sqlDbServerUser": {
+    "sqlServerUsername": {
       "type": "string"
     },
-    "sqlDbserverName": {
+    "sqlServerName": {
       "type": "string"
     },
     "domainDbName": {
@@ -31,24 +31,24 @@
     }
   },
   "variables": {
-    "sqlAdministratorLogin": "[parameters('sqlDbServerUser')]",
+    "sqlAdministratorLogin": "[parameters('sqlServerUsername')]",
     "sqlCollation": "SQL_Latin1_General_CP1_CI_AS",
     "sqlDatabaseNameDomain": "[parameters('domainDbName')]",
     "sqlDatabaseNameMRS": "[parameters('mrsDbName')]",
     "sqlDatabaseNameDIS": "[parameters('disDbName')]",
     "sqlDatabaseNameCMS": "[parameters('cmsDbName')]",
     "sqlEdition": "Standard",
-    "sqlServerName": "[parameters('sqlDbserverName')]"
+    "sqlServerName": "[parameters('sqlServerName')]"
   },
   "resources": [
     {
       "apiVersion": "2015-05-01-preview",
       "type": "Microsoft.Sql/servers",
-      "location": "[parameters('sqlLocation')]",
+      "location": "[parameters('sqlServerDeployLocation')]",
       "name": "[variables('sqlServerName')]",
       "properties": {
         "administratorLogin": "[variables('sqlAdministratorLogin')]",
-        "administratorLoginPassword": "[parameters('sqlAdministratorLoginPassword')]",
+        "administratorLoginPassword": "[parameters('sqlServerPassword')]",
         "version": "12.0"
       },
       "resources": [
@@ -57,7 +57,7 @@
           "dependsOn": [
             "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
           ],
-          "location": "[parameters('sqlLocation')]",
+          "location": "[parameters('sqlServerDeployLocation')]",
           "name": "[variables('sqlDatabaseNameDomain')]",
           "properties": {
             "collation": "[variables('sqlCollation')]",
@@ -71,7 +71,7 @@
           "dependsOn": [
             "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
           ],
-          "location": "[parameters('sqlLocation')]",
+          "location": "[parameters('sqlServerDeployLocation')]",
           "name": "[variables('sqlDatabaseNameMRS')]",
           "properties": {
             "collation": "[variables('sqlCollation')]",
@@ -85,7 +85,7 @@
           "dependsOn": [
             "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
           ],
-          "location": "[parameters('sqlLocation')]",
+          "location": "[parameters('sqlServerDeployLocation')]",
           "name": "[variables('sqlDatabaseNameDIS')]",
           "properties": {
             "collation": "[variables('sqlCollation')]",
@@ -99,7 +99,7 @@
           "dependsOn": [
             "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
           ],
-          "location": "[parameters('sqlLocation')]",
+          "location": "[parameters('sqlServerDeployLocation')]",
           "name": "[variables('sqlDatabaseNameCMS')]",
           "properties": {
             "collation": "[variables('sqlCollation')]",
@@ -114,7 +114,7 @@
           "dependsOn": [
             "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
           ],
-          "location": "[parameters('sqlLocation')]",
+          "location": "[parameters('sqlServerDeployLocation')]",
           "name": "AllowAllWindowsAzureIps",
           "properties": {
             "endIpAddress": "0.0.0.0",
