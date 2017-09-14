@@ -44,7 +44,7 @@
   <Target Name="GetReferenceAssemblyPaths" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties infadomainnodedeploy_1json__JSONSchema="https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#" />
+      <UserProperties infadomainnodedeploy_1json__JSONSchema="https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#" createUiDefinition_1json__JSONSchema="https://schema.management.azure.com/schemas/0.1.2-preview/CreateUIDefinition.MultiVm.json" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
