@@ -94,19 +94,18 @@
           },
           {
             "name": "informaticaServerSshPassword",
-            "type": "Microsoft.Compute.PasswordBox",
+            "type": "Microsoft.Common.PasswordBox",
             "label": {
               "password": "Informatica Server Ssh Password"
             },
-            "toolTip": "",
             "constraints": {
-              "required": true
+              "required": true,
+              "regex": "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^\\s\\w])(?!.*[\"$]).{8,123}$",
+              "validationMessage": "Password must be at least 8 characters in length. Should contain at least one special character, number, upper-case and lower-case character. Double quote(\") and dollar($) are not allowed."
             },
             "options": {
-              "hideConfirmation": true,
-              "hidePassword": false
-            },
-            "osPlatform": "Linux"
+              "hideConfirmation": true
+            }
           },
           {
             "name": "informaticaServerInstanceSize",
@@ -144,6 +143,24 @@
               "publisher": "informatica",
               "offer": "eic-10.2.0",
               "sku": "eic-10.2.0"
+            }
+          },
+          {
+            "name": "resourcesLocation",
+            "type": "Microsoft.Compute.DropDown",
+            "defaultValue": "Southeast Asia",
+            "label": "Cluster Size",
+            "constraints": {
+              "allowedValues": [
+                {
+                  "label": "Southeast Asia",
+                  "value": "Southeast Asia"
+                },
+                {
+                  "label": "West US",
+                  "value": "West US"
+                }
+              ]
             }
           }
         ]
@@ -206,12 +223,10 @@
           },
           {
             "name": "clusterSize",
-            "type": "Microsoft.Compute.UserNameTextBox",
+            "type": "Microsoft.Compute.DropDown",
             "defaultValue": "default",
             "label": "Cluster Size",
-            "toolTip": "Select cluster size base on data load.",
             "constraints": {
-              "required": true,
               "allowedValues": [
                 {
                   "label": "default",
