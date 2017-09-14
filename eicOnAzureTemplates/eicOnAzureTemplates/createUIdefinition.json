@@ -3,6 +3,24 @@
   "version": "0.1.2",
   "parameters": {
     "basics": [
+      {
+        "name": "resourcesLocation",
+        "type": "Microsoft.Common.DropDown",
+        "defaultValue": "Southeast Asia",
+        "label": "Resources Location",
+        "constraints": {
+          "allowedValues": [
+            {
+              "label": "Southeast Asia",
+              "value": "Southeast Asia"
+            },
+            {
+              "label": "West US",
+              "value": "West US"
+            }
+          ]
+        }
+      }
     ],
     "steps": [
       {
@@ -185,19 +203,19 @@
             }
           },
           {
-            "name": "resourcesLocation",
+            "name": "importSampleContents",
             "type": "Microsoft.Common.DropDown",
-            "defaultValue": "Southeast Asia",
+            "defaultValue": "true",
             "label": "Resources Location",
             "constraints": {
               "allowedValues": [
                 {
-                  "label": "Southeast Asia",
-                  "value": "Southeast Asia"
+                  "label": "true",
+                  "value": "true"
                 },
                 {
-                  "label": "West US",
-                  "value": "West US"
+                  "label": "false",
+                  "value": "false"
                 }
               ]
             }
