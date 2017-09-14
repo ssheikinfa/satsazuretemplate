@@ -71,6 +71,18 @@
     },
     "clusterWorkerNodeVmType": {
       "value": "Standard_D4_v2"
+    },
+    "hdinsightClusterName": {
+      "value": "robtesthd"
+    },
+    "hdinsightClusterLoginPassword": {
+      "value": "Robtest12321"
+    },
+    "informaticaDomainHostSshPassword": {
+      "value": "Robtest12321"
+    },
+    "sqlServerPassword": {
+      "value": "Robtest12321"
     }
   }
 }
