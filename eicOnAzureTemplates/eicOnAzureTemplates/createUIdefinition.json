@@ -147,7 +147,7 @@
           },
           {
             "name": "resourcesLocation",
-            "type": "Microsoft.Compute.DropDown",
+            "type": "Microsoft.Common.DropDown",
             "defaultValue": "Southeast Asia",
             "label": "Cluster Size",
             "constraints": {
@@ -223,7 +223,7 @@
           },
           {
             "name": "clusterSize",
-            "type": "Microsoft.Compute.DropDown",
+            "type": "Microsoft.Common.DropDown",
             "defaultValue": "default",
             "label": "Cluster Size",
             "constraints": {
