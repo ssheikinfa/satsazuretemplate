@@ -173,7 +173,7 @@
             "name": "sqlServerPassword",
             "type": "Microsoft.Common.PasswordBox",
             "label": {
-              "password": "Informatica SQL Database Server Password."
+              "password": "Informatica SQL Database Server Password"
             },
             "constraints": {
               "required": true,
@@ -188,7 +188,7 @@
             "name": "importSampleContents",
             "type": "Microsoft.Common.DropDown",
             "defaultValue": "true",
-            "label": "Resources Location",
+            "label": "Import Sample Contents",
             "constraints": {
               "allowedValues": [
                 {
