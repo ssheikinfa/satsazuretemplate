@@ -148,9 +148,9 @@
           {
             "name": "sqlServerName",
             "type": "Microsoft.Common.TextBox",
-            "label": "SQL Server Name",
+            "label": "Informatica SQL Database Server Instance Name",
             "defaultValue": "infasqldb",
-            "toolTip": "Name of SQL Server.",
+            "toolTip": "Name of Informatica SQL Database Server.",
             "constraints": {
               "required": true,
               "regex": "^([a-zA-Z][a-z0-9A-Z\\-]{1,29})$",
@@ -160,7 +160,7 @@
           {
             "name": "sqlServerUsername",
             "type": "Microsoft.Common.TextBox",
-            "label": "SQL Server Username",
+            "label": "Informatica SQL Database Server Username",
             "defaultValue": "dbuser",
             "toolTip": "Name of SQL Server User.",
             "constraints": {
@@ -173,7 +173,7 @@
             "name": "sqlServerPassword",
             "type": "Microsoft.Common.PasswordBox",
             "label": {
-              "password": "SQL Server Password."
+              "password": "Informatica SQL Database Server Password."
             },
             "constraints": {
               "required": true,
