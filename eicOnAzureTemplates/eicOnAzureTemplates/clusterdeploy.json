@@ -27,19 +27,19 @@
       "type": "String"
     },
     "hdinsightClusterHeadNodeCount": {
-      "type": "Int"
+      "type": "String"
     },
     "hdinsightClusterHeadNodeType": {
       "type": "String"
     },
     "hdinsightClusterWorkerNodeCount": {
-      "type": "Int"
+      "type": "String"
     },
     "hdinsightClusterWorkerNodeType": {
       "type": "String"
     },
     "hdinsightClusterZookeeperNodeCount": {
-      "type": "Int"
+      "type": "String"
     },
     "hdinsightClusterZookeeperNodeType": {
       "type": "String"

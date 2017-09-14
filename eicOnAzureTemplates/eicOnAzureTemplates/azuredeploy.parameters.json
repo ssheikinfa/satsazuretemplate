@@ -2,76 +2,6 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-
-    //Cluster Parameters
-    "clusterName": {
-      "value": "robtesthd"
-    },
-    "clusterLoginUserName": {
-      "value": "admin"
-    },
-    "clusterLoginPassword": {
-      "value": "Robtest12321"
-    },
-    "sshUserName": {
-      "value": "sshuser"
-    },
-    "sshPassword": {
-      "value": "Robtest12321"
-    },
-    "clusterLocation": {
-      "value": "Southeast Asia"
-    },
-    "clusterType": {
-      "value": "hadoop"
-    },
-    "clusterHeadNodeCount": {
-      "value": 2
-    },
-    "clusterHeadNodeVmType": {
-      "value": "Standard_D3_v2"
-    },
-    "clusterWorkerNodeCount": {
-      "value": 2
-    },
-
-    "clusterHdinsightVersion": {
-      "value": "3.5"
-    },
-
-    "storageType": {
-      "value": "Standard_LRS"
-    },
-    "infaDomainNodeAdminPassword": {
-      "value": "Robtest12321"
-    },
-    "infaDomainNodeSize": {
-      "value": "Standard_DS4_v2"
-    },
-    "infaDomainNodeVmImageUri": {
-      "value": "https://eicvmforvhdstorage.blob.core.windows.net/system/Microsoft.Compute/Images/vhd/infadomainnode1-osDisk.ac97cace-ca24-482d-9792-4ac762e63e51.vhd"
-    },
-    "infaDomainNodeName": {
-      "value": "infadomainnode"
-    },
-    "infaDomainNodeVmVhdLocation": {
-      "value": "https://eicvmforvhdstorage.blob.core.windows.net/testf77/"
-    },
-    "importSampleData": {
-      "value": "true"
-    },
-    "vnetName": {
-      "value": "infavnet"
-    },
-    "subnetName": {
-      "value": "infasubnet"
-    },
-    "nsgName": {
-      "value": "infansg"
-    },
-    "clusterWorkerNodeVmType": {
-      "value": "Standard_D4_v2"
-    },
     "hdinsightClusterName": {
       "value": "eichdicluster"
     },
@@ -83,9 +13,7 @@
     },
     "sqlServerPassword": {
       "value": "Robtest12321"
-    },
-    "sqlServerName": {
-      "value": "infasqldb"
     }
+
   }
 }
