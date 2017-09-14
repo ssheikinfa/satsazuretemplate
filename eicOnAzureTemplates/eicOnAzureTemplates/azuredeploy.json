@@ -40,11 +40,12 @@
       }
     },
     "informaticaDomainInstanceType": {
-      "defaultValue": "Standard_D4_v2",
+      "defaultValue": "Standard_DS4_v2",
       "allowedValues": [
         "Standard_D3_v2",
         "Standard_D4_v2",
-        "Standard_D5_v2"
+        "Standard_D5_v2",
+        "Standard_DS4_v2"
       ],
       "type": "String",
       "metadata": {

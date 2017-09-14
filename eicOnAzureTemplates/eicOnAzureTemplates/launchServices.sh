@@ -36,7 +36,7 @@ mrsName="Model_Repository_Service"
 mrsContentsBackupPath=$installerLocation/dataBackup/mrsBackup.mrep
 mrsDB=$8
 mrsDBServiceName="$mrsDB$dbAccessSSLSuffix"
-mrsDBServiceName="$mrsDBServiceName;SnapshotSerializable=true"
+#mrsDBServiceName="$mrsDBServiceName;SnapshotSerializable=true"
 
 #Data Integration Service Variables
 disName="Data_Integration_Service"
