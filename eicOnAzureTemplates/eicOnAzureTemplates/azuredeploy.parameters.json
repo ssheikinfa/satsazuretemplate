@@ -58,7 +58,7 @@
       "value": "https://eicvmforvhdstorage.blob.core.windows.net/testf77/"
     },
     "importSampleData": {
-      "value": "false"
+      "value": "true"
     },
     "vnetName": {
       "value": "infavnet"
@@ -73,7 +73,7 @@
       "value": "Standard_D4_v2"
     },
     "hdinsightClusterName": {
-      "value": "robtesthd"
+      "value": "eichdicluster"
     },
     "hdinsightClusterLoginPassword": {
       "value": "Robtest12321"
@@ -83,6 +83,9 @@
     },
     "sqlServerPassword": {
       "value": "Robtest12321"
+    },
+    "sqlServerName": {
+      "value": "infasqldb"
     }
   }
 }
