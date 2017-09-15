@@ -146,18 +146,6 @@
             }
           },
           {
-            "name": "sqlServerName",
-            "type": "Microsoft.Common.TextBox",
-            "label": "Informatica SQL Database Server Instance Name",
-            "defaultValue": "infasqldb",
-            "toolTip": "Name of Informatica SQL Database Server.",
-            "constraints": {
-              "required": true,
-              "regex": "^([a-zA-Z][a-z0-9A-Z\\-]{1,29})$",
-              "validationMessage": "Node name should begin with alphabets. Only alphanumeric characters, and hyphen are allowed. The value must be 2-29 characters long"
-            }
-          },
-          {
             "name": "sqlServerUsername",
             "type": "Microsoft.Common.TextBox",
             "label": "Informatica SQL Database Server Username",

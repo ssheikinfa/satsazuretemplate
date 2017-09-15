@@ -192,13 +192,13 @@
     "hdinsightClusterZookeeperNodeType": "Small",
     "hdinsightClusterVersion": "3.5",
     "informaticaDomainHostImageUri": "https://eicvmforvhdstorage.blob.core.windows.net/system/Microsoft.Compute/Images/vhd/infadomainnode1-osDisk.ac97cace-ca24-482d-9792-4ac762e63e51.vhd",
-    "informaticaDomainHostVhdLocation": "https://eicvmforvhdstorage.blob.core.windows.net/linuxvhd/"
+    "informaticaDomainHostVhdLocation": "https://eicvmforvhdstorage.blob.core.windows.net/linuxvhd1/"
   },
 
   "resources": [
 
     //Storage setup
-    
+   /* 
     {
       "name": "storageSetup",
       "type": "Microsoft.Resources/deployments",
@@ -357,7 +357,7 @@
     
     //DB setup
 
-    
+    */
     {
       "name": "dbSetup",
       "type": "Microsoft.Resources/deployments",
@@ -409,10 +409,10 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
-        "Microsoft.Resources/deployments/storageSetup",
-          "Microsoft.Resources/deployments/vnetSetup",
-          "Microsoft.Resources/deployments/clusterSetup",
-          "Microsoft.Resources/deployments/nsgSetup",
+   //     "Microsoft.Resources/deployments/storageSetup",
+     //   "Microsoft.Resources/deployments/vnetSetup",
+         // "Microsoft.Resources/deployments/clusterSetup",
+       //   "Microsoft.Resources/deployments/nsgSetup",
        "Microsoft.Resources/deployments/dbSetup"
       ],
       "properties": {
