@@ -5,24 +5,43 @@
     "basics": [
     ],
     "steps": [
-
       {
-        "name": "infaDomainLicense",
-        "type": "Microsoft.Common.FileUpload",
-        "label": "Informatica Enterpise Information Catalog License File",
-        "toolTip": "Provide a valid Informatica Enterpise Information Catalog License key file.",
-        "constraints": {
-          "required": true,
-          "accept": ".key"
+        "label": "Informatica Enterpise Information Catalog Settings",
+        "name": "infaDomainConfiguration",
+        "subLabel": {
+          "preValidation": "Configure Settings",
+          "postValidation": "Done"
         },
-        "options": {
-          "multiple": false,
-          "uploadMode": "url",
-          "openMode": "text",
-          "encoding": "UTF-8"
-        },
-        "visible": true
+        "bladeTitle": "Enterpise Information Catalog",
+        "elements": [
+          
+          {
+            "name": "infaDomainLicense",
+            "type": "Microsoft.Common.FileUpload",
+            "label": "Informatica Enterpise Information Catalog License File",
+            "toolTip": "Provide a valid Informatica Enterpise Information Catalog License key file.",
+            "constraints": {
+              "required": true,
+              "accept": ".key"
+            },
+            "options": {
+              "multiple": false,
+              "uploadMode": "url",
+              "openMode": "text",
+              "encoding": "UTF-8"
+            },
+            "visible": true
+          }
+        ]
       }
+
+
+
+
+
+
+     
+
 
 
     ],
