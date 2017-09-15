@@ -353,7 +353,7 @@
           }
         }
       }
-    },
+    },*/
     
     //DB setup
 
@@ -401,7 +401,7 @@
         }
       }
     },
-    */
+    
     //Infa domain node VM setup
 
     {
@@ -413,7 +413,7 @@
      //   "Microsoft.Resources/deployments/vnetSetup",
          // "Microsoft.Resources/deployments/clusterSetup",
        //   "Microsoft.Resources/deployments/nsgSetup",
-      // "Microsoft.Resources/deployments/dbSetup"
+       "Microsoft.Resources/deployments/dbSetup"
       ],
       "properties": {
         "mode": "Incremental",
