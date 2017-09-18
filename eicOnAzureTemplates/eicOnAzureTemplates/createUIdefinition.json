@@ -109,6 +109,37 @@
             }
           },
           {
+            "name": "infavnet",
+            "type": "Microsoft.Network.VirtualNetworkCombo",
+            "label": {
+              "virtualNetwork": "Virtual network",
+              "subnets": "Subnets"
+            },
+            "toolTip": {
+              "virtualNetwork": "Provide the virtual network",
+              "subnets": "Subnet all resource required to be part of"
+            },
+            "defaultValue": {
+              "name": "infavnet",
+              "addressPrefixSize": "/16"
+            },
+            "constraints": {
+              "minAddressPrefixSize": "/30"
+            },
+            "subnets": {
+              "subnet1": {
+                "label": "Subnet",
+                "defaultValue": {
+                  "name": "infasubnet",
+                  "addressPrefixSize": "/24"
+                },
+                "constraints": {
+                  "minAddressPrefixSize": "/30"
+                }
+              }
+            }
+          },
+          {
             "name": "sqlServerUsername",
             "type": "Microsoft.Common.TextBox",
             "label": "Informatica SQL Database Server Username",
