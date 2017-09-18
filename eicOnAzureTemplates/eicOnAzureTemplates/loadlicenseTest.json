@@ -46,7 +46,8 @@
 
     ],
     "outputs": {
-      "location": "[location()]"
+      "location": "[location()]",
+      "license": "[steps('infaDomainConfiguration').infaDomainLicense]"
     }
   }
 }

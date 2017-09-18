@@ -15,13 +15,16 @@
       "value": "Robtest12321"
     },
     "informaticaDomainHostName": {
-      "value": "infadomainnode1"
+      "value": "infadomainnode"
     },
     "informaticaVirtualNetworkName": {
       "value": "infavnet"
     },
     "informaticaSubnetName": {
       "value": "infasubnet"
+    },
+    "importSampleData": {
+      "value": "false"
     }
 
   }
