@@ -13,61 +13,6 @@
         "description": "The location where all azure resources will be deployed."
       }
     },
-    "informaticaDomainHostName": {
-      "defaultValue": "infadomainnode",
-      "type": "String",
-      "metadata": {
-        "description": "The name of infa domain node VM."
-      }
-    },
-    "informaticaDomainInstanceType": {
-      "defaultValue": "Standard_DS4_v2",
-      "allowedValues": [
-        "Standard_D3_v2",
-        "Standard_D4_v2",
-        "Standard_D5_v2",
-        "Standard_DS4_v2"
-      ],
-      "type": "String",
-      "metadata": {
-        "description": "The SKU for infa domain node VM."
-      }
-    },
-
-    "informaticaDomainHostSshUsername": {
-      "defaultValue": "sshuser",
-      "type": "String",
-      "metadata": {
-        "description": "The ssh user for infa domain node."
-      }
-    },
-    "informaticaDomainHostSshPassword": {
-      "type": "SecureString",
-      "metadata": {
-        "description": "The ssh user password for infa domain node."
-      }
-    },
-    "informaticaVirtualNetworkName": {
-      "defaultValue": "infavnet",
-      "type": "String",
-      "metadata": {
-        "description": "The virtual network name."
-      }
-    },
-    "informaticaSubnetName": {
-      "type": "string",
-      "defaultValue": "infasubnet",
-      "metadata": {
-        "description": "The subnet name."
-      }
-    },
-    "informaticaNetworkSecurityGroupName": {
-      "type": "string",
-      "defaultValue": "infansg",
-      "metadata": {
-        "description": "The network security group name."
-      }
-    },
     "informaticaLicenseFullPath": {
       "type": "string",
       "defaultValue": "/opt/Informatica/10.2.0/Both_EIC_BDM_Enabled_2324241_8822.key",
@@ -89,6 +34,47 @@
         "description": "The Informatica Administrator login password."
       }
     },
+    "informaticaDomainInstanceType": {
+      "defaultValue": "Standard_DS4_v2",
+      "allowedValues": [
+        "Standard_D3_v2",
+        "Standard_D4_v2",
+        "Standard_D5_v2",
+        "Standard_DS4_v2"
+      ],
+      "type": "String",
+      "metadata": {
+        "description": "The SKU for infa domain node VM."
+      }
+    },
+    "sqlServerUsername": {
+      "type": "string",
+      "defaultValue": "dbuser",
+      "metadata": {
+        "description": "Sql Server Login Username."
+      }
+    },
+    "sqlServerPassword": {
+      "type": "SecureString",
+      "metadata": {
+        "description": "Sql Server Login Password."
+      }
+    },
+    "informaticaVirtualNetworkName": {
+      "defaultValue": "infavnet",
+      "type": "String",
+      "metadata": {
+        "description": "The virtual network name."
+      }
+    },
+    "informaticaSubnetName": {
+      "type": "string",
+      "defaultValue": "infasubnet",
+      "metadata": {
+        "description": "The subnet name."
+      }
+    },
+
     "loadType": {
       "type": "string",
       "allowedValues": [
@@ -111,26 +97,6 @@
       "defaultValue": "true",
       "metadata": {
         "description": "Import Sample Contents."
-      }
-    },
-    "sqlServerName": {
-      "type": "string",
-      "defaultValue": "infasqldb",
-      "metadata": {
-        "description": "Sql Server Name."
-      }
-    },
-    "sqlServerUsername": {
-      "type": "string",
-      "defaultValue": "dbuser",
-      "metadata": {
-        "description": "Sql Server Login Username."
-      }
-    },
-    "sqlServerPassword": {
-      "type": "SecureString",
-      "metadata": {
-        "description": "Sql Server Login Password."
       }
     }
   },
@@ -157,8 +123,10 @@
     "informaticaVirtualNetworkAddressPrefix": "10.0.0.0/16",
     "informaticaSubnetAddressPrefix": "10.0.0.0/24",
     "azureStorageType": "Standard_LRS",
-    "hdinsightClusterHostSshUsername": "[parameters('informaticaDomainHostSshUsername')]",
-    "hdinsightClusterHostSshPassword": "[parameters('informaticaDomainHostSshPassword')]",
+    "informaticaDomainHostSshUsername": "sshuser",
+    "informaticaDomainHostSshPassword": "[parameters('informaticaAdministratorPassword')]",
+    "hdinsightClusterHostSshUsername": "sshuser",
+    "hdinsightClusterHostSshPassword": "[parameters('informaticaAdministratorPassword')]",
     "hdinsightClusterType": "hadoop",
     "clusterWorkerNodeCounts": {
       "low": "1",
@@ -177,7 +145,10 @@
     "informaticaDomainHostVhdLocation": "https://eicvmforvhdstorage.blob.core.windows.net/linuxvhd2/",
     "hdinsightClusterLoginUsername": "admin",
     "hdinsightClusterLoginPassword": "[parameters('informaticaAdministratorPassword')]",
-    "resourcesDeployLocation": "[resourceGroup().location]"
+    "resourcesDeployLocation": "[parameters('resourcesDeployLocation')]",
+    "informaticaDomainHostName": "infadomainnode",
+    "informaticaNetworkSecurityGroupName": "infansg",
+    "sqlServerName": "infasqldb"
   },
 
   "resources": [
@@ -260,7 +231,7 @@
             "value": "[variables('nsgLocation')]"
           },
           "informaticaNetworkSecurityGroupName": {
-            "value": "[parameters('informaticaNetworkSecurityGroupName')]"
+            "value": "[variables('informaticaNetworkSecurityGroupName')]"
           }
         }
       }
@@ -369,7 +340,7 @@
             "value": "[parameters('sqlServerUsername')]"
           },
           "sqlServerName": {
-            "value": "[parameters('sqlServerName')]"
+            "value": "[variables('sqlServerName')]"
           },
           "domainDbName": {
             "value": "[variables('domainDbName')]"
@@ -411,22 +382,22 @@
             "value": "[variables('infaDomainNodeLocation')]"
           },
           "informaticaDomainHostName": {
-            "value": "[parameters('informaticaDomainHostName')]"
+            "value": "[variables('informaticaDomainHostName')]"
           },
           "informaticaDomainInstanceType": {
             "value": "[parameters('informaticaDomainInstanceType')]"
           },
           "informaticaDomainHostSshUsername": {
-            "value": "[parameters('informaticaDomainHostSshUsername')]"
+            "value": "[variables('informaticaDomainHostSshUsername')]"
           },
           "informaticaDomainHostSshPassword": {
-            "value": "[parameters('informaticaDomainHostSshPassword')]"
+            "value": "[variables('informaticaDomainHostSshPassword')]"
           },
           "subnetId": {
             "value": "[variables('subnetId')]"
           },
           "informaticaNetworkSecurityGroupName": {
-            "value": "[parameters('informaticaNetworkSecurityGroupName')]"
+            "value": "[variables('informaticaNetworkSecurityGroupName')]"
           },
           "azureStorageName": {
             "value": "[variables('azureStorageName')]"
@@ -447,7 +418,7 @@
             "value": "[parameters('sqlServerPassword')]"
           },
           "sqlServerName": {
-            "value": "[parameters('sqlServerName')]"
+            "value": "[variables('sqlServerName')]"
           },
           "mrsDbName": {
             "value": "[variables('mrsDbName')]"

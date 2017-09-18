@@ -3,25 +3,6 @@
   "version": "0.1.2",
   "parameters": {
     "basics": [
-      {
-        "name": "resourcesDeployLocation",
-        "type": "Microsoft.Common.DropDown",
-        "label": "Location",
-        "defaultValue": "Southeast Asia",
-        "toolTip": "Resources Deploy Location.",
-        "constraints": {
-          "allowedValues": [
-            {
-              "label": "West US",
-              "value": "West US"
-            },
-            {
-              "label": "Southeast Asia",
-              "value": "Southeast Asia"
-            }
-          ]
-        }
-      }
     ],
     "steps": [
       {
@@ -43,6 +24,25 @@
               "required": true
             },
             "visible": false
+          },
+          {
+            "name": "resourcesDeployLocation",
+            "type": "Microsoft.Common.DropDown",
+            "label": "Resources Deploy Location",
+            "defaultValue": "Southeast Asia",
+            "toolTip": "Resources Deploy Location.",
+            "constraints": {
+              "allowedValues": [
+                {
+                  "label": "West US",
+                  "value": "West US"
+                },
+                {
+                  "label": "Southeast Asia",
+                  "value": "Southeast Asia"
+                }
+              ]
+            }
           },
           {
             "name": "infaDomainLicense",
@@ -128,6 +128,33 @@
             }
           },
           {
+            "name": "sqlServerUsername",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Informatica SQL Database Server Username",
+            "defaultValue": "dbuser",
+            "toolTip": "Name of SQL Server User.",
+            "constraints": {
+              "required": true,
+              "regex": "^([a-zA-Z][a-z0-9A-Z\\-]{1,29})$",
+              "validationMessage": "Node name should begin with alphabets. Only alphanumeric characters, and hyphen are allowed. The value must be 2-29 characters long"
+            }
+          },
+          {
+            "name": "sqlServerPassword",
+            "type": "Microsoft.Common.PasswordBox",
+            "label": {
+              "password": "Informatica SQL Database Server Password"
+            },
+            "constraints": {
+              "required": true,
+              "regex": "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^\\s\\w])(?!.*[\"$]).{8,123}$",
+              "validationMessage": "Password must be at least 8 characters in length. Should contain at least one special character, number, upper-case and lower-case character. Double quote(\") and dollar($) are not allowed."
+            },
+            "options": {
+              "hideConfirmation": true
+            }
+          },
+          {
             "name": "infavnet",
             "type": "Microsoft.Network.VirtualNetworkCombo",
             "label": {
@@ -156,33 +183,6 @@
                   "minAddressPrefixSize": "/30"
                 }
               }
-            }
-          },
-          {
-            "name": "sqlServerUsername",
-            "type": "Microsoft.Common.TextBox",
-            "label": "Informatica SQL Database Server Username",
-            "defaultValue": "dbuser",
-            "toolTip": "Name of SQL Server User.",
-            "constraints": {
-              "required": true,
-              "regex": "^([a-zA-Z][a-z0-9A-Z\\-]{1,29})$",
-              "validationMessage": "Node name should begin with alphabets. Only alphanumeric characters, and hyphen are allowed. The value must be 2-29 characters long"
-            }
-          },
-          {
-            "name": "sqlServerPassword",
-            "type": "Microsoft.Common.PasswordBox",
-            "label": {
-              "password": "Informatica SQL Database Server Password"
-            },
-            "constraints": {
-              "required": true,
-              "regex": "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^\\s\\w])(?!.*[\"$]).{8,123}$",
-              "validationMessage": "Password must be at least 8 characters in length. Should contain at least one special character, number, upper-case and lower-case character. Double quote(\") and dollar($) are not allowed."
-            },
-            "options": {
-              "hideConfirmation": true
             }
           },
           {
