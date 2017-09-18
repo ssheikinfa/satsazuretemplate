@@ -26,6 +26,23 @@
             "visible": false
           },
           {
+            "name": "infaDomainLicense",
+            "type": "Microsoft.Common.FileUpload",
+            "label": "Informatica Enterpise Information Catalog License File",
+            "toolTip": "Provide a valid Informatica Enterpise Information Catalog License key file.",
+            "constraints": {
+              "required": true,
+              "accept": ".key"
+            },
+            "options": {
+              "multiple": false,
+              "uploadMode": "url",
+              "openMode": "text",
+              "encoding": "UTF-8"
+            },
+            "visible": true
+          },
+          {
             "name": "infaDomainUser",
             "type": "Microsoft.Common.TextBox",
             "label": "Informatica Administrator Username",
@@ -52,61 +69,7 @@
               "hideConfirmation": true
             }
           },
-          {
-            "name": "infaDomainLicense",
-            "type": "Microsoft.Common.FileUpload",
-            "label": "Informatica Enterpise Information Catalog License File",
-            "toolTip": "Provide a valid Informatica Enterpise Information Catalog License key file.",
-            "constraints": {
-              "required": true,
-              "accept": ".key"
-            },
-            "options": {
-              "multiple": false,
-              "uploadMode": "url",
-              "openMode": "text",
-              "encoding": "UTF-8"
-            },
-            "visible": true
-          },
-          {
-            "name": "informaticaServerHostname",
-            "type": "Microsoft.Common.TextBox",
-            "label": "Informatica Server Hostname",
-            "defaultValue": "infadomainvm",
-            "toolTip": "Name for Informatica Server Host.",
-            "constraints": {
-              "required": true,
-              "regex": "^([a-zA-Z][a-z0-9A-Z\\-]{1,29})$",
-              "validationMessage": "Node name should begin with alphabets. Only alphanumeric characters, and hyphen are allowed. The value must be 2-29 characters long"
-            }
-          },
-          {
-            "name": "informaticaServerSshUsername",
-            "type": "Microsoft.Compute.UserNameTextBox",
-            "defaultValue": "sshuser",
-            "label": "Informatica Server Host Ssh Username",
-            "toolTip": "Ssh Login Username for Informatica Server.",
-            "osPlatform": "Linux",
-            "constraints": {
-              "required": true
-            }
-          },
-          {
-            "name": "informaticaServerSshPassword",
-            "type": "Microsoft.Common.PasswordBox",
-            "label": {
-              "password": "Informatica Server Host Ssh Password"
-            },
-            "constraints": {
-              "required": true,
-              "regex": "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^\\s\\w])(?!.*[\"$]).{8,123}$",
-              "validationMessage": "Password must be at least 8 characters in length. Should contain at least one special character, number, upper-case and lower-case character. Double quote(\") and dollar($) are not allowed."
-            },
-            "options": {
-              "hideConfirmation": true
-            }
-          },
+
           {
             "name": "informaticaServerInstanceSize",
             "type": "Microsoft.Compute.SizeSelector",
@@ -173,86 +136,10 @@
             }
           },
           {
-            "name": "importSampleContents",
-            "type": "Microsoft.Common.DropDown",
-            "defaultValue": "true",
-            "label": "Import Sample Contents",
-            "constraints": {
-              "allowedValues": [
-                {
-                  "label": "true",
-                  "value": "true"
-                },
-                {
-                  "label": "false",
-                  "value": "false"
-                }
-              ]
-            }
-          }
-        ]
-      },
-
-
-
-
-      
-
-      {
-        "label": "HDInsight Cluster Settings",
-        "name": "clusterConfiguration",
-        "subLabel": {
-          "preValidation": "Configure HDInsight Cluster Settings",
-          "postValidation": "Done"
-        },
-        "bladeTitle": "HDInsight Cluster Settings",
-        "elements": [
-          {
-            "name": "clusterName",
-            "type": "Microsoft.Common.TextBox",
-            "label": "HDInsight Cluster Name",
-            "defaultValue": "eiccluster",
-            "toolTip": "The name of HDInsight cluster to create.",
-            "constraints": {
-              "required": true,
-              "regex": "^[a-z0-9]{1,30}$",
-              "validationMessage": "Only lowercase alphanumeric characters are allowed, and the value must be 1-30 characters long."
-            }
-          },
-          {
-            "name": "clusterLoginUserName",
-            "type": "Microsoft.Common.TextBox",
-            "label": "Cluster Login Username",
-            "defaultValue": "admin",
-            "toolTip": "The login username for cluster.",
-            "constraints": {
-              "required": true,
-              "regex": "^([a-zA-Z][a-z0-9A-Z\\-\\!\\#\\$\\%\\&\\'\\(\\)\\-\\^\\_\\`\\{\\}\\~]{2,100})$",
-              "validationMessage": "The username must be at least two characters in length and can only consist of digits, upper or lowercase letters, and/or the following special characters: ! # $ % & ' ( ) - ^ _ ` { } ~"
-            }
-          },
-          {
-            "name": "clusterLoginPassword",
-            "type": "Microsoft.Common.PasswordBox",
-            "label": {
-              "password": "Password",
-              "confirmPassword": "Confirm password"
-            },
-            "toolTip": "The login password for cluster.",
-            "constraints": {
-              "required": true,
-              "regex": "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^\\s\\w]).{10,123}$",
-              "validationMessage": "The password must be at least 10 characters in length and must contain at least one digit, one non-alphanumeric character, and one upper or lower case letter."
-            },
-            "options": {
-              "hideConfirmation": true
-            }
-          },
-          {
             "name": "clusterSize",
             "type": "Microsoft.Common.DropDown",
             "defaultValue": "default",
-            "label": "Cluster Size",
+            "label": "Cluster Size Based on Data Load Type",
             "constraints": {
               "allowedValues": [
                 {
@@ -273,13 +160,27 @@
                 }
               ]
             }
+          },
+          {
+            "name": "importSampleContents",
+            "type": "Microsoft.Common.DropDown",
+            "defaultValue": "true",
+            "label": "Import Sample Contents",
+            "constraints": {
+              "allowedValues": [
+                {
+                  "label": "true",
+                  "value": "true"
+                },
+                {
+                  "label": "false",
+                  "value": "false"
+                }
+              ]
+            }
           }
-
         ]
       }
-
-
-
     ],
     "outputs": {
       "location": "[location()]"
