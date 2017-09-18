@@ -2,25 +2,6 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "hdinsightClusterName": {
-      "type": "String",
-      "metadata": {
-        "description": "The name of the HDInsight cluster to create."
-      }
-    },
-    "hdinsightClusterLoginUsername": {
-      "defaultValue": "admin",
-      "type": "String",
-      "metadata": {
-        "description": "These credentials can be used to submit jobs to the cluster and to log into cluster dashboards."
-      }
-    },
-    "hdinsightClusterLoginPassword": {
-      "type": "SecureString",
-      "metadata": {
-        "description": "The password must be at least 10 characters in length and must contain at least one digit, one non-alphanumeric character, and one upper or lower case letter."
-      }
-    },
     "resourcesDeployLocation": {
       "defaultValue": "Southeast Asia",
       "allowedValues": [
@@ -156,7 +137,8 @@
   "variables": {
     "baseUrl": "https://raw.githubusercontent.com/robsharm/gitrepo/master/eicOnAzureTemplates/eicOnAzureTemplates/",
     "hdinsightClusterDeployTemplateUri": "[concat(variables('baseUrl'), 'clusterdeploy.json')]",
-    "azureStorageName": "[concat(parameters('hdinsightClusterName'),'store')]",
+    "hdinsightClusterName": "eichdicluster",
+    "azureStorageName": "[concat(variables('hdinsightClusterName'),'store')]",
     "azureStorageDeployTemplateUri": "[concat(variables('baseUrl'), 'storagedeploy.json')]",
     "azureStorageLocation": "[parameters('resourcesDeployLocation')]",
     "infaDomainNodeDeployTemplateUri": "[concat(variables('baseUrl'), 'infadomainnodedeploy.json')]",
@@ -192,7 +174,10 @@
     "hdinsightClusterZookeeperNodeType": "Small",
     "hdinsightClusterVersion": "3.5",
     "informaticaDomainHostImageUri": "https://eicvmforvhdstorage.blob.core.windows.net/system/Microsoft.Compute/Images/vhd/infadomainnode1-osDisk.ad583ef4-7184-4bd1-9785-541933a9c4e1.vhd",
-    "informaticaDomainHostVhdLocation": "https://eicvmforvhdstorage.blob.core.windows.net/linuxvhd2/"
+    "informaticaDomainHostVhdLocation": "https://eicvmforvhdstorage.blob.core.windows.net/linuxvhd2/",
+    "hdinsightClusterLoginUsername": "admin",
+    "hdinsightClusterLoginPassword": "[parameters('informaticaAdministratorPassword')]",
+    "resourcesDeployLocation": "[resourceGroup().location]"
   },
 
   "resources": [
@@ -304,13 +289,13 @@
             "value": "[variables('hdinsightClusterVersion')]"
           },
           "hdinsightClusterName": {
-            "value": "[parameters('hdinsightClusterName')]"
+            "value": "[variables('hdinsightClusterName')]"
           },
           "hdinsightClusterLoginUsername": {
-            "value": "[parameters('hdinsightClusterLoginUsername')]"
+            "value": "[variables('hdinsightClusterLoginUsername')]"
           },
           "hdinsightClusterLoginPassword": {
-            "value": "[parameters('hdinsightClusterLoginPassword')]"
+            "value": "[variables('hdinsightClusterLoginPassword')]"
           },
           "hdinsightClusterHostSshUsername": {
             "value": "[variables('hdinsightClusterHostSshUsername')]"
@@ -486,13 +471,13 @@
             "value": "[parameters('informaticaAdministratorPassword')]"
           },
           "hdinsightClusterName": {
-            "value": "[parameters('hdinsightClusterName')]"
+            "value": "[variables('hdinsightClusterName')]"
           },
           "hdinsightClusterLoginUsername": {
-            "value": "[parameters('hdinsightClusterLoginUsername')]"
+            "value": "[variables('hdinsightClusterLoginUsername')]"
           },
           "hdinsightClusterLoginPassword": {
-            "value": "[parameters('hdinsightClusterLoginPassword')]"
+            "value": "[variables('hdinsightClusterLoginPassword')]"
           },
           "hdinsightClusterHostLoginUsername": {
             "value": "[variables('hdinsightClusterHostSshUsername')]"

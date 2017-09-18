@@ -3,6 +3,25 @@
   "version": "0.1.2",
   "parameters": {
     "basics": [
+      {
+        "name": "resourcesDeployLocation",
+        "type": "Microsoft.Common.DropDown",
+        "label": "Location",
+        "defaultValue": "Southeast Asia",
+        "toolTip": "Resources Deploy Location.",
+        "constraints": {
+          "allowedValues": [
+            {
+              "label": "West US",
+              "value": "West US"
+            },
+            {
+              "label": "Southeast Asia",
+              "value": "Southeast Asia"
+            }
+          ]
+        }
+      }
     ],
     "steps": [
       {
