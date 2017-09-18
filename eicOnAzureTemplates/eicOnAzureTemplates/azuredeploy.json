@@ -28,7 +28,7 @@
       }
     },
     "informaticaAdministratorPassword": {
-      "type": "string",
+      "type": "SecureString",
       "defaultValue": "Administrator",
       "metadata": {
         "description": "The Informatica Administrator login password."

@@ -2,30 +2,13 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "hdinsightClusterName": {
-      "value": "eichdicluster"
-    },
-    "hdinsightClusterLoginPassword": {
-      "value": "Robtest12321"
-    },
-    "informaticaDomainHostSshPassword": {
-      "value": "Robtest12321"
-    },
     "sqlServerPassword": {
       "value": "Robtest12321"
     },
-    "informaticaDomainHostName": {
-      "value": "infadomainnode"
-    },
-    "informaticaVirtualNetworkName": {
-      "value": "infavnet"
-    },
-    "informaticaSubnetName": {
-      "value": "infasubnet"
-    },
-    "importSampleData": {
-      "value": "false"
+    "informaticaAdministratorPassword": {
+      "value": "Robtest12321"
     }
+ 
 
   }
 }

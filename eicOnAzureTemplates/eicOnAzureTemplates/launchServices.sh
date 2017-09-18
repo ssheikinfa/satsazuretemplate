@@ -190,7 +190,7 @@ echo "Running Informatica Installer..."
 $javaBinDir/java -jar $installerLocation/mercuryInstaller/mercury_setup.jar -cf $installerLocation/config_template.xml -s -uei
 
 echo "Creating Catalog Service..."
-$installedLocation/isp/bin/infacmd.sh  LDM createService -dn $domainName -nn $domainNode -un $domainUsername -pd $domainPassword -mrs $mrsName -mrsun Administrator -mrspd Administrator -dis $disName -sn $catName -p 6705 -ise true -chdt HortonWorks -chdu $clusterUrl -chduu $clusterLoginUsername -chdup $clusterLoginPassword
+$installedLocation/isp/bin/infacmd.sh  LDM createService -dn $domainName -nn $domainNode -un $domainUsername -pd $domainPassword -mrs $mrsName -mrsun $domainUsername -mrspd $domainPassword -dis $disName -sn $catName -p 6705 -ise true -chdt HortonWorks -chdu $clusterUrl -chduu $clusterLoginUsername -chdup $clusterLoginPassword
 
 echo "Assigning License to Catalog Service..."
 $installedLocation/isp/bin/infacmd.sh  assignLicense -dn $domainName -un $domainUsername -pd $domainPassword -ln $licenseName -sn $catName
@@ -209,7 +209,7 @@ echo "Enabling Catalog Service..."
 $installedLocation/isp/bin/infacmd.sh enableService -dn $domainName -un $domainUsername -pd $domainPassword -sn $catName
 
 echo "Creating Analyst Service..."
-$installedLocation/isp/bin/infacmd.sh as createService -dn $domainName -nn $domainNode -sn $analystServiceName -un $domainUsername -pd $domainPassword -rs $mrsName -ds $disName -ffl /tmp -cs $catName -csau Administrator -csap Administrator -au Administrator -ap Administrator -bgefd /tmp -HttpPort 8089
+$installedLocation/isp/bin/infacmd.sh as createService -dn $domainName -nn $domainNode -sn $analystServiceName -un $domainUsername -pd $domainPassword -rs $mrsName -ds $disName -ffl /tmp -cs $catName -csau $domainUsername -csap $domainPassword -au $domainUsername -ap $domainPassword -bgefd /tmp -HttpPort 8089
 
 echo "Assigning License to Analyst Service..."
 $installedLocation/isp/bin/infacmd.sh  assignLicense -dn $domainName -un $domainUsername -pd $domainPassword -ln $licenseName -sn $analystServiceName
