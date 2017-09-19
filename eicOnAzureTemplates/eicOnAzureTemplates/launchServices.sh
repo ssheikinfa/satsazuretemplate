@@ -76,10 +76,15 @@ analystServiceName=Analyst_Service
 
 ulimit -n 32000
 
+#changing values in odbc.ini
+sed -i -e "s/infasqldb.database.windows.net/$dbServerAddress/g" $installedLocation/ODBC7.1/odbc.ini
+sed -i -e "s/mrs/$mrsDB/g" $installedLocation/ODBC7.1/odbc.ini
+sed -i -e "s/dis/$disDB/g" $installedLocation/ODBC7.1/odbc.ini
+
 #Getting License
-#curl -o License.key "$licenseLocation"
-#mv License.key $installedLocation
-#licenseLocation=$installedLocation/License.key
+curl -o License.key "$licenseLocation"
+mv License.key $installedLocation
+licenseLocation=$installedLocation/License.key
 
 #Getting storage account key and certificate
 sshpass -p $clusterSshPassword ssh -o StrictHostKeyChecking=no $clusterSshUser@$clusterSshAddress "sudo cp /usr/lib/hdinsight-common/scripts/decrypt.sh /tmp"

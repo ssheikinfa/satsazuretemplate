@@ -85,6 +85,15 @@
     },
     "importSampleData": {
       "type": "String"
+    },
+    "osVersion": {
+      "type": "String"
+    },
+    "imagePublisher": {
+      "type": "String"
+    },
+    "imageOffer": {
+      "type": "String"
     }
   },
   "variables": {
@@ -147,6 +156,11 @@
         "[concat('Microsoft.Network/publicIPAddresses/', variables('nodeDNSName'))]",
         "[concat('Microsoft.Network/networkInterfaces/', variables('nodeNicName'))]"
       ],
+      "plan": {
+        "name": "[parameters('osVersion')]",
+        "publisher": "[parameters('imagePublisher')]",
+        "product": "[parameters('imageOffer')]"
+      },
       "properties": {
         "hardwareProfile": {
           "vmSize": "[parameters('informaticaDomainInstanceType')]"
@@ -156,8 +170,26 @@
           "adminUsername": "[parameters('informaticaDomainHostSshUsername')]",
           "adminPassword": "[parameters('informaticaDomainHostSshPassword')]"
         },
-        //For Testing - Start - Remove after image being staged
         "storageProfile": {
+          "imageReference": {
+            "publisher": "[parameters('imagePublisher')]",
+            "offer": "[parameters('imageOffer')]",
+            "sku": "[parameters('osVersion')]",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "InfaOSDisk",
+            "caching": "ReadWrite",
+            "createOption": "FromImage",
+            "vhd": {
+              "uri": "[concat('https://', parameters('azureStorageName'), '.blob.core.windows.net/vhds/', parameters('informaticaDomainHostName'),uniquestring(resourceGroup().id), '.osdisk.vhd')]"
+            }
+          }
+        },
+
+
+        //For Testing - Start - Remove after image being staged
+        /* "storageProfile": {
           "osDisk": {
             "name": "VMDisk",
             "osType": "linux",
@@ -170,7 +202,7 @@
               "uri": "[concat(parameters('informaticaDomainHostVhdLocation'), parameters('informaticaDomainHostName'),uniquestring(resourceGroup().id), '.osdisk.vhd')]"
             }
           }
-        },
+        },*/
         //For Testing - End - Remove after image being staged
         "networkProfile": {
           "networkInterfaces": [
