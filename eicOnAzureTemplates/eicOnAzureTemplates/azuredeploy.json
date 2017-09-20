@@ -114,7 +114,7 @@
     "azureStorageName": "[concat(variables('hdinsightClusterName'),'store')]",
     "azureStorageDeployTemplateUri": "[concat(variables('baseUrl'), 'storagedeploy.json')]",
     "azureStorageLocation": "[parameters('resourcesDeployLocation')]",
-    "infaDomainNodeDeployTemplateUri": "[concat(variables('baseUrl'), 'linuxVMDeployForTest.json')]",
+    "infaDomainNodeDeployTemplateUri": "[concat(variables('baseUrl'), 'infadomainnodedeploy.json')]",
     "infaDomainNodeLocation": "[parameters('resourcesDeployLocation')]",
     "virtualNetworkDeployTemplateUri": "[concat(variables('baseUrl'), 'virtualnetworkdeploy.json')]",
     "vnetLocation": "[parameters('resourcesDeployLocation')]",
@@ -151,7 +151,7 @@
     "resourcesDeployLocation": "[parameters('resourcesDeployLocation')]",
     "osVersion": "eicvm",
     "imagePublisher": "informatica",
-    "imageOffer": "eic"
+    "imageOffer": "eic-preview"
   },
 
   "resources": [
