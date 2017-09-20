@@ -14,7 +14,7 @@
         },
         "bladeTitle": "Enterpise Information Catalog",
         "elements": [
-          
+
           {
             "name": "infaDomainLicense",
             "type": "Microsoft.Common.FileUpload",
@@ -31,6 +31,11 @@
               "encoding": "UTF-8"
             },
             "visible": true
+          },
+          {
+            "name": "infavnet",
+            "type": "Microsoft.Sql.Server",
+            "label": "sqlserver"
           }
         ]
       }

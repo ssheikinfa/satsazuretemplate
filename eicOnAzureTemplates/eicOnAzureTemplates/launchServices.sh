@@ -78,7 +78,7 @@ ulimit -n 32000
 
 #changing values in odbc.ini
 sed -i -e "s/infasqldb.database.windows.net/$dbServerAddress/g" $installedLocation/ODBC7.1/odbc.ini
-sed -i -e "s/mrs/$mrsDB/g" $installedLocation/ODBC7.1/odbc.ini
+sed -i -e "s/cms/$cmsDB/g" $installedLocation/ODBC7.1/odbc.ini
 sed -i -e "s/dis/$disDB/g" $installedLocation/ODBC7.1/odbc.ini
 
 #Getting License
