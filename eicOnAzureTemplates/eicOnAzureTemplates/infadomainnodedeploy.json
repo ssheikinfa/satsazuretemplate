@@ -33,7 +33,7 @@
       "type": "String"
     },
     "informaticaLicenseFullPath": {
-      "type": "String"
+      "type": "SecureString"
     },
     "sqlServerUsername": {
       "type": "String"

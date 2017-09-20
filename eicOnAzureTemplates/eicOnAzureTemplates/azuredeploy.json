@@ -14,7 +14,7 @@
       }
     },
     "informaticaLicenseFullPath": {
-      "type": "string",
+      "type": "SecureString",
       "defaultValue": "/opt/Informatica/10.2.0/Both_EIC_BDM_Enabled_2324241_8822.key",
       "metadata": {
         "description": "The infa domain node VM vhd generation location."
@@ -156,7 +156,7 @@
 
   "resources": [
 
-  
+  /*
     {
       "name": "storageSetup",
       "type": "Microsoft.Resources/deployments",
@@ -313,7 +313,7 @@
       }
     },
     
-    
+  */  
 
     
     {
@@ -367,10 +367,10 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
-        "Microsoft.Resources/deployments/storageSetup",
-        "Microsoft.Resources/deployments/vnetSetup",
-        "Microsoft.Resources/deployments/clusterSetup",
-         "Microsoft.Resources/deployments/nsgSetup",
+     //   "Microsoft.Resources/deployments/storageSetup",
+       // "Microsoft.Resources/deployments/vnetSetup",
+        //"Microsoft.Resources/deployments/clusterSetup",
+        // "Microsoft.Resources/deployments/nsgSetup",
       "Microsoft.Resources/deployments/dbSetup"
       ],
       "properties": {
