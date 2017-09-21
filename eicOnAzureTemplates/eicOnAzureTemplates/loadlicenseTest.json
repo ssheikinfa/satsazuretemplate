@@ -34,7 +34,7 @@
           },
           {
             "name": "infavnet",
-            "type": "Microsoft.Sql.Server",
+            "type": "Microsoft.Sql.ServerCombo",
             "label": "sqlserver"
           }
         ]

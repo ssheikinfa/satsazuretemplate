@@ -29,18 +29,22 @@
     },
     "informaticaAdministratorPassword": {
       "type": "SecureString",
-      "defaultValue": "Administrator",
       "metadata": {
         "description": "The Informatica Administrator login password."
       }
     },
+    "azureResourcesPassword": {
+      "type": "SecureString",
+      "metadata": {
+        "description": "The Common Passwords for all Azure Resources."
+      }
+    },
     "informaticaDomainInstanceType": {
-      "defaultValue": "Standard_DS4_v2",
+      "defaultValue": "Standard_D5_v2",
       "allowedValues": [
         "Standard_D3_v2",
         "Standard_D4_v2",
-        "Standard_D5_v2",
-        "Standard_DS4_v2"
+        "Standard_D5_v2"
       ],
       "type": "String",
       "metadata": {
@@ -103,15 +107,15 @@
   "variables": {
     "baseUrl": "https://raw.githubusercontent.com/robsharm/gitrepo/master/eicOnAzureTemplates/eicOnAzureTemplates/",
     "hdinsightClusterDeployTemplateUri": "[concat(variables('baseUrl'), 'clusterdeploy.json')]",
-    "hdinsightClusterName": "eichdiclusterrob",
-    "informaticaDomainHostName": "infadomainnoderob",
-    "informaticaNetworkSecurityGroupName": "infansgrob",
-    "sqlServerName": "infasqldbrob",
-    "mrsDbName": "mrsrob",
-    "disDbName": "disrob",
-    "cmsDbName": "cmsrob",
-    "domainDbName": "domainrob",
-    "azureStorageName": "[concat(variables('hdinsightClusterName'),'store')]",
+    "hdinsightClusterName": "[toLower(concat('cluster', uniqueString(resourceGroup().id)))]",
+    "informaticaDomainHostName": "[toLower(concat('infadomainnode', uniqueString(resourceGroup().id)))]",
+    "informaticaNetworkSecurityGroupName": "[toLower(concat('infansg', uniqueString(resourceGroup().id)))]",
+    "sqlServerName": "[toLower(concat('sqlserver', uniqueString(resourceGroup().id)))]",
+    "mrsDbName": "mrs",
+    "disDbName": "dis",
+    "cmsDbName": "cms",
+    "domainDbName": "domain",
+    "azureStorageName": "[toLower(concat('storage',uniqueString(resourceGroup().id)))]",
     "azureStorageDeployTemplateUri": "[concat(variables('baseUrl'), 'storagedeploy.json')]",
     "azureStorageLocation": "[parameters('resourcesDeployLocation')]",
     "infaDomainNodeDeployTemplateUri": "[concat(variables('baseUrl'), 'infadomainnodedeploy.json')]",
@@ -127,27 +131,27 @@
     "informaticaSubnetAddressPrefix": "10.0.0.0/24",
     "azureStorageType": "Standard_LRS",
     "informaticaDomainHostSshUsername": "sshuser",
-    "informaticaDomainHostSshPassword": "[parameters('informaticaAdministratorPassword')]",
+    "informaticaDomainHostSshPassword": "[parameters('azureResourcesPassword')]",
     "hdinsightClusterHostSshUsername": "sshuser",
-    "hdinsightClusterHostSshPassword": "[parameters('informaticaAdministratorPassword')]",
+    "hdinsightClusterHostSshPassword": "[parameters('azureResourcesPassword')]",
     "hdinsightClusterType": "hadoop",
     "clusterWorkerNodeCounts": {
-      "low": "1",
-      "default": "1",
-      "medium": "3",
-      "high": "6"
+      "low": "3",
+      "default": "2",
+      "medium": "5",
+      "high": "7"
     },
     "hdinsightClusterWorkerNodeCount": "[variables('clusterWorkerNodeCounts')[parameters('loadType')]]",
     "hdinsightClusterHeadNodeCount": "2",
     "hdinsightClusterHeadNodeType": "Standard_D3_v2",
-    "hdinsightClusterWorkerNodeType": "Standard_D5_v2",
+    "hdinsightClusterWorkerNodeType": "Standard_D4_v2",
     "hdinsightClusterZookeeperNodeCount": "3",
     "hdinsightClusterZookeeperNodeType": "Small",
     "hdinsightClusterVersion": "3.5",
     "informaticaDomainHostImageUri": "https://eicvmforvhdstorage.blob.core.windows.net/system/Microsoft.Compute/Images/vhd/infadomainnode1-osDisk.a1fd3401-caa4-4a49-9805-f61ebcadb830.vhd",
     "informaticaDomainHostVhdLocation": "https://eicvmforvhdstorage.blob.core.windows.net/linuxvhd11/",
     "hdinsightClusterLoginUsername": "admin",
-    "hdinsightClusterLoginPassword": "[parameters('informaticaAdministratorPassword')]",
+    "hdinsightClusterLoginPassword": "[parameters('azureResourcesPassword')]",
     "resourcesDeployLocation": "[parameters('resourcesDeployLocation')]",
     "osVersion": "eicvm",
     "imagePublisher": "informatica",
@@ -156,7 +160,7 @@
 
   "resources": [
 
-  /*
+  
     {
       "name": "storageSetup",
       "type": "Microsoft.Resources/deployments",
@@ -360,18 +364,18 @@
       }
     },
     
-   */
+   
 
     {
       "name": "infaDomainNodeSetup",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2015-01-01",
       "dependsOn": [
-     //   "Microsoft.Resources/deployments/storageSetup",
-       // "Microsoft.Resources/deployments/vnetSetup",
-        //"Microsoft.Resources/deployments/clusterSetup",
-        // "Microsoft.Resources/deployments/nsgSetup",
-    //  "Microsoft.Resources/deployments/dbSetup"
+        "Microsoft.Resources/deployments/storageSetup",
+       "Microsoft.Resources/deployments/vnetSetup",
+      "Microsoft.Resources/deployments/clusterSetup",
+       "Microsoft.Resources/deployments/nsgSetup",
+      "Microsoft.Resources/deployments/dbSetup"
       ],
       "properties": {
         "mode": "Incremental",
