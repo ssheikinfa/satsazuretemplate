@@ -31,11 +31,6 @@
               "encoding": "UTF-8"
             },
             "visible": true
-          },
-          {
-            "name": "infavnet",
-            "type": "Microsoft.Sql.ServerCombo",
-            "label": "sqlserver"
           }
         ]
       }
