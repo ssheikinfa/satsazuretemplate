@@ -50,9 +50,9 @@
             "properties": {
               "description": "Enabling ports required for Informatica minimum and maximum.",
               "protocol": "TCP",
-              "sourcePortRange": "[parameters('allowedIpRange')]",
+              "sourcePortRange": "*",
               "destinationPortRange": "6000-7000",
-              "sourceAddressPrefix": "*",
+              "sourceAddressPrefix": "[parameters('allowedIpRange')]",
               "destinationAddressPrefix": "*",
               "access": "Allow",
               "priority": 100,
