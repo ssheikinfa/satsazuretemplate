@@ -152,92 +152,6 @@
         ]
       },
 
-
-      {
-        "label": "Informatica Database Settings",
-        "name": "infaDatabaseConfiguration",
-        "subLabel": {
-          "preValidation": "Configure Settings",
-          "postValidation": "Done"
-        },
-        "bladeTitle": "Informatica Database Settings",
-        "elements": [
-
-          {
-            "name": "sqlServerUsername",
-            "type": "Microsoft.Common.TextBox",
-            "label": "Informatica Database Instance Username",
-            "defaultValue": "dbuser",
-            "toolTip": "Database username to be created for the Informatica domain.",
-            "constraints": {
-              "required": true,
-              "regex": "(?!^(p|P)(u|U)(b|B)(l|L)(i|I)(c|C)$)(?!^(d|D)(b|B)(o|O)$)(?!^(s|S)(y|Y)(s|S)$)(?!^(g|G)(u|U)(e|E)(s|S)(t|T)$)(^[a-zA-Z][a-zA-Z0-9_-]{2,127}.*$)",
-              "validationMessage": "Username must begin with an alphabet, only alphanumeric characters, hyphen and underscore are allowed, and the value must be 3-128 characters in length. Usernames sa, public, dbo, sys, and guest are not allowed."
-            }
-          },
-          {
-            "name": "sqlServerPassword",
-            "type": "Microsoft.Common.PasswordBox",
-            "label": {
-              "password": "Informatica Database Instance Password"
-            },
-            "constraints": {
-              "required": true,
-              "regex": "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^\\s\\w])(?!.*[\"$]).{8,123}$",
-              "validationMessage": "Password must be at least 8 characters in length. Should contain at least one special character, number, upper-case and lower-case character. Double quote(\") and dollar($) are not allowed."
-            },
-            "options": {
-              "hideConfirmation": true
-            }
-          }
-        ]
-      },
-
-
-
-
-      {
-        "label": "Informatica Database Settings",
-        "name": "infaDatabaseConfiguration",
-        "subLabel": {
-          "preValidation": "Configure Settings",
-          "postValidation": "Done"
-        },
-        "bladeTitle": "Informatica Database Settings",
-        "elements": [
-
-          {
-            "name": "sqlServerUsername",
-            "type": "Microsoft.Common.TextBox",
-            "label": "Informatica Database Instance Username",
-            "defaultValue": "dbuser",
-            "toolTip": "Database username to be created for the Informatica domain.",
-            "constraints": {
-              "required": true,
-              "regex": "(?!^(p|P)(u|U)(b|B)(l|L)(i|I)(c|C)$)(?!^(d|D)(b|B)(o|O)$)(?!^(s|S)(y|Y)(s|S)$)(?!^(g|G)(u|U)(e|E)(s|S)(t|T)$)(^[a-zA-Z][a-zA-Z0-9_-]{2,127}.*$)",
-              "validationMessage": "Username must begin with an alphabet, only alphanumeric characters, hyphen and underscore are allowed, and the value must be 3-128 characters in length. Usernames sa, public, dbo, sys, and guest are not allowed."
-            }
-          },
-          {
-            "name": "sqlServerPassword",
-            "type": "Microsoft.Common.PasswordBox",
-            "label": {
-              "password": "Informatica Database Instance Password"
-            },
-            "constraints": {
-              "required": true,
-              "regex": "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^\\s\\w])(?!.*[\"$]).{8,123}$",
-              "validationMessage": "Password must be at least 8 characters in length. Should contain at least one special character, number, upper-case and lower-case character. Double quote(\") and dollar($) are not allowed."
-            },
-            "options": {
-              "hideConfirmation": true
-            }
-          }
-        ]
-      },
-
-
-
       {
         "name": "infraConfiguration",
         "label": "Infrastructure Settings",
@@ -247,6 +161,35 @@
         },
         "bladeTitle": "Infrastructure Settings",
         "elements": [
+
+          {
+            "name": "sqlServerUsername",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Informatica Database Instance Username",
+            "defaultValue": "dbuser",
+            "toolTip": "Database username to be created for the Informatica domain.",
+            "constraints": {
+              "required": true,
+              "regex": "(?!^(p|P)(u|U)(b|B)(l|L)(i|I)(c|C)$)(?!^(d|D)(b|B)(o|O)$)(?!^(s|S)(y|Y)(s|S)$)(?!^(g|G)(u|U)(e|E)(s|S)(t|T)$)(^[a-zA-Z][a-zA-Z0-9_-]{2,127}.*$)",
+              "validationMessage": "Username must begin with an alphabet, only alphanumeric characters, hyphen and underscore are allowed, and the value must be 3-128 characters in length. Usernames sa, public, dbo, sys, and guest are not allowed."
+            }
+          },
+          {
+            "name": "sqlServerPassword",
+            "type": "Microsoft.Common.PasswordBox",
+            "label": {
+              "password": "Informatica Database Instance Password"
+            },
+            "constraints": {
+              "required": true,
+              "regex": "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^\\s\\w])(?!.*[\"$]).{8,123}$",
+              "validationMessage": "Password must be at least 8 characters in length. Should contain at least one special character, number, upper-case and lower-case character. Double quote(\") and dollar($) are not allowed."
+            },
+            "options": {
+              "hideConfirmation": true
+            }
+          },
+
           {
             "name": "storageAccount",
             "type": "Microsoft.Storage.StorageAccountSelector",
