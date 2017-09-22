@@ -11,6 +11,9 @@
     "azureStorageType": {
       "type": "String"
     },
+    "existingStorageRG": {
+      "type": "String"
+    },
     "informaticaTags": {
       "type": "object"
     }
