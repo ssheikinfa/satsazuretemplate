@@ -52,7 +52,7 @@
               "protocol": "TCP",
               "sourcePortRange": "*",
               "destinationPortRange": "6000-7000",
-              "sourceAddressPrefix": "10.0.0.0/24",
+              "sourceAddressPrefix": "[parameters('allowedIpRange')]",
               "destinationAddressPrefix": "*",
               "access": "Allow",
               "priority": 100,
