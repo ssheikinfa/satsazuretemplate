@@ -7,6 +7,9 @@
     },
     "networkSecurityGroupLocation": {
       "type": "string"
+    },
+    "allowedIpRange": {
+      "type": "string"
     }
   },
   "variables": {
@@ -25,7 +28,7 @@
           {
             "name": "default-allow-ssh",
             "properties": {
-              "priority": 1000,
+              "priority": 120,
               "sourceAddressPrefix": "*",
               "protocol": "TCP",
               "destinationPortRange": "22",
@@ -39,13 +42,27 @@
             "name": "MinMaxports",
             "properties": {
               "description": "Enabling ports required for Informatica minimum and maximum.",
-              "protocol": "*",
-              "sourcePortRange": "*",
-              "destinationPortRange": "2000-7000",
+              "protocol": "TCP",
+              "sourcePortRange": "[parameters('allowedIpRange')]",
+              "destinationPortRange": "6000-7000",
               "sourceAddressPrefix": "*",
               "destinationAddressPrefix": "*",
               "access": "Allow",
-              "priority": 120,
+              "priority": 100,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "RDP",
+            "properties": {
+              "description": "Enabling port for RDP",
+              "protocol": "TCP",
+              "sourcePortRange": "*",
+              "destinationPortRange": "3389",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 111,
               "direction": "Inbound"
             }
           }

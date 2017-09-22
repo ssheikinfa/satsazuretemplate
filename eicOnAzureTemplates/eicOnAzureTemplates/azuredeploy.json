@@ -144,7 +144,7 @@
     },
     "allowedIpRange": {
       "type": "string",
-      "defaultValue": "0.0.0.0/0",
+      "defaultValue": "*",
       "metadata": {
         "description": "CIDR IP range that is permitted to access Informatica domain. The default value allows access to all IPs."
       }
@@ -210,10 +210,6 @@
       "default": "2",
       "medium": "5",
       "high": "7"
-    },
-    "defaultAllowedIPRange": {
-      "0.0.0.0/0": "*",
-
     },
     "hdinsightClusterWorkerNodeCount": "[variables('clusterWorkerNodeCounts')[parameters('loadType')]]",
     "hdinsightClusterHeadNodeCount": "2",
