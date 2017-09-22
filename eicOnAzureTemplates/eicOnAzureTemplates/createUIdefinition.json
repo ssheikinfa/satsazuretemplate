@@ -161,7 +161,7 @@
             "name": "importSampleContents",
             "type": "Microsoft.Common.DropDown",
             "defaultValue": "Yes",
-            "tooltip": "Select true to import sample catalog data that you can use to get started with the product.",
+            "toolTip": "Select true to import sample catalog data that you can use to get started with the product.",
             "label": "Import Sample Content",
             "constraints": {
               "allowedValues": [
