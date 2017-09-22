@@ -180,7 +180,7 @@
     "hdinsightClusterType": "hadoop",
     "clusterWorkerNodeCounts": {
       "low": "3",
-      "default": "2",
+      "default": "1",
       "medium": "5",
       "high": "7"
     },
