@@ -131,6 +131,19 @@
           },
 
           {
+            "name": "allowedIpRange",
+            "type": "Microsoft.Common.TextBox",
+            "label": "IP Address Range",
+            "defaultValue": "0.0.0.0/0",
+            "toolTip": "CIDR IP range that is permitted to access Informatica Domain. The default value allows access to all IPs.",
+            "constraints": {
+              "required": true,
+              "regex": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([0-9]|[1-2][0-9]|3[0-2]))$",
+              "validationMessage": "The value should be in CIDR IP format like 10.0.0.0/24. "
+            }
+          },
+
+          {
             "name": "clusterSize",
             "type": "Microsoft.Common.DropDown",
             "toolTip": "Based on the size of the data set, select the size of the cluster required. (i) Default (Standard_D4_v2, two nodes) (ii) Small (Standard_D4_v2, three nodes) (iii) Medium (Standard_D4_v2, five nodes) (iv) High (Standard_D4_v2, seven nodes) ",
@@ -161,7 +174,7 @@
             "name": "importSampleContents",
             "type": "Microsoft.Common.DropDown",
             "defaultValue": "Yes",
-            "toolTip": "Select true to import sample catalog data that you can use to get started with the product.",
+            "toolTip": "Select Yes to import sample catalog data that you can use to get started with the product.",
             "label": "Import Sample Content",
             "constraints": {
               "allowedValues": [
@@ -183,7 +196,7 @@
         "name": "infraConfiguration",
         "label": "Infrastructure Settings",
         "subLabel": {
-          "preValidation": "Configure Database, Storage and VNET settings",
+          "preValidation": "Configure Database, Storage, and VNET settings",
           "postValidation": "Done"
         },
         "bladeTitle": "Infrastructure Settings",
@@ -267,8 +280,28 @@
 
     ],
     "outputs": {
-      "location": "[location()]",
-      "license": "[steps('infaDomainConfiguration').infaDomainLicense]"
+
+
+      "resourcesDeployLocation": "[location()]",
+      "informaticaAdministratorUsername": "[steps('infaDomainConfiguration').infaDomainUser]",
+      "informaticaAdministratorPassword": "[steps('infaDomainConfiguration').infaDomainPassword]",
+      "informaticaLicenseFullPath": "[steps('infaDomainConfiguration').infaDomainLicense]",
+      "informaticaDomainInstanceType": "[steps('infaDomainConfiguration').informaticaServerInstanceSize]",
+      "loadType": "[steps('infaDomainConfiguration').clusterSize]",
+      "importSampleData": "[steps('infaDomainConfiguration').importSampleContents]",
+
+      "sqlServerUsername": "[steps('infraConfiguration').sqlServerUsername]",
+      "sqlServerPassword": "[steps('infraConfiguration').sqlServerPassword]",
+      "storageExistingOrNew": "[steps('infraConfiguration').storageAccount.newOrExisting]",
+      "existingStorageRG": "[steps('infraConfiguration').storageAccount.resourceGroup]",
+      "azureStorageName": "[steps('infraConfiguration').storageAccount.name]",
+      "vnetExistingOrNew": "[steps('infraConfiguration').infavnet.newOrExisting]",
+      "existingVnetRG": "[steps('infraConfiguration').infavnet.resourceGroup]",
+      "informaticaVirtualNetworkName": "[steps('infraConfiguration').infavnet.name]",
+      "vnetAddressPrefix": "[steps('infraConfiguration').infavnet.addressPrefix]",
+      "informaticaSubnetName": "[steps('infraConfiguration').infavnet.subnets.subnet1.name]",
+      "subnetPrefix": "[steps('infraConfiguration').infavnet.subnets.subnet1.addressPrefix]"
+
     }
   }
 }

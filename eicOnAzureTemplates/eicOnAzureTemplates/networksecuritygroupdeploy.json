@@ -41,7 +41,7 @@
               "description": "Enabling ports required for Informatica minimum and maximum.",
               "protocol": "*",
               "sourcePortRange": "*",
-              "destinationPortRange": "2000-50000",
+              "destinationPortRange": "2000-7000",
               "sourceAddressPrefix": "*",
               "destinationAddressPrefix": "*",
               "access": "Allow",

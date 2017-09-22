@@ -15,7 +15,7 @@
     },
     "informaticaLicenseFullPath": {
       "type": "SecureString",
-      "defaultValue": "/opt/Informatica/10.2.0/Both_EIC_BDM_Enabled_2324241_8822.key",
+      "defaultValue": "",
       "metadata": {
         "description": "The infa domain node VM vhd generation location."
       }
@@ -33,19 +33,8 @@
         "description": "The Informatica Administrator login password."
       }
     },
-    "azureResourcesPassword": {
-      "type": "SecureString",
-      "metadata": {
-        "description": "The Common Passwords for all Azure Resources."
-      }
-    },
     "informaticaDomainInstanceType": {
       "defaultValue": "Standard_D5_v2",
-      "allowedValues": [
-        "Standard_D3_v2",
-        "Standard_D4_v2",
-        "Standard_D5_v2"
-      ],
       "type": "String",
       "metadata": {
         "description": "The SKU for infa domain node VM."
@@ -102,6 +91,56 @@
       "metadata": {
         "description": "Import Sample Contents."
       }
+    },
+    "vnetExistingOrNew": {
+      "type": "string",
+      "allowedValues": [
+        "existing",
+        "new"
+      ],
+      "defaultValue": "new",
+      "metadata": {
+        "description": "VNET new or existing"
+      }
+    },
+    "existingVnetRG": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Existing VNET resource group name"
+      }
+    },
+    "vnetAddressPrefix": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "VNET address prefix"
+      }
+    },
+    "subnetPrefix": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Subnet address prefix"
+      }
+    },
+    "storageExistingOrNew": {
+      "type": "string",
+      "allowedValues": [
+        "existing",
+        "new"
+      ],
+      "defaultValue": "new",
+      "metadata": {
+        "description": "Storage new or existing"
+      }
+    },
+    "existingStorageRG": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Existing storage resource group name"
+      }
     }
   },
   "variables": {
@@ -131,9 +170,9 @@
     "informaticaSubnetAddressPrefix": "10.0.0.0/24",
     "azureStorageType": "Standard_LRS",
     "informaticaDomainHostSshUsername": "sshuser",
-    "informaticaDomainHostSshPassword": "[parameters('azureResourcesPassword')]",
+    "informaticaDomainHostSshPassword": "[parameters('informaticaAdministratorPassword')]",
     "hdinsightClusterHostSshUsername": "sshuser",
-    "hdinsightClusterHostSshPassword": "[parameters('azureResourcesPassword')]",
+    "hdinsightClusterHostSshPassword": "[parameters('informaticaAdministratorPassword')]",
     "hdinsightClusterType": "hadoop",
     "clusterWorkerNodeCounts": {
       "low": "3",
@@ -151,7 +190,7 @@
     "informaticaDomainHostImageUri": "https://eicvmforvhdstorage.blob.core.windows.net/system/Microsoft.Compute/Images/vhd/infadomainnode1-osDisk.a1fd3401-caa4-4a49-9805-f61ebcadb830.vhd",
     "informaticaDomainHostVhdLocation": "https://eicvmforvhdstorage.blob.core.windows.net/linuxvhd11/",
     "hdinsightClusterLoginUsername": "admin",
-    "hdinsightClusterLoginPassword": "[parameters('azureResourcesPassword')]",
+    "hdinsightClusterLoginPassword": "[parameters('informaticaAdministratorPassword')]",
     "resourcesDeployLocation": "[parameters('resourcesDeployLocation')]",
     "osVersion": "eicvm",
     "imagePublisher": "informatica",
