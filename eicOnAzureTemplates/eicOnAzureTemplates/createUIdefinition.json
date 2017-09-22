@@ -70,7 +70,7 @@
             "type": "Microsoft.Compute.SizeSelector",
             "label": "Informatica Domain Instance Type",
             "defaultValue": "Standard_D5_v2",
-            "toolTip": "The size of the machine",
+            "toolTip": "The size of Informatica domain instance.",
             "recommendedSizes": [
               "Standard_D3_v2",
               "Standard_D4_v2",
@@ -78,6 +78,31 @@
             ],
             "constraints": {
               "excludedSizes": [
+                "Standard_D2s_v3",
+                "Standard_E2s_v3",
+                "Standard_D2s_v2",
+                "Standard_DS11_v2",
+                "Standard_D11_v2",
+                "Standard_DS11_v2_Promo",
+                "Standard_D11_v2_Promo",
+                "Standard_DS2_v2_Promo",
+                "Standard_D2_v2_Promo",
+                "Standard_B1s",
+                "Standard_B1ms",
+                "Standard_B2ms",
+                "Standard_A2m_v2",
+                "Standard_A5",
+                "Standard_B2s",
+                "Standard_DS11",
+                "Standard_D11",
+                "Standard_GS1",
+                "Standard_G1",
+                "Standard_D2_v3",
+                "Standard_E2_v3",
+                "Standard_D2_v2",
+                "Standard_DS2",
+                "Standard_D2",
+                "Standard_DS2_v2",
                 "Standard_DS1_v2",
                 "Standard_D1_v2",
                 "Standard_DS1",
@@ -93,14 +118,15 @@
                 "Standard_F2",
                 "Basic_A0",
                 "Basic_A1",
-                "Basic_A2"
+                "Basic_A2",
+                "Basic_A3"
               ]
             },
             "osPlatform": "Linux",
             "imageReference": {
               "publisher": "informatica",
-              "offer": "eic-10.2.0",
-              "sku": "eic-10.2.0"
+              "offer": "eic-preview",
+              "sku": "eicvm"
             }
           },
 
@@ -135,6 +161,7 @@
             "name": "importSampleContents",
             "type": "Microsoft.Common.DropDown",
             "defaultValue": "Yes",
+            "tooltip": "Select true to import sample catalog data that you can use to get started with the product.",
             "label": "Import Sample Content",
             "constraints": {
               "allowedValues": [
@@ -194,7 +221,7 @@
             "name": "storageAccount",
             "type": "Microsoft.Storage.StorageAccountSelector",
             "label": "Storage account",
-            "toolTip": "Storage account used for cluster and virtual machine.",
+            "toolTip": "Storage account for cluster and virtual machine.",
             "defaultValue": {
               "type": "Standard_LRS"
             },
@@ -210,8 +237,8 @@
               "subnets": "Subnets"
             },
             "toolTip": {
-              "virtualNetwork": "Virtual network all resource required to be part of.",
-              "subnets": "Subnet all resource required to be part of."
+              "virtualNetwork": "Select the existing virtual network based on the subscription and location or create a new virtual network.",
+              "subnets": "Select the subnets that must include all resources."
             },
             "defaultValue": {
               "name": "InfaVNET",
