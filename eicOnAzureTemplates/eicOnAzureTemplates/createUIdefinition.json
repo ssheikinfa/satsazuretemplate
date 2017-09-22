@@ -167,7 +167,7 @@
             "type": "Microsoft.Common.TextBox",
             "label": "Informatica Database Instance Username",
             "defaultValue": "dbuser",
-            "toolTip": "Database username to be created for the Informatica domain.",
+            "toolTip": "Database username to be created for the Informatica domain and services.",
             "constraints": {
               "required": true,
               "regex": "(?!^(p|P)(u|U)(b|B)(l|L)(i|I)(c|C)$)(?!^(d|D)(b|B)(o|O)$)(?!^(s|S)(y|Y)(s|S)$)(?!^(g|G)(u|U)(e|E)(s|S)(t|T)$)(^[a-zA-Z][a-zA-Z0-9_-]{2,127}.*$)",
@@ -197,6 +197,9 @@
             "toolTip": "Storage account used for cluster and virtual machine.",
             "defaultValue": {
               "type": "Standard_LRS"
+            },
+            "constraints": {
+              "excludedTypes": ["Premium_LRS"]
             }
           },
           {
@@ -207,8 +210,8 @@
               "subnets": "Subnets"
             },
             "toolTip": {
-              "virtualNetwork": "Virtual network all resource required to be part of",
-              "subnets": "Subnet all resource required to be part of"
+              "virtualNetwork": "Virtual network all resource required to be part of.",
+              "subnets": "Subnet all resource required to be part of."
             },
             "defaultValue": {
               "name": "InfaVNET",
