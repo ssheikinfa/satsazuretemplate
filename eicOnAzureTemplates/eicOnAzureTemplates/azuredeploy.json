@@ -4,70 +4,45 @@
   "parameters": {
     "resourcesDeployLocation": {
       "defaultValue": "Southeast Asia",
-      "allowedValues": [
-        "West US",
-        "Southeast Asia"
-      ],
       "type": "String",
       "metadata": {
         "description": "The location where all azure resources will be deployed."
-      }
-    },
-    "informaticaLicenseFullPath": {
-      "type": "SecureString",
-      "defaultValue": "",
-      "metadata": {
-        "description": "The infa domain node VM vhd generation location."
       }
     },
     "informaticaAdministratorUsername": {
       "type": "string",
       "defaultValue": "Administrator",
       "metadata": {
-        "description": "The Informatica Administrator login user."
+        "description": "Specify the Informatica Administrator username."
       }
     },
     "informaticaAdministratorPassword": {
       "type": "SecureString",
       "metadata": {
-        "description": "The Informatica Administrator login password."
+        "description": "Specify the password for the Informatica Administrator username."
+      }
+    },
+    "informaticaLicenseFullPath": {
+      "type": "SecureString",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Provide a valid Informatica Enterpise Information Catalog License key file."
       }
     },
     "informaticaDomainInstanceType": {
       "defaultValue": "Standard_D5_v2",
       "type": "String",
       "metadata": {
-        "description": "The SKU for infa domain node VM."
+        "description": "The size of Informatica domain instance."
       }
     },
-    "sqlServerUsername": {
+    "allowedIpRange": {
       "type": "string",
-      "defaultValue": "dbuser",
+      "defaultValue": "*",
       "metadata": {
-        "description": "Sql Server Login Username."
+        "description": "CIDR IP range that is permitted to access Informatica domain. The default value '*' allows access to all IPs."
       }
     },
-    "sqlServerPassword": {
-      "type": "SecureString",
-      "metadata": {
-        "description": "Sql Server Login Password."
-      }
-    },
-    "informaticaVirtualNetworkName": {
-      "defaultValue": "infavnet",
-      "type": "String",
-      "metadata": {
-        "description": "The virtual network name."
-      }
-    },
-    "informaticaSubnetName": {
-      "type": "string",
-      "defaultValue": "infasubnet",
-      "metadata": {
-        "description": "The subnet name."
-      }
-    },
-
     "loadType": {
       "type": "string",
       "allowedValues": [
@@ -78,7 +53,7 @@
       ],
       "defaultValue": "default",
       "metadata": {
-        "description": "The Catalog Service data load type."
+        "description": "Based on the size of the data set, select the size of the cluster required. (i) Default (Standard_D4_v2, two nodes) (ii) Small (Standard_D4_v2, three nodes) (iii) Medium (Standard_D4_v2, five nodes) (iv) High (Standard_D4_v2, seven nodes) "
       }
     },
     "importSampleData": {
@@ -89,39 +64,22 @@
       ],
       "defaultValue": "true",
       "metadata": {
-        "description": "Import Sample Contents."
+        "description": "Select Yes to import sample catalog data that you can use to get started with the product."
       }
     },
-    "vnetExistingOrNew": {
+
+
+    "sqlServerUsername": {
       "type": "string",
-      "allowedValues": [
-        "existing",
-        "new"
-      ],
-      "defaultValue": "new",
+      "defaultValue": "dbuser",
       "metadata": {
-        "description": "VNET new or existing"
+        "description": "Database username to be created for the Informatica domain and services."
       }
     },
-    "existingVnetRG": {
-      "type": "string",
-      "defaultValue": "",
+    "sqlServerPassword": {
+      "type": "SecureString",
       "metadata": {
-        "description": "Existing VNET resource group name"
-      }
-    },
-    "vnetAddressPrefix": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "VNET address prefix"
-      }
-    },
-    "subnetPrefix": {
-      "type": "string",
-      "defaultValue": "",
-      "metadata": {
-        "description": "Subnet address prefix"
+        "description": "Database user password."
       }
     },
     "storageExistingOrNew": {
@@ -142,24 +100,63 @@
         "description": "Existing storage resource group name"
       }
     },
-    "allowedIpRange": {
-      "type": "string",
-      "defaultValue": "*",
-      "metadata": {
-        "description": "CIDR IP range that is permitted to access Informatica domain. The default value allows access to all IPs."
-      }
-    },
     "azureStorageName": {
       "type": "string",
       "defaultValue": "infastorage",
       "metadata": {
-        "description": "Azure storage."
+        "description": "Storage account for cluster and virtual machine."
+      }
+    },
+    "vnetExistingOrNew": {
+      "type": "string",
+      "allowedValues": [
+        "existing",
+        "new"
+      ],
+      "defaultValue": "new",
+      "metadata": {
+        "description": "VNET new or existing"
+      }
+    },
+    "existingVnetRG": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Existing VNET resource group name"
+      }
+    },
+    "informaticaVirtualNetworkName": {
+      "defaultValue": "infavnet",
+      "type": "String",
+      "metadata": {
+        "description": "Select the existing virtual network based on the subscription and location or create a new virtual network."
+      }
+    },
+    "vnetAddressPrefix": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "VNET address prefix."
+      }
+    },
+    "informaticaSubnetName": {
+      "type": "string",
+      "defaultValue": "infasubnet",
+      "metadata": {
+        "description": "Select the subnets that must include all resources."
+      }
+    },
+    "subnetPrefix": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Subnet address prefix."
       }
     },
     "baseUrl": {
       "type": "string",
       "metadata": {
-        "description": "Base URL for Marketplace",
+        "description": "Base URL for Marketplace.",
         "artifactsBaseUrl": "https://raw.githubusercontent.com/robsharm/gitrepo/master/eicOnAzureTemplates/eicOnAzureTemplates"
       },
       "defaultValue": "https://raw.githubusercontent.com/robsharm/gitrepo/master/eicOnAzureTemplates/eicOnAzureTemplates"
@@ -173,35 +170,11 @@
   },
   "variables": {
     "baseUri": "[concat(parameters('baseUrl'), '/')]",
+    "resourcesDeployLocation": "[parameters('resourcesDeployLocation')]",
+
+
     "hdinsightClusterDeployTemplateUri": "[concat(variables('baseUri'), 'clusterdeploy.json')]",
     "hdinsightClusterName": "[toLower(concat('cluster', uniqueString(resourceGroup().id)))]",
-    "informaticaDomainHostName": "[toLower(concat('infadomainnode', uniqueString(resourceGroup().id)))]",
-    "informaticaNetworkSecurityGroupName": "[toLower(concat('infansg', uniqueString(resourceGroup().id)))]",
-    "sqlServerName": "[toLower(concat('sqlserver', uniqueString(resourceGroup().id)))]",
-    "mrsDbName": "mrs",
-    "disDbName": "dis",
-    "cmsDbName": "cms",
-    "domainDbName": "domain",
-    "azureStorageDeployTemplateUri": "[concat(variables('baseuri'), 'storagedeploy',parameters('storageExistingOrNew'),'.json')]",
-    "azureStorageLocation": "[parameters('resourcesDeployLocation')]",
-    "infaDomainNodeDeployTemplateUri": "[concat(variables('baseUri'), 'infadomainnodedeploy.json')]",
-    "infaDomainNodeLocation": "[parameters('resourcesDeployLocation')]",
-    "virtualNetworkDeployTemplateUri": "[concat(variables('baseuri'), 'virtualnetworkdeploy', parameters('vnetExistingOrNew'),'.json')]",
-    "vnetLocation": "[parameters('resourcesDeployLocation')]",
-    "vnetIDs": {
-      "existing": "[resourceId(parameters('existingVnetRG'), 'Microsoft.Network/virtualNetworks', parameters('informaticaVirtualNetworkName'))]",
-      "new": "[resourceId('Microsoft.Network/virtualNetworks', parameters('informaticaVirtualNetworkName'))]"
-    },
-    "vnetId": "[variables('vnetIDs')[parameters('vnetExistingOrNew')]]",
-    "subnetId": "[concat(variables('vnetID'), '/subnets/', parameters('informaticaSubnetName'))]",
-    "nsgDeployTemplateUri": "[concat(variables('baseUri'), 'networksecuritygroupdeploy.json')]",
-    "nsgLocation": "[parameters('resourcesDeployLocation')]",
-    "sqlDbDeployUri": "[concat(variables('baseUri'), 'sqldatabasedeploy.json')]",
-    "informaticaVirtualNetworkAddressPrefix": "[parameters('vnetAddressPrefix')]",
-    "informaticaSubnetAddressPrefix": "[parameters('subnetPrefix')]",
-    "azureStorageType": "Standard_LRS",
-    "informaticaDomainHostSshUsername": "sshuser",
-    "informaticaDomainHostSshPassword": "[parameters('informaticaAdministratorPassword')]",
     "hdinsightClusterHostSshUsername": "sshuser",
     "hdinsightClusterHostSshPassword": "[parameters('informaticaAdministratorPassword')]",
     "hdinsightClusterType": "hadoop",
@@ -218,14 +191,49 @@
     "hdinsightClusterZookeeperNodeCount": "3",
     "hdinsightClusterZookeeperNodeType": "Small",
     "hdinsightClusterVersion": "3.5",
-    "informaticaDomainHostImageUri": "https://eicvmforvhdstorage.blob.core.windows.net/system/Microsoft.Compute/Images/vhd/infadomainnode1-osDisk.a1fd3401-caa4-4a49-9805-f61ebcadb830.vhd",
-    "informaticaDomainHostVhdLocation": "https://eicvmforvhdstorage.blob.core.windows.net/linuxvhd11/",
     "hdinsightClusterLoginUsername": "admin",
     "hdinsightClusterLoginPassword": "[parameters('informaticaAdministratorPassword')]",
-    "resourcesDeployLocation": "[parameters('resourcesDeployLocation')]",
+
+
+    "informaticaDomainHostName": "[toLower(concat('infadomainnode', uniqueString(resourceGroup().id)))]",
+    "infaDomainNodeDeployTemplateUri": "[concat(variables('baseUri'), 'infadomainnodedeploy.json')]",
+    "infaDomainNodeLocation": "[parameters('resourcesDeployLocation')]",
+    "informaticaDomainHostImageUri": "https://eicvmforvhdstorage.blob.core.windows.net/system/Microsoft.Compute/Images/vhd/infadomainnode1-osDisk.a1fd3401-caa4-4a49-9805-f61ebcadb830.vhd",
+    "informaticaDomainHostVhdLocation": "https://eicvmforvhdstorage.blob.core.windows.net/linuxvhd11/",
+    "informaticaDomainHostSshUsername": "sshuser",
+    "informaticaDomainHostSshPassword": "[parameters('informaticaAdministratorPassword')]",
     "osVersion": "eicvm",
     "imagePublisher": "informatica",
-    "imageOffer": "eic-preview"
+    "imageOffer": "eic-preview",
+
+
+    "informaticaNetworkSecurityGroupName": "[toLower(concat('infansg', uniqueString(resourceGroup().id)))]",
+    "nsgDeployTemplateUri": "[concat(variables('baseUri'), 'networksecuritygroupdeploy.json')]",
+    "nsgLocation": "[parameters('resourcesDeployLocation')]",
+
+    "sqlDbDeployUri": "[concat(variables('baseUri'), 'sqldatabasedeploy.json')]",
+    "sqlServerName": "[toLower(concat('sqlserver', uniqueString(resourceGroup().id)))]",
+    "mrsDbName": "mrs",
+    "disDbName": "dis",
+    "cmsDbName": "cms",
+    "domainDbName": "domain",
+
+
+    "azureStorageDeployTemplateUri": "[concat(variables('baseuri'), 'storagedeploy',parameters('storageExistingOrNew'),'.json')]",
+    "azureStorageLocation": "[parameters('resourcesDeployLocation')]",
+    "azureStorageType": "Standard_LRS",
+
+
+    "virtualNetworkDeployTemplateUri": "[concat(variables('baseuri'), 'virtualnetworkdeploy', parameters('vnetExistingOrNew'),'.json')]",
+    "vnetLocation": "[parameters('resourcesDeployLocation')]",
+    "vnetIDs": {
+      "existing": "[resourceId(parameters('existingVnetRG'), 'Microsoft.Network/virtualNetworks', parameters('informaticaVirtualNetworkName'))]",
+      "new": "[resourceId('Microsoft.Network/virtualNetworks', parameters('informaticaVirtualNetworkName'))]"
+    },
+    "vnetId": "[variables('vnetIDs')[parameters('vnetExistingOrNew')]]",
+    "subnetId": "[concat(variables('vnetID'), '/subnets/', parameters('informaticaSubnetName'))]",
+    "informaticaVirtualNetworkAddressPrefix": "[parameters('vnetAddressPrefix')]",
+    "informaticaSubnetAddressPrefix": "[parameters('subnetPrefix')]"
   },
 
   "resources": [
