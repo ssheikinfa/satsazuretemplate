@@ -31,14 +31,16 @@
     <Content Include="linuxVMDeployForTest.json" />
     <Content Include="networksecuritygroupdeploy.json" />
     <Content Include="sqldatabasedeploy.json" />
-    <Content Include="virtualnetworkdeploy.json" />
+    <Content Include="storagedeployexisting.json" />
+    <Content Include="virtualnetworkdeployexisting.json" />
+    <Content Include="virtualnetworkdeploynew.json" />
     <Content Include="clusterdeploy.json" />
     <Content Include="createUiDefinition.json" />
     <None Include="Deployment.targets">
       <Visible>False</Visible>
     </None>
     <Content Include="Deploy-AzureResourceGroup.ps1" />
-    <Content Include="storagedeploy.json" />
+    <Content Include="storagedeploynew.json" />
     <Content Include="infadomainnodedeploy.json" />
     <None Include="launchServices.sh" />
   </ItemGroup>

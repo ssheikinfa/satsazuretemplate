@@ -16,6 +16,9 @@
     },
     "informaticaSubnetAddressPrefix": {
       "type": "string"
+    },
+    "existingVnetRG": {
+      "type": "string"
     }
   },
   "variables": {

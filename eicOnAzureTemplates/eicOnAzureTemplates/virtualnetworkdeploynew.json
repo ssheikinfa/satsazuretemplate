@@ -1,0 +1,60 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vnetLocation": {
+      "type": "string"
+    },
+    "informaticaVirtualNetworkName": {
+      "type": "string"
+    },
+    "informaticaVirtualNetworkAddressPrefix": {
+      "type": "string"
+    },
+    "informaticaSubnetName": {
+      "type": "string"
+    },
+    "informaticaSubnetAddressPrefix": {
+      "type": "string"
+    },
+    "existingVnetRG": {
+      "type": "string"
+    }
+  },
+  "variables": {
+
+  },
+  "resources": [
+    {
+      "name": "[parameters('informaticaVirtualNetworkName')]",
+      "type": "Microsoft.Network/virtualNetworks",
+      "location": "[parameters('vnetLocation')]",
+      "apiVersion": "2016-10-01",
+      "dependsOn": [
+
+      ],
+      "tags": {},
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[parameters('informaticaVirtualNetworkAddressPrefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[parameters('informaticaSubnetName')]",
+            "properties": {
+              "addressPrefix": "[parameters('informaticaSubnetAddressPrefix')]"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "outputs": {
+    "vnetId": {
+      "value": "[resourceId('Microsoft.Network/virtualNetworks', parameters('informaticaVirtualNetworkName'))]",
+      "type": "string"
+    }
+  }
+}

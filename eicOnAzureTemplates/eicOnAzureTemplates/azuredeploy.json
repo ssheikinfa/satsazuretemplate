@@ -141,11 +141,39 @@
       "metadata": {
         "description": "Existing storage resource group name"
       }
+    },
+    "allowedIpRange": {
+      "type": "string",
+      "defaultValue": "0.0.0.0/0",
+      "metadata": {
+        "description": "CIDR IP range that is permitted to access Informatica domain. The default value allows access to all IPs."
+      }
+    },
+    "azureStorageName": {
+      "type": "string",
+      "defaultValue": "infastorage",
+      "metadata": {
+        "description": "Azure storage."
+      }
+    },
+    "baseUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "Base URL for Marketplace",
+        "artifactsBaseUrl": "https://raw.githubusercontent.com/robsharm/gitrepo/master/eicOnAzureTemplates/eicOnAzureTemplates"
+      },
+      "defaultValue": "https://raw.githubusercontent.com/robsharm/gitrepo/master/eicOnAzureTemplates/eicOnAzureTemplates"
+    },
+    "informaticaTags": {
+      "type": "object",
+      "defaultValue": {
+        "provider": "AACF690D-C725-4C78-9B1E-E586595B369F"
+      }
     }
   },
   "variables": {
-    "baseUrl": "https://raw.githubusercontent.com/robsharm/gitrepo/master/eicOnAzureTemplates/eicOnAzureTemplates/",
-    "hdinsightClusterDeployTemplateUri": "[concat(variables('baseUrl'), 'clusterdeploy.json')]",
+    "baseUri": "[concat(parameters('baseUrl'), '/')]",
+    "hdinsightClusterDeployTemplateUri": "[concat(variables('baseUri'), 'clusterdeploy.json')]",
     "hdinsightClusterName": "[toLower(concat('cluster', uniqueString(resourceGroup().id)))]",
     "informaticaDomainHostName": "[toLower(concat('infadomainnode', uniqueString(resourceGroup().id)))]",
     "informaticaNetworkSecurityGroupName": "[toLower(concat('infansg', uniqueString(resourceGroup().id)))]",
@@ -154,20 +182,23 @@
     "disDbName": "dis",
     "cmsDbName": "cms",
     "domainDbName": "domain",
-    "azureStorageName": "[toLower(concat('storage',uniqueString(resourceGroup().id)))]",
-    "azureStorageDeployTemplateUri": "[concat(variables('baseUrl'), 'storagedeploy.json')]",
+    "azureStorageDeployTemplateUri": "[concat(variables('baseuri'), 'storagedeploy',parameters('storageExistingOrNew'),'.json')]",
     "azureStorageLocation": "[parameters('resourcesDeployLocation')]",
-    "infaDomainNodeDeployTemplateUri": "[concat(variables('baseUrl'), 'infadomainnodedeploy.json')]",
+    "infaDomainNodeDeployTemplateUri": "[concat(variables('baseUri'), 'infadomainnodedeploy.json')]",
     "infaDomainNodeLocation": "[parameters('resourcesDeployLocation')]",
-    "virtualNetworkDeployTemplateUri": "[concat(variables('baseUrl'), 'virtualnetworkdeploy.json')]",
+    "virtualNetworkDeployTemplateUri": "[concat(variables('baseuri'), 'virtualnetworkdeploy', parameters('vnetExistingOrNew'),'.json')]",
     "vnetLocation": "[parameters('resourcesDeployLocation')]",
-    "vnetId": "[resourceId('Microsoft.Network/virtualNetworks', parameters('informaticaVirtualNetworkName'))]",
-    "subnetId": "[concat(variables('vnetId'), '/subnets/', parameters('informaticaSubnetName'))]",
-    "nsgDeployTemplateUri": "[concat(variables('baseUrl'), 'networksecuritygroupdeploy.json')]",
+    "vnetIDs": {
+      "existing": "[resourceId(parameters('existingVnetRG'), 'Microsoft.Network/virtualNetworks', parameters('informaticaVirtualNetworkName'))]",
+      "new": "[resourceId('Microsoft.Network/virtualNetworks', parameters('informaticaVirtualNetworkName'))]"
+    },
+    "vnetId": "[variables('vnetIDs')[parameters('vnetExistingOrNew')]]",
+    "subnetId": "[concat(variables('vnetID'), '/subnets/', parameters('informaticaSubnetName'))]",
+    "nsgDeployTemplateUri": "[concat(variables('baseUri'), 'networksecuritygroupdeploy.json')]",
     "nsgLocation": "[parameters('resourcesDeployLocation')]",
-    "sqlDbDeployUri": "[concat(variables('baseUrl'), 'sqldatabasedeploy.json')]",
-    "informaticaVirtualNetworkAddressPrefix": "10.0.0.0/16",
-    "informaticaSubnetAddressPrefix": "10.0.0.0/24",
+    "sqlDbDeployUri": "[concat(variables('baseUri'), 'sqldatabasedeploy.json')]",
+    "informaticaVirtualNetworkAddressPrefix": "[parameters('vnetAddressPrefix')]",
+    "informaticaSubnetAddressPrefix": "[parameters('subnetPrefix')]",
     "azureStorageType": "Standard_LRS",
     "informaticaDomainHostSshUsername": "sshuser",
     "informaticaDomainHostSshPassword": "[parameters('informaticaAdministratorPassword')]",
@@ -179,6 +210,10 @@
       "default": "2",
       "medium": "5",
       "high": "7"
+    },
+    "defaultAllowedIPRange": {
+      "0.0.0.0/0": "*",
+
     },
     "hdinsightClusterWorkerNodeCount": "[variables('clusterWorkerNodeCounts')[parameters('loadType')]]",
     "hdinsightClusterHeadNodeCount": "2",
@@ -216,10 +251,13 @@
             "value": "[variables('azureStorageLocation')]"
           },
           "azureStorageName": {
-            "value": "[variables('azureStorageName')]"
+            "value": "[parameters('azureStorageName')]"
           },
           "azureStorageType": {
             "value": "[variables('azureStorageType')]"
+          },
+          "existingStorageRG": {
+            "value": "[parameters('existingStorageRG')]"
           }
         }
       }
@@ -254,6 +292,9 @@
           },
           "informaticaSubnetAddressPrefix": {
             "value": "[variables('informaticaSubnetAddressPrefix')]"
+          },
+          "existingVnetRG": {
+            "value": "[parameters('existingVnetRG')]"
           }
         }
       }
@@ -277,6 +318,9 @@
           },
           "informaticaNetworkSecurityGroupName": {
             "value": "[variables('informaticaNetworkSecurityGroupName')]"
+          },
+          "allowedIpRange": {
+            "value": "[parameters('allowedIpRange')]"
           }
         }
       }
@@ -344,7 +388,7 @@
             "value": "[variables('hdinsightClusterZookeeperNodeType')]"
           },
           "azureStorageName": {
-            "value": "[variables('azureStorageName')]"
+            "value": "[parameters('azureStorageName')]"
           },
           "vnetId": {
             "value": "[variables('vnetId')]"
@@ -445,7 +489,7 @@
             "value": "[variables('informaticaNetworkSecurityGroupName')]"
           },
           "azureStorageName": {
-            "value": "[variables('azureStorageName')]"
+            "value": "[parameters('azureStorageName')]"
           },
           "informaticaDomainHostImageUri": {
             "value": "[variables('informaticaDomainHostImageUri')]"
@@ -478,7 +522,7 @@
             "value": "[variables('cmsDbName')]"
           },
           "baseUrl": {
-            "value": "[variables('baseUrl')]"
+            "value": "[variables('baseUri')]"
           },
           "informaticaAdministratorUsername": {
             "value": "[parameters('informaticaAdministratorUsername')]"
