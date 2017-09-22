@@ -6,67 +6,23 @@
     ],
     "steps": [
       {
-        "label": "Informatica Enterpise Information Catalog Settings",
+        "label": "Informatica Enterprise Information Catalog Settings",
         "name": "infaDomainConfiguration",
         "subLabel": {
           "preValidation": "Configure Settings",
           "postValidation": "Done"
         },
-        "bladeTitle": "Enterpise Information Catalog",
+
+
+        "bladeTitle": "Informatica Enterprise Information Catalog Settings",
         "elements": [
-          {
-            "name": "infaVersion",
-            "type": "Microsoft.Common.TextBox",
-            "label": "Informatica EIC version",
-            "defaultValue": "10.2.0",
-            "toolTip": "Informatica Enterpise Information Catalog version.",
-            "constraints": {
-              "required": true
-            },
-            "visible": false
-          },
-          {
-            "name": "resourcesDeployLocation",
-            "type": "Microsoft.Common.DropDown",
-            "label": "Resources Deploy Location",
-            "defaultValue": "Southeast Asia",
-            "toolTip": "Resources Deploy Location.",
-            "constraints": {
-              "allowedValues": [
-                {
-                  "label": "West US",
-                  "value": "West US"
-                },
-                {
-                  "label": "Southeast Asia",
-                  "value": "Southeast Asia"
-                }
-              ]
-            }
-          },
-          {
-            "name": "infaDomainLicense",
-            "type": "Microsoft.Common.FileUpload",
-            "label": "Informatica Enterpise Information Catalog License File",
-            "toolTip": "Provide a valid Informatica Enterpise Information Catalog License key file.",
-            "constraints": {
-              "required": true,
-              "accept": ".key"
-            },
-            "options": {
-              "multiple": false,
-              "uploadMode": "url",
-              "openMode": "text",
-              "encoding": "UTF-8"
-            },
-            "visible": true
-          },
+
           {
             "name": "infaDomainUser",
             "type": "Microsoft.Common.TextBox",
             "label": "Informatica Administrator Username",
             "defaultValue": "Administrator",
-            "toolTip": "Specify Name for Informatica Administrator.",
+            "toolTip": "Specify the Informatica Administrator username.",
             "constraints": {
               "required": true,
               "regex": "^[a-z0-9A-Z_]{3,30}$",
@@ -76,6 +32,7 @@
           {
             "name": "infaDomainPassword",
             "type": "Microsoft.Common.PasswordBox",
+            "toolTip": "Specify the password for the Informatica Administrator username.",
             "label": {
               "password": "Informatica Administrator Password"
             },
@@ -90,10 +47,29 @@
           },
 
           {
+            "name": "infaDomainLicense",
+            "type": "Microsoft.Common.FileUpload",
+            "label": "Informatica Enterpise Information Catalog License Key",
+            "toolTip": "Provide a valid Informatica Enterpise Information Catalog License key file.",
+            "constraints": {
+              "required": true,
+              "accept": ".key"
+            },
+            "options": {
+              "multiple": false,
+              "uploadMode": "url",
+              "openMode": "text",
+              "encoding": "UTF-8"
+            },
+            "visible": true
+          },
+
+
+          {
             "name": "informaticaServerInstanceSize",
             "type": "Microsoft.Compute.SizeSelector",
-            "label": "Informatica Server Host Size",
-            "defaultValue": "Standard_D3_v2",
+            "label": "Informatica Domain Instance Type",
+            "defaultValue": "Standard_D5_v2",
             "toolTip": "The size of the machine",
             "recommendedSizes": [
               "Standard_D3_v2",
@@ -127,23 +103,83 @@
               "sku": "eic-10.2.0"
             }
           },
+
+          {
+            "name": "clusterSize",
+            "type": "Microsoft.Common.DropDown",
+            "toolTip": "Based on the size of the data set, select the size of the cluster required. (i) Default (Standard_D4_v2, two nodes) (ii) Small (Standard_D4_v2, three nodes) (iii) Medium (Standard_D4_v2, five nodes) (iv) High (Standard_D4_v2, seven nodes) ",
+            "defaultValue": "default",
+            "label": "Data Set Size",
+            "constraints": {
+              "allowedValues": [
+                {
+                  "label": "Default",
+                  "value": "default"
+                },
+                {
+                  "label": "Small",
+                  "value": "low"
+                },
+                {
+                  "label": "Medium",
+                  "value": "medium"
+                },
+                {
+                  "label": "High",
+                  "value": "high"
+                }
+              ]
+            }
+          },
+          {
+            "name": "importSampleContents",
+            "type": "Microsoft.Common.DropDown",
+            "defaultValue": "true",
+            "label": "Import Sample Content",
+            "constraints": {
+              "allowedValues": [
+                {
+                  "label": "Yes",
+                  "value": "true"
+                },
+                {
+                  "label": "No",
+                  "value": "false"
+                }
+              ]
+            }
+          }
+        ]
+      },
+
+
+      {
+        "label": "Informatica Database Settings",
+        "name": "infaDatabaseConfiguration",
+        "subLabel": {
+          "preValidation": "Configure Settings",
+          "postValidation": "Done"
+        },
+        "bladeTitle": "Informatica Database Settings",
+        "elements": [
+
           {
             "name": "sqlServerUsername",
             "type": "Microsoft.Common.TextBox",
-            "label": "Informatica SQL Database Server Username",
+            "label": "Informatica Database Instance Username",
             "defaultValue": "dbuser",
-            "toolTip": "Name of SQL Server User.",
+            "toolTip": "Database username to be created for the Informatica domain.",
             "constraints": {
               "required": true,
-              "regex": "^([a-zA-Z][a-z0-9A-Z\\-]{1,29})$",
-              "validationMessage": "Node name should begin with alphabets. Only alphanumeric characters, and hyphen are allowed. The value must be 2-29 characters long"
+              "regex": "(?!^(p|P)(u|U)(b|B)(l|L)(i|I)(c|C)$)(?!^(d|D)(b|B)(o|O)$)(?!^(s|S)(y|Y)(s|S)$)(?!^(g|G)(u|U)(e|E)(s|S)(t|T)$)(^[a-zA-Z][a-zA-Z0-9_-]{2,127}.*$)",
+              "validationMessage": "Username must begin with an alphabet, only alphanumeric characters, hyphen and underscore are allowed, and the value must be 3-128 characters in length. Usernames sa, public, dbo, sys, and guest are not allowed."
             }
           },
           {
             "name": "sqlServerPassword",
             "type": "Microsoft.Common.PasswordBox",
             "label": {
-              "password": "Informatica SQL Database Server Password"
+              "password": "Informatica Database Instance Password"
             },
             "constraints": {
               "required": true,
@@ -152,6 +188,72 @@
             },
             "options": {
               "hideConfirmation": true
+            }
+          }
+        ]
+      },
+
+
+
+
+      {
+        "label": "Informatica Database Settings",
+        "name": "infaDatabaseConfiguration",
+        "subLabel": {
+          "preValidation": "Configure Settings",
+          "postValidation": "Done"
+        },
+        "bladeTitle": "Informatica Database Settings",
+        "elements": [
+
+          {
+            "name": "sqlServerUsername",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Informatica Database Instance Username",
+            "defaultValue": "dbuser",
+            "toolTip": "Database username to be created for the Informatica domain.",
+            "constraints": {
+              "required": true,
+              "regex": "(?!^(p|P)(u|U)(b|B)(l|L)(i|I)(c|C)$)(?!^(d|D)(b|B)(o|O)$)(?!^(s|S)(y|Y)(s|S)$)(?!^(g|G)(u|U)(e|E)(s|S)(t|T)$)(^[a-zA-Z][a-zA-Z0-9_-]{2,127}.*$)",
+              "validationMessage": "Username must begin with an alphabet, only alphanumeric characters, hyphen and underscore are allowed, and the value must be 3-128 characters in length. Usernames sa, public, dbo, sys, and guest are not allowed."
+            }
+          },
+          {
+            "name": "sqlServerPassword",
+            "type": "Microsoft.Common.PasswordBox",
+            "label": {
+              "password": "Informatica Database Instance Password"
+            },
+            "constraints": {
+              "required": true,
+              "regex": "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^\\s\\w])(?!.*[\"$]).{8,123}$",
+              "validationMessage": "Password must be at least 8 characters in length. Should contain at least one special character, number, upper-case and lower-case character. Double quote(\") and dollar($) are not allowed."
+            },
+            "options": {
+              "hideConfirmation": true
+            }
+          }
+        ]
+      },
+
+
+
+      {
+        "name": "infraConfiguration",
+        "label": "Infrastructure Settings",
+        "subLabel": {
+          "preValidation": "Configure Storage and VNET settings",
+          "postValidation": "Done"
+        },
+        "bladeTitle": "Infrastructure Settings",
+        "elements": [
+          {
+            "name": "storageAccount",
+            "type": "Microsoft.Storage.StorageAccountSelector",
+            "label": "Storage account",
+            "toolTip": "Storage account used for cluster and virtual machine.",
+            "defaultValue": {
+              "type": "Standard_LRS"
             }
           },
           {
@@ -162,75 +264,37 @@
               "subnets": "Subnets"
             },
             "toolTip": {
-              "virtualNetwork": "Provide the virtual network",
+              "virtualNetwork": "Virtual network all resource required to be part of",
               "subnets": "Subnet all resource required to be part of"
             },
             "defaultValue": {
-              "name": "infavnet",
+              "name": "InfaVNET",
               "addressPrefixSize": "/16"
             },
             "constraints": {
-              "minAddressPrefixSize": "/30"
+              "minAddressPrefixSize": "/24"
             },
             "subnets": {
               "subnet1": {
                 "label": "Subnet",
                 "defaultValue": {
-                  "name": "infasubnet",
+                  "name": "InfaSubnet",
                   "addressPrefixSize": "/24"
                 },
                 "constraints": {
-                  "minAddressPrefixSize": "/30"
+                  "minAddressPrefixSize": "/24",
+                  "minAddressCount": "15",
+                  "requireContiguousAddresses": true
                 }
               }
-            }
-          },
-          {
-            "name": "clusterSize",
-            "type": "Microsoft.Common.DropDown",
-            "defaultValue": "default",
-            "label": "Cluster Size Based on Data Load Type",
-            "constraints": {
-              "allowedValues": [
-                {
-                  "label": "default",
-                  "value": "default"
-                },
-                {
-                  "label": "low",
-                  "value": "low"
-                },
-                {
-                  "label": "medium",
-                  "value": "medium"
-                },
-                {
-                  "label": "high",
-                  "value": "high"
-                }
-              ]
-            }
-          },
-          {
-            "name": "importSampleContents",
-            "type": "Microsoft.Common.DropDown",
-            "defaultValue": "true",
-            "label": "Import Sample Contents",
-            "constraints": {
-              "allowedValues": [
-                {
-                  "label": "true",
-                  "value": "true"
-                },
-                {
-                  "label": "false",
-                  "value": "false"
-                }
-              ]
             }
           }
         ]
       }
+
+
+
+
     ],
     "outputs": {
       "location": "[location()]",
