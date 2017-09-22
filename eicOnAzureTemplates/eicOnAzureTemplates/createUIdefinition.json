@@ -156,7 +156,7 @@
         "name": "infraConfiguration",
         "label": "Infrastructure Settings",
         "subLabel": {
-          "preValidation": "Configure Storage and VNET settings",
+          "preValidation": "Configure Database, Storage and VNET settings",
           "postValidation": "Done"
         },
         "bladeTitle": "Infrastructure Settings",
@@ -234,9 +234,6 @@
           }
         ]
       }
-
-
-
 
     ],
     "outputs": {
