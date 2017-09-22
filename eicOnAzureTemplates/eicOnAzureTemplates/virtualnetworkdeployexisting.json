@@ -19,6 +19,9 @@
     },
     "existingVnetRG": {
       "type": "string"
+    },
+    "informaticaTags": {
+      "type": "object"
     }
   },
   "variables": {
@@ -53,7 +56,7 @@
   ],
   "outputs": {
     "vnetId": {
-      "value": "[resourceId('Microsoft.Network/virtualNetworks', parameters('informaticaVirtualNetworkName'))]",
+      "value": "[resourceId(parameters('existingVnetRG'),'Microsoft.Network/virtualNetworks', parameters('informaticaVirtualNetworkName'))]",
       "type": "string"
     }
   }

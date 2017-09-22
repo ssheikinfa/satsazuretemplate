@@ -10,6 +10,9 @@
     },
     "azureStorageType": {
       "type": "String"
+    },
+    "informaticaTags": {
+      "type": "object"
     }
   },
   "variables": {
@@ -25,15 +28,22 @@
       "apiVersion": "[variables('apiVersion')]",
       "name": "[parameters('azureStorageName')]",
       "location": "[parameters('azureStorageLocation')]",
-      "tags": {},
+      "tags": {
+        "displayName": "storage",
+        "provider": "[toUpper(parameters('informaticaTags').provider)]"
+      },
       "properties": {},
       "dependsOn": []
     }
   ],
   "outputs": {
-    "cluster": {
-      "type": "Object",
-      "value": "[reference(resourceId('Microsoft.Storage/storageAccounts',parameters('azureStorageName')))]"
+    "storageId": {
+      "value": "[resourceId('Microsoft.Storage/storageAccounts', parameters('azureStorageName'))]",
+      "type": "string"
+    },
+    "storageRef": {
+      "value": "[reference(resourceId('Microsoft.Storage/storageAccounts', parameters('azureStorageName'))).primaryEndpoints.blob]",
+      "type": "string"
     }
   }
 }

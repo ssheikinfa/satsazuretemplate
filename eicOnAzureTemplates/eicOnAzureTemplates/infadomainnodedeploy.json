@@ -94,6 +94,9 @@
     },
     "imageOffer": {
       "type": "String"
+    },
+    "informaticaTags": {
+      "type": "object"
     }
   },
   "variables": {
@@ -109,8 +112,10 @@
       "location": "[parameters('infaDomainNodeLocation')]",
       "apiVersion": "2016-10-01",
       "dependsOn": [],
-
-      "tags": {},
+      "tags": {
+        "displayName": "publicip",
+        "provider": "[toUpper(parameters('informaticaTags').provider)]"
+      },
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
@@ -126,7 +131,10 @@
       "dependsOn": [
         "[concat('Microsoft.Network/publicIPAddresses/', variables('nodeDNSName'))]"
       ],
-      "tags": {},
+      "tags": {
+        "displayName": "niccard",
+        "provider": "[toUpper(parameters('informaticaTags').provider)]"
+      },
       "properties": {
         "ipConfigurations": [
           {
@@ -151,6 +159,10 @@
       "name": "[parameters('informaticaDomainHostName')]",
       "type": "Microsoft.Compute/virtualMachines",
       "location": "[parameters('infaDomainNodeLocation')]",
+      "tags": {
+        "displayName": "nodevm",
+        "provider": "[toUpper(parameters('informaticaTags').provider)]"
+      },
       "apiVersion": "2016-03-30",
       "dependsOn": [
         "[concat('Microsoft.Network/publicIPAddresses/', variables('nodeDNSName'))]",
@@ -218,6 +230,10 @@
           "type": "extensions",
           "location": "[parameters('infaDomainNodeLocation')]",
           "apiVersion": "2015-06-15",
+          "tags": {
+            "displayName": "vmscriptext",
+            "provider": "[toUpper(parameters('informaticaTags').provider)]"
+          },
           "dependsOn": [
             "[concat('Microsoft.Compute/virtualMachines/', parameters('informaticaDomainHostName'))]"
           ],

@@ -133,6 +133,15 @@ sed -i -e "s/^CREATE_SERVICES=.*/CREATE_SERVICES=$createServices/" $installerLoc
 
 #Updating Config template for Mercury installer
 
+defaultPath="/opt/informatica"
+defaultPath=`echo $defaultPath | sed -e "s/\//\\\\\\\\\//g"`
+sed -i -e "/$defaultPath/d" $installerLocation/config_template.xml
+awsPath="../../services/shared/hadoop/amazon_emr5.0.0"
+awsPath=`echo $awsPath | sed -e "s/\//\\\\\\\\\//g"`
+hdiPath="$installedLocation/services/shared/hadoop/HDInsight_3.6"
+hdiPath=`echo $hdiPath | sed -e "s/\//\\\\\\\\\//g"`
+sed -i -e "s/$awsPath/$hdiPath/g" $installerLocation/config_template.xml
+
 pathFormatforSed="$installerLocation/"
 pathFormatforSed=`echo $pathFormatforSed | sed -e "s/\//\\\\\\\\\//g"`
 sed -i -e "s/installerPath/$pathFormatforSed/g" $installerLocation/config_template.xml

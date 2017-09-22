@@ -28,6 +28,9 @@
     },
     "cmsDbName": {
       "type": "string"
+    },
+    "informaticaTags": {
+      "type": "object"
     }
   },
   "variables": {
@@ -45,6 +48,10 @@
       "apiVersion": "2015-05-01-preview",
       "type": "Microsoft.Sql/servers",
       "location": "[parameters('sqlServerDeployLocation')]",
+      "tags": {
+        "displayName": "sqlserver",
+        "provider": "[toUpper(parameters('informaticaTags').provider)]"
+      },
       "name": "[variables('sqlServerName')]",
       "properties": {
         "administratorLogin": "[variables('sqlAdministratorLogin')]",
@@ -62,7 +69,7 @@
           "properties": {
             "collation": "[variables('sqlCollation')]",
             "edition": "[variables('sqlEdition')]",
-            "requestedServiceObjectiveName": "S2"
+            "requestedServiceObjectiveName": "S1"
           },
           "type": "databases"
         },
@@ -123,5 +130,11 @@
         }
       ]
     }
-  ]
+  ],
+  "outputs": {
+    "sqlServerId": {
+      "value": "[resourceId('Microsoft.Sql/servers', variables('sqlServerName'))]",
+      "type": "string"
+    }
+  }
 }

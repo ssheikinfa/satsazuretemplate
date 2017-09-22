@@ -254,6 +254,9 @@
           },
           "existingStorageRG": {
             "value": "[parameters('existingStorageRG')]"
+          },
+          "informaticaTags": {
+            "value": "[parameters('informaticaTags')]"
           }
         }
       }
@@ -291,6 +294,9 @@
           },
           "existingVnetRG": {
             "value": "[parameters('existingVnetRG')]"
+          },
+          "informaticaTags": {
+            "value": "[parameters('informaticaTags')]"
           }
         }
       }
@@ -317,6 +323,9 @@
           },
           "allowedIpRange": {
             "value": "[parameters('allowedIpRange')]"
+          },
+          "informaticaTags": {
+            "value": "[parameters('informaticaTags')]"
           }
         }
       }
@@ -391,6 +400,9 @@
           },
           "subnetId": {
             "value": "[variables('subnetId')]"
+          },
+          "informaticaTags": {
+            "value": "[parameters('informaticaTags')]"
           }
         }
       }
@@ -438,6 +450,9 @@
           },
           "cmsDbName": {
             "value": "[variables('cmsDbName')]"
+          },
+          "informaticaTags": {
+            "value": "[parameters('informaticaTags')]"
           }
         }
       }
@@ -555,6 +570,9 @@
           },
           "imageOffer": {
             "value": "[variables('imageOffer')]"
+          },
+          "informaticaTags": {
+            "value": "[parameters('informaticaTags')]"
           }
         }
       }

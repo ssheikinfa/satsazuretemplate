@@ -52,6 +52,9 @@
     },
     "subnetId": {
       "type": "String"
+    },
+    "informaticaTags": {
+      "type": "object"
     }
   },
   "variables": {
@@ -65,7 +68,10 @@
       "name": "[parameters('hdinsightClusterName')]",
       "apiVersion": "[variables('clusterApiVersion')]",
       "location": "[parameters('clusterDeployLocation')]",
-      "tags": {},
+      "tags": {
+        "displayName": "cluster",
+        "provider": "[toUpper(parameters('informaticaTags').provider)]"
+      },
       "dependsOn": [],
       "properties": {
         "clusterVersion": "[parameters('hdinsightClusterVersion')]",
@@ -151,7 +157,7 @@
   ],
   "outputs": {
     "cluster": {
-      "type": "Object",
+      "type": "string",
       "value": "[reference(resourceId('Microsoft.HDInsight/clusters',parameters('hdinsightClusterName')))]"
     }
   }

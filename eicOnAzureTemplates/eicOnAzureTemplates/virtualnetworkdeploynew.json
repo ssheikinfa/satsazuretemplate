@@ -19,6 +19,9 @@
     },
     "existingVnetRG": {
       "type": "string"
+    },
+    "informaticaTags": {
+      "type": "object"
     }
   },
   "variables": {
@@ -30,10 +33,13 @@
       "type": "Microsoft.Network/virtualNetworks",
       "location": "[parameters('vnetLocation')]",
       "apiVersion": "2016-10-01",
+      "tags": {
+        "displayName": "vnet",
+        "provider": "[toUpper(parameters('informaticaTags').provider)]"
+      },
       "dependsOn": [
 
       ],
-      "tags": {},
       "properties": {
         "addressSpace": {
           "addressPrefixes": [

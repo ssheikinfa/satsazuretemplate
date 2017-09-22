@@ -10,11 +10,14 @@
     },
     "allowedIpRange": {
       "type": "string"
+    },
+    "informaticaTags": {
+      "type": "object"
     }
   },
   "variables": {
     "defaultApiVersion": "2016-01-01",
-    "clusterApiVersion": "2015-03-01-preview"    
+    "clusterApiVersion": "2015-03-01-preview"
   },
   "resources": [
 
@@ -22,6 +25,10 @@
       "type": "Microsoft.Network/networkSecurityGroups",
       "name": "[parameters('informaticaNetworkSecurityGroupName')]",
       "apiVersion": "2016-09-01",
+      "tags": {
+        "displayName": "nsg",
+        "provider": "[toUpper(parameters('informaticaTags').provider)]"
+      },
       "location": "[parameters('networkSecurityGroupLocation')]",
       "properties": {
         "securityRules": [
@@ -71,9 +78,9 @@
     }
   ],
   "outputs": {
-    "cluster": {
-      "type": "Object",
-      "value": "[reference(resourceId('Microsoft.Network/networkSecurityGroups',parameters('informaticaNetworkSecurityGroupName')))]"
+    "nsgId": {
+      "value": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('informaticaNetworkSecurityGroupName'))]",
+      "type": "string"
     }
   }
 }
