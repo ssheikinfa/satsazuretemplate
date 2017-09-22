@@ -108,7 +108,7 @@
             "name": "clusterSize",
             "type": "Microsoft.Common.DropDown",
             "toolTip": "Based on the size of the data set, select the size of the cluster required. (i) Default (Standard_D4_v2, two nodes) (ii) Small (Standard_D4_v2, three nodes) (iii) Medium (Standard_D4_v2, five nodes) (iv) High (Standard_D4_v2, seven nodes) ",
-            "defaultValue": "default",
+            "defaultValue": "Default",
             "label": "Data Set Size",
             "constraints": {
               "allowedValues": [
@@ -134,7 +134,7 @@
           {
             "name": "importSampleContents",
             "type": "Microsoft.Common.DropDown",
-            "defaultValue": "true",
+            "defaultValue": "Yes",
             "label": "Import Sample Content",
             "constraints": {
               "allowedValues": [
