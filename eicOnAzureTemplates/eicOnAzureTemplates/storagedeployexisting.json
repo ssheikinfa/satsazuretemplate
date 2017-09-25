@@ -26,13 +26,5 @@
   "resources": [
   ],
   "outputs": {
-    "storageId": {
-      "value": "[parameters('storageID')]",
-      "type": "string"
-    },
-    "storageRef": {
-      "value": "[reference(parameters('storageID'))]",
-      "type": "string"
-    }
   }
 }

@@ -52,6 +52,9 @@
     },
     "vnetExistingOrNew": {
       "value": "existing"
+    },
+    "sqlServerUsername": {
+      "value": "dbuser1"
     }
    
 
