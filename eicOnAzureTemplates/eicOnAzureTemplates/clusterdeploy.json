@@ -157,7 +157,7 @@
   ],
   "outputs": {
     "cluster": {
-      "type": "string",
+      "type": "Object",
       "value": "[reference(resourceId('Microsoft.HDInsight/clusters',parameters('hdinsightClusterName')))]"
     }
   }
