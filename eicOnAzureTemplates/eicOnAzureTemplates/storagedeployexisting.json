@@ -16,6 +16,9 @@
     },
     "informaticaTags": {
       "type": "object"
+    },
+    "storageID": {
+      "type": "string"
     }
   },
   "variables": {
@@ -24,11 +27,11 @@
   ],
   "outputs": {
     "storageId": {
-      "value": "[resourceId(parameters('existingStorageRG'), 'Microsoft.Storage/storageAccounts', parameters('azureStorageName'))]",
+      "value": "[parameters('storageID')]",
       "type": "string"
     },
     "storageRef": {
-      "value": "[reference(resourceId(parameters('existingStorageRG'), 'Microsoft.Storage/storageAccounts', parameters('azureStorageName'))).primaryEndpoints.blob]",
+      "value": "[reference(parameters('storageID'))]",
       "type": "string"
     }
   }

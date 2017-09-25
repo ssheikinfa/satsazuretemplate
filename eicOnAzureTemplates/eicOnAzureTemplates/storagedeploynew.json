@@ -16,6 +16,9 @@
     },
     "informaticaTags": {
       "type": "object"
+    },
+    "storageID": {
+      "type": "string"
     }
   },
   "variables": {

@@ -222,6 +222,11 @@
     "azureStorageDeployTemplateUri": "[concat(variables('baseuri'), 'storagedeploy',parameters('storageExistingOrNew'),'.json')]",
     "azureStorageLocation": "[parameters('resourcesDeployLocation')]",
     "azureStorageType": "Standard_LRS",
+    "storageIDs": {
+      "existing": "[resourceId(parameters('existingStorageRG'), 'Microsoft.Storage/storageAccounts', parameters('azureStorageName'))]",
+      "new": "[resourceId('Microsoft.Storage/storageAccounts', parameters('azureStorageName'))]"
+    },
+    "storageID": "[variables('storageIDs')[parameters('storageExistingOrNew')]]",
 
 
     "virtualNetworkDeployTemplateUri": "[concat(variables('baseuri'), 'virtualnetworkdeploy', parameters('vnetExistingOrNew'),'.json')]",
@@ -242,7 +247,7 @@
     {
       "name": "storageSetup",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
+      "apiVersion": "2016-09-01",
       "dependsOn": [],
       "properties": {
         "mode": "Incremental",
@@ -265,6 +270,9 @@
           },
           "informaticaTags": {
             "value": "[parameters('informaticaTags')]"
+          },
+          "storageID": {
+            "value": "[variables('storageID')]"
           }
         }
       }
@@ -276,7 +284,7 @@
     {
       "name": "vnetSetup",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
+      "apiVersion": "2016-09-01",
       "dependsOn": [],
       "properties": {
         "mode": "Incremental",
@@ -338,14 +346,14 @@
         }
       }
     },
-    
 
-    
+
+
 
     {
       "name": "clusterSetup",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
+      "apiVersion": "2016-09-01",
       "dependsOn": [
         "Microsoft.Resources/deployments/storageSetup",
         "Microsoft.Resources/deployments/vnetSetup"
@@ -415,14 +423,14 @@
         }
       }
     },
-    
-    
 
-    
+
+
+
     {
       "name": "dbSetup",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
+      "apiVersion": "2016-09-01",
       "dependsOn": [
       ],
       "properties": {
@@ -465,19 +473,19 @@
         }
       }
     },
-    
-   
+
+
 
     {
       "name": "infaDomainNodeSetup",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
+      "apiVersion": "2016-09-01",
       "dependsOn": [
         "Microsoft.Resources/deployments/storageSetup",
-       "Microsoft.Resources/deployments/vnetSetup",
-      "Microsoft.Resources/deployments/clusterSetup",
-       "Microsoft.Resources/deployments/nsgSetup",
-      "Microsoft.Resources/deployments/dbSetup"
+        "Microsoft.Resources/deployments/vnetSetup",
+        "Microsoft.Resources/deployments/clusterSetup",
+        "Microsoft.Resources/deployments/nsgSetup",
+        "Microsoft.Resources/deployments/dbSetup"
       ],
       "properties": {
         "mode": "Incremental",
