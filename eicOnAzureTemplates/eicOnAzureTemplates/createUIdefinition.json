@@ -135,7 +135,7 @@
             "type": "Microsoft.Common.TextBox",
             "label": "Allowed CIDR IP Address Range",
             "defaultValue": "*",
-            "toolTip": "CIDR IP range that is permitted to access Informatica domain. The default value '*' allows access to all IPs.",
+            "toolTip": "CIDR IP range that is permitted to access Informatica domain. The default value '*' allows access to all public IPs.",
             "constraints": {
               "required": true,
               "regex": "(^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([1-9]|[1-2][0-9]|3[0-2]))$)|^[*]$",
@@ -147,12 +147,12 @@
             "name": "clusterSize",
             "type": "Microsoft.Common.DropDown",
             "toolTip": "Based on the size of the data set, select the size of the cluster required. (i) Default (Standard_D4_v2, two nodes) (ii) Small (Standard_D4_v2, three nodes) (iii) Medium (Standard_D4_v2, five nodes) (iv) High (Standard_D4_v2, seven nodes) ",
-            "defaultValue": "Default",
-            "label": "Data Set Size",
+            "defaultValue": "Minimum",
+            "label": "Deployment Size",
             "constraints": {
               "allowedValues": [
                 {
-                  "label": "Default",
+                  "label": "Minimum",
                   "value": "default"
                 },
                 {
@@ -164,7 +164,7 @@
                   "value": "medium"
                 },
                 {
-                  "label": "High",
+                  "label": "Large",
                   "value": "high"
                 }
               ]
@@ -234,12 +234,12 @@
             "name": "storageAccount",
             "type": "Microsoft.Storage.StorageAccountSelector",
             "label": "Storage account",
-            "toolTip": "Storage account for cluster and virtual machine.",
+            "toolTip": "Storage account for cluster and virtual machine. Microsoft Azure Storage is a Microsoft-managed cloud service that provides storage that is highly available, secure, durable, scalable, and redundant",
             "defaultValue": {
               "type": "Standard_LRS"
             },
             "constraints": {
-              "excludedTypes": ["Premium_LRS"]
+              "excludedTypes": [ "Premium_LRS" ]
             }
           },
           {
@@ -250,7 +250,7 @@
               "subnets": "Subnets"
             },
             "toolTip": {
-              "virtualNetwork": "Select the existing virtual network based on the subscription and location or create a new virtual network.",
+              "virtualNetwork": "Select the existing virtual network based on the subscription and location or create a new virtual network. The Azure Virtual Network service enables you to securely connect Azure resources to each other with virtual networks (VNets). A VNet is a representation of your own network in the cloud. A VNet is a logical isolation of the Azure cloud dedicated to your subscription. You can also connect VNets to your on-premises network",
               "subnets": "Select the subnets that must include all resources."
             },
             "defaultValue": {
@@ -303,6 +303,42 @@
       "informaticaSubnetName": "[steps('infraConfiguration').infavnet.subnets.subnet1.name]",
       "subnetPrefix": "[steps('infraConfiguration').infavnet.subnets.subnet1.addressPrefix]"
 
+    },
+    "resourcesDeployLocation": {
+      "value": "West US"
+    },
+    "informaticaAdministratorPassword": {
+      "value": "Robtest12321#"
+    },
+    "informaticaLicenseFullPath": {
+      "value": "https://iaasv2tempstoragehk.blob.core.windows.net/vmextensionstemporary-10033fff8d2bf018-20170926072023298/Both_EIC_BDM_Enabled_2324241_8822.key?sv=2015-04-05\u0026sr=c\u0026sig=3xnpzXXdNr4dKx7v%2FufHEgZ2xmEDqQNQ7NSJ%2FDSWEaU%3D\u0026se=2017-09-27T07%3A20%3A23Z\u0026sp=rw"
+    },
+    "importSampleData": {
+      "value": "false"
+    },
+    "sqlServerPassword": {
+      "value": "Robtest12321#"
+    },
+    "existingStorageRG": {
+      "value": "eicrob"
+    },
+    "azureStorageName": {
+      "value": "storagerob"
+    },
+    "existingVnetRG": {
+      "value": "eicrob"
+    },
+    "informaticaVirtualNetworkName": {
+      "value": "vnetrob"
+    },
+    "vnetAddressPrefix": {
+      "value": "10.8.0.0/24"
+    },
+    "informaticaSubnetName": {
+      "value": "subnetrob"
+    },
+    "subnetPrefix": {
+      "value": "10.8.0.0/24"
     }
   }
 }

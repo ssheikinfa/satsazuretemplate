@@ -6,31 +6,31 @@
       "value": "Robtest12321#"
     },
     "informaticaLicenseFullPath": {
-      "value": "https://iaasv2tempstoragehk.blob.core.windows.net/vmextensionstemporary-10033fff8d2bf018-20170925084812535/Both_EIC_BDM_Enabled_2324241_8822.key?sv=2015-04-05\u0026sr=c\u0026sig=5bcIGf3SDB1P1PwJWG3%2FgtLIkBUwK%2BmmO%2FQM7AjJyQk%3D\u0026se=2017-09-26T08%3A48%3A12Z\u0026sp=rw"
+      "value": "https://iaasv2tempstoragehk.blob.core.windows.net/vmextensionstemporary-10033fff8d2bf018-20170926072023298/Both_EIC_BDM_Enabled_2324241_8822.key?sv=2015-04-05\u0026sr=c\u0026sig=3xnpzXXdNr4dKx7v%2FufHEgZ2xmEDqQNQ7NSJ%2FDSWEaU%3D\u0026se=2017-09-27T07%3A20%3A23Z\u0026sp=rw"
     },
     "sqlServerPassword": {
       "value": "Robtest12321#"
     },
     "existingStorageRG": {
-      "value": "robtest"
+      "value": "eicrob"
     },
     "azureStorageName": {
-      "value": "testrob"
+      "value": "storagerob"
     },
     "existingVnetRG": {
-      "value": "robtest"
+      "value": "eicrob"
     },
     "informaticaVirtualNetworkName": {
-      "value": "vnetinfa"
+      "value": "vnetrob"
     },
     "vnetAddressPrefix": {
-      "value": "10.0.0.0/16"
+      "value": "10.8.0.0/24"
     },
     "informaticaSubnetName": {
-      "value": "infasubnet"
+      "value": "subnetrob"
     },
     "subnetPrefix": {
-      "value": "10.0.0.0/24"
+      "value": "10.8.0.0/24"
     },
     "resourcesDeployLocation": {
       "value": "West US"
@@ -42,19 +42,19 @@
       "value": "*"
     },
     "loadType": {
-      "value": "low"
+      "value": "default"
     },
     "importSampleData": {
-      "value": "true"
+      "value": "false"
     },
     "storageExistingOrNew": {
-      "value": "existing"
+      "value": "new"
     },
     "vnetExistingOrNew": {
-      "value": "existing"
+      "value": "new"
     },
     "sqlServerUsername": {
-      "value": "dbuser1"
+      "value": "dbuser"
     }
    
 
