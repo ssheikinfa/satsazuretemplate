@@ -12,13 +12,13 @@
       "value": "Robtest12321#"
     },
     "existingStorageRG": {
-      "value": "eicrob"
+      "value": "robtest"
     },
     "azureStorageName": {
       "value": "storagerob"
     },
     "existingVnetRG": {
-      "value": "eicrob"
+      "value": "robtest"
     },
     "informaticaVirtualNetworkName": {
       "value": "vnetrob"
@@ -33,7 +33,7 @@
       "value": "10.8.0.0/24"
     },
     "resourcesDeployLocation": {
-      "value": "West US"
+      "value": "Southeast Asia"
     },
     "informaticaDomainInstanceType": {
       "value": "Standard_D4_v2"

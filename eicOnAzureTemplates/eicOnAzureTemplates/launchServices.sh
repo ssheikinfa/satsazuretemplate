@@ -223,7 +223,7 @@ echo "Enabling Catalog Service..."
 $installedLocation/isp/bin/infacmd.sh enableService -dn $domainName -un $domainUsername -pd $domainPassword -sn $catName
 
 echo "Creating Analyst Service..."
-$installedLocation/isp/bin/infacmd.sh as createService -dn $domainName -nn $domainNode -sn $analystServiceName -un $domainUsername -pd $domainPassword -rs $mrsName -ds $disName -ffl /tmp -cs $catName -csau $domainUsername -csap $domainPassword -au $domainUsername -ap $domainPassword -bgefd /tmp -HttpPort 8089
+$installedLocation/isp/bin/infacmd.sh as createService -dn $domainName -nn $domainNode -sn $analystServiceName -un $domainUsername -pd $domainPassword -rs $mrsName -ds $disName -ffl /tmp -cs $catName -csau $domainUsername -csap $domainPassword -au $domainUsername -ap $domainPassword -bgefd /tmp -HttpPort 6805
 
 echo "Assigning License to Analyst Service..."
 $installedLocation/isp/bin/infacmd.sh  assignLicense -dn $domainName -un $domainUsername -pd $domainPassword -ln $licenseName -sn $analystServiceName

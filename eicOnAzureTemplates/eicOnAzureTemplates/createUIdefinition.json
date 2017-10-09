@@ -146,7 +146,7 @@
           {
             "name": "clusterSize",
             "type": "Microsoft.Common.DropDown",
-            "toolTip": "Based on the size of the data set, select the size of the cluster required. (i) Default (Standard_D4_v2, two nodes) (ii) Small (Standard_D4_v2, three nodes) (iii) Medium (Standard_D4_v2, five nodes) (iv) High (Standard_D4_v2, seven nodes) ",
+            "toolTip": "Based on the size of the data set, select any of the following options to specify the size of the cluster required: (i) Default (Standard_D4_v2, two nodes) (ii) Small (Standard_D4_v2, three nodes) (iii) Medium (Standard_D4_v2, five nodes) (iv) High (Standard_D4_v2, seven nodes) ",
             "defaultValue": "Minimum",
             "label": "Deployment Size",
             "constraints": {
@@ -234,7 +234,7 @@
             "name": "storageAccount",
             "type": "Microsoft.Storage.StorageAccountSelector",
             "label": "Storage account",
-            "toolTip": "Storage account for cluster and virtual machine. Microsoft Azure Storage is a Microsoft-managed cloud service that provides storage that is highly available, secure, durable, scalable, and redundant.",
+            "toolTip": "Storage account for cluster and virtual machine. Microsoft Azure Storage is a managed, high available, secure, and scalable cloud storage service.",
             "defaultValue": {
               "type": "Standard_LRS"
             },
@@ -250,7 +250,7 @@
               "subnets": "Subnets"
             },
             "toolTip": {
-              "virtualNetwork": "Select the existing virtual network based on the subscription and location or create a new virtual network. The Azure Virtual Network service enables you to securely connect Azure resources to each other with virtual networks (VNets). A VNet is a representation of your own network in the cloud. A VNet is a logical isolation of the Azure cloud dedicated to your subscription. You can also connect VNets to your on-premises network.",
+              "virtualNetwork": "Select the existing virtual network based on the subscription and location or create a new virtual network. You can create connections between Azure resources using Virtual Networks (VNet). The Azure Virtual Network service helps you create secure connections between Azure resources. A VNet represents the network in the cloud and you can connect VNets to on-premises networks.",
               "subnets": "Select the subnets that must include all resources like cluster components and VMs."
             },
             "defaultValue": {
