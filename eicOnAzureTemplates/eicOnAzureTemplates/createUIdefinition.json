@@ -146,7 +146,7 @@
           {
             "name": "clusterSize",
             "type": "Microsoft.Common.DropDown",
-            "toolTip": "Based on the size of the data set, select any of the following options to specify the size of the cluster required: (i) Minimum (Standard_D4_v2, two nodes) (ii) Small (Standard_D4_v2, three nodes) (iii) Medium (Standard_D4_v2, five nodes) (iv) Large (Standard_D4_v2, seven nodes) ",
+            "toolTip": "Based on the size of the data set, select any of the following options to specify the size of the cluster required: (i) Minimum (Standard_D4_v2, one node) (ii) Small (Standard_D4_v2, three nodes) (iii) Medium (Standard_D4_v2, five nodes) (iv) Large (Standard_D4_v2, seven nodes) ",
             "defaultValue": "Minimum",
             "label": "Deployment Size",
             "constraints": {
