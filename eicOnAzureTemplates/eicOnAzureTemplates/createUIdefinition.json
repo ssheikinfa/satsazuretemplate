@@ -1,6 +1,6 @@
 ﻿{
   "handler": "Microsoft.Compute.MultiVm",
-  "version": "0.1.2",
+  "version": "0.1.2-preview",
   "parameters": {
     "basics": [
     ],
@@ -34,7 +34,8 @@
             "type": "Microsoft.Common.PasswordBox",
             "toolTip": "Specify the password for the Informatica Administrator username.",
             "label": {
-              "password": "Informatica Administrator Password"
+              "password": "Informatica Administrator Password",
+              "confirmPassword": "Confirm Informatica Administrator Password"
             },
             "constraints": {
               "required": true,
@@ -69,7 +70,6 @@
             "name": "informaticaServerInstanceSize",
             "type": "Microsoft.Compute.SizeSelector",
             "label": "Informatica Domain Instance Type",
-            "defaultValue": "Standard_D5_v2",
             "toolTip": "The size of Informatica domain instance.",
             "recommendedSizes": [
               "Standard_D3_v2",
@@ -218,7 +218,8 @@
             "name": "sqlServerPassword",
             "type": "Microsoft.Common.PasswordBox",
             "label": {
-              "password": "Informatica Database Instance Password"
+              "password": "Informatica Database Instance Password",
+              "confirmPassword": "Confirm Informatica Database Instance Password"
             },
             "constraints": {
               "required": true,
@@ -302,43 +303,6 @@
       "vnetAddressPrefix": "[steps('infraConfiguration').infavnet.addressPrefix]",
       "informaticaSubnetName": "[steps('infraConfiguration').infavnet.subnets.subnet1.name]",
       "subnetPrefix": "[steps('infraConfiguration').infavnet.subnets.subnet1.addressPrefix]"
-
-    },
-    "resourcesDeployLocation": {
-      "value": "West US"
-    },
-    "informaticaAdministratorPassword": {
-      "value": "Robtest12321#"
-    },
-    "informaticaLicenseFullPath": {
-      "value": "https://iaasv2tempstoragehk.blob.core.windows.net/vmextensionstemporary-10033fff8d2bf018-20170926072023298/Both_EIC_BDM_Enabled_2324241_8822.key?sv=2015-04-05\u0026sr=c\u0026sig=3xnpzXXdNr4dKx7v%2FufHEgZ2xmEDqQNQ7NSJ%2FDSWEaU%3D\u0026se=2017-09-27T07%3A20%3A23Z\u0026sp=rw"
-    },
-    "importSampleData": {
-      "value": "false"
-    },
-    "sqlServerPassword": {
-      "value": "Robtest12321#"
-    },
-    "existingStorageRG": {
-      "value": "eicrob"
-    },
-    "azureStorageName": {
-      "value": "storagerob"
-    },
-    "existingVnetRG": {
-      "value": "eicrob"
-    },
-    "informaticaVirtualNetworkName": {
-      "value": "vnetrob"
-    },
-    "vnetAddressPrefix": {
-      "value": "10.8.0.0/24"
-    },
-    "informaticaSubnetName": {
-      "value": "subnetrob"
-    },
-    "subnetPrefix": {
-      "value": "10.8.0.0/24"
     }
   }
 }
