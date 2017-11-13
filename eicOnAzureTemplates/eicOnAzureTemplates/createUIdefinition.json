@@ -20,7 +20,7 @@
 
           {
             "name": "infaDomainUser",
-            "type": "Microsoft.Common.TextBox",
+            "type": "Microsoft.Common.UserNameTextBox",
             "label": "Informatica Administrator Username",
             "defaultValue": "Administrator",
             "toolTip": "Specify the Informatica Administrator username.",
@@ -28,7 +28,9 @@
               "required": true,
               "regex": "^[a-z0-9A-Z_]{3,30}$",
               "validationMessage": "Only alphanumeric characters and underscore are allowed. The value must be 3-30 character long."
-            }
+            },
+            "osPlatform": "Linux",
+            "visible": true
           },
           {
             "name": "infaDomainPassword",
