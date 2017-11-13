@@ -47,6 +47,9 @@
     "azureStorageName": {
       "type": "String"
     },
+    "fullAzureStorageName": {
+      "type": "String"
+    },
     "vnetId": {
       "type": "String"
     },
@@ -90,7 +93,7 @@
         "storageProfile": {
           "storageaccounts": [
             {
-              "name": "[concat(parameters('azureStorageName'),'.blob.core.windows.net')]",
+              "name": "[parameters('fullAzureStorageName')]",
               "isDefault": true,
               "container": "[parameters('hdinsightClusterName')]",
               "key": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('azureStorageName')), variables('defaultApiVersion')).keys[0].value]"

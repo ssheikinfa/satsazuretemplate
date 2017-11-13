@@ -15,10 +15,7 @@
       "type": "object"
     }
   },
-  "variables": {
-    "defaultApiVersion": "2016-01-01",
-    "clusterApiVersion": "2015-03-01-preview"
-  },
+  "variables": {},
   "resources": [
 
     {

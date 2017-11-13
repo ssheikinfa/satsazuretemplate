@@ -2,7 +2,7 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "resourcesDeployLocation": {
+    "location": {
       "defaultValue": "Southeast Asia",
       "type": "String",
       "metadata": {
@@ -95,14 +95,14 @@
     },
     "existingStorageRG": {
       "type": "string",
-      "defaultValue": "",
+      "defaultValue": "resourceGroup().name",
       "metadata": {
         "description": "Existing storage resource group name"
       }
     },
     "azureStorageName": {
       "type": "string",
-      "defaultValue": "infastorage",
+      "defaultValue": "",
       "metadata": {
         "description": "Storage account for cluster and virtual machine."
       }
@@ -120,7 +120,7 @@
     },
     "existingVnetRG": {
       "type": "string",
-      "defaultValue": "",
+      "defaultValue": "resourceGroup().name",
       "metadata": {
         "description": "Existing VNET resource group name"
       }
@@ -170,7 +170,6 @@
   },
   "variables": {
     "baseUri": "[concat(parameters('baseUrl'), '/')]",
-    "resourcesDeployLocation": "[parameters('resourcesDeployLocation')]",
 
 
     "hdinsightClusterDeployTemplateUri": "[concat(variables('baseUri'), 'clusterdeploy.json')]",
@@ -197,9 +196,7 @@
 
     "informaticaDomainHostName": "[toLower(concat('infadomainnode', uniqueString(resourceGroup().id)))]",
     "infaDomainNodeDeployTemplateUri": "[concat(variables('baseUri'), 'infadomainnodedeploy.json')]",
-    "infaDomainNodeLocation": "[parameters('resourcesDeployLocation')]",
-    "informaticaDomainHostImageUri": "https://eicvmforvhdstorage.blob.core.windows.net/system/Microsoft.Compute/Images/vhd/infadomainnode1-osDisk.a1fd3401-caa4-4a49-9805-f61ebcadb830.vhd",
-    "informaticaDomainHostVhdLocation": "https://eicvmforvhdstorage.blob.core.windows.net/linuxvhd11/",
+    "infaDomainNodeLocation": "[parameters('location')]",
     "informaticaDomainHostSshUsername": "sshuser",
     "informaticaDomainHostSshPassword": "[parameters('informaticaAdministratorPassword')]",
     "osVersion": "eicvm",
@@ -209,7 +206,7 @@
 
     "informaticaNetworkSecurityGroupName": "[toLower(concat('infansg', uniqueString(resourceGroup().id)))]",
     "nsgDeployTemplateUri": "[concat(variables('baseUri'), 'networksecuritygroupdeploy.json')]",
-    "nsgLocation": "[parameters('resourcesDeployLocation')]",
+    "nsgLocation": "[parameters('location')]",
 
     "sqlDbDeployUri": "[concat(variables('baseUri'), 'sqldatabasedeploy.json')]",
     "sqlServerName": "[toLower(concat('sqlserver', uniqueString(resourceGroup().id)))]",
@@ -219,8 +216,8 @@
     "domainDbName": "domain",
 
 
-    "azureStorageDeployTemplateUri": "[concat(variables('baseuri'), 'storagedeploy',parameters('storageExistingOrNew'),'.json')]",
-    "azureStorageLocation": "[parameters('resourcesDeployLocation')]",
+    "azureStorageDeployTemplateUri": "[concat(variables('baseuri'), 'storagedeploynew.json')]",
+    "azureStorageLocation": "[parameters('location')]",
     "azureStorageType": "Standard_LRS",
     "storageIDs": {
       "existing": "[resourceId(parameters('existingStorageRG'), 'Microsoft.Storage/storageAccounts', parameters('azureStorageName'))]",
@@ -229,23 +226,24 @@
     "storageID": "[variables('storageIDs')[parameters('storageExistingOrNew')]]",
 
 
-    "virtualNetworkDeployTemplateUri": "[concat(variables('baseuri'), 'virtualnetworkdeploy', parameters('vnetExistingOrNew'),'.json')]",
-    "vnetLocation": "[parameters('resourcesDeployLocation')]",
+    "virtualNetworkDeployTemplateUri": "[concat(variables('baseuri'), 'virtualnetworkdeploynew.json')]",
+    "vnetLocation": "[parameters('location')]",
     "vnetIDs": {
       "existing": "[resourceId(parameters('existingVnetRG'), 'Microsoft.Network/virtualNetworks', parameters('informaticaVirtualNetworkName'))]",
       "new": "[resourceId('Microsoft.Network/virtualNetworks', parameters('informaticaVirtualNetworkName'))]"
     },
     "vnetId": "[variables('vnetIDs')[parameters('vnetExistingOrNew')]]",
-    "subnetId": "[concat(variables('vnetID'), '/subnets/', parameters('informaticaSubnetName'))]",
+    "subnetId": "[resourceId(variables('vnetID'), '/subnets/', parameters('informaticaSubnetName'))]",
     "informaticaVirtualNetworkAddressPrefix": "[parameters('vnetAddressPrefix')]",
     "informaticaSubnetAddressPrefix": "[parameters('subnetPrefix')]"
   },
 
   "resources": [
 
-  
+
     {
       "name": "storageSetup",
+      "condition": "[equals(parameters('storageExistingOrNew'), 'new')]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2016-09-01",
       "dependsOn": [],
@@ -278,11 +276,12 @@
       }
     },
 
-    
-    
+
+
 
     {
       "name": "vnetSetup",
+      "condition": "[equals(parameters('vnetExistingOrNew'), 'new')]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2016-09-01",
       "dependsOn": [],
@@ -385,7 +384,7 @@
             "value": "[variables('hdinsightClusterHostSshPassword')]"
           },
           "clusterDeployLocation": {
-            "value": "[parameters('resourcesDeployLocation')]"
+            "value": "[parameters('location')]"
           },
           "hdinsightClusterType": {
             "value": "[variables('hdinsightClusterType')]"
@@ -410,6 +409,9 @@
           },
           "azureStorageName": {
             "value": "[parameters('azureStorageName')]"
+          },
+          "fullAzureStorageName": {
+            "value": "[reference(concat('Microsoft.Storage/storageAccounts/', parameters('azureStorageName')), '2016-01-01').primaryEndpoints.blob]"
           },
           "vnetId": {
             "value": "[variables('vnetId')]"
@@ -444,7 +446,7 @@
             "value": "[parameters('sqlServerPassword')]"
           },
           "sqlServerDeployLocation": {
-            "value": "[parameters('resourcesDeployLocation')]"
+            "value": "[parameters('location')]"
           },
           "sqlDbDeployUri": {
             "value": "[variables('sqlDbDeployUri')]"
@@ -516,13 +518,7 @@
             "value": "[variables('informaticaNetworkSecurityGroupName')]"
           },
           "azureStorageName": {
-            "value": "[parameters('azureStorageName')]"
-          },
-          "informaticaDomainHostImageUri": {
-            "value": "[variables('informaticaDomainHostImageUri')]"
-          },
-          "informaticaDomainHostVhdLocation": {
-            "value": "[variables('informaticaDomainHostVhdLocation')]"
+            "value": "[reference(concat('Microsoft.Storage/storageAccounts/', parameters('azureStorageName')), '2016-01-01').primaryEndpoints.blob]"
           },
           "informaticaLicenseFullPath": {
             "value": "[parameters('informaticaLicenseFullPath')]"
@@ -534,7 +530,7 @@
             "value": "[parameters('sqlServerPassword')]"
           },
           "sqlServerName": {
-            "value": "[variables('sqlServerName')]"
+            "value": "[reference(concat('Microsoft.Sql/servers/', variables('sqlServerName'))).fullyQualifiedDomainName]"
           },
           "mrsDbName": {
             "value": "[variables('mrsDbName')]"

@@ -13,9 +13,7 @@ javaBinDir=/opt/java/jdk1.8.0_144/bin
 #DB Variables
 dbServerUser=$2
 dbServerPassword=$3
-dbServerName=$4
-dbServerNameSuffix=".database.windows.net"
-dbServerAddress="$dbServerName$dbServerNameSuffix"
+dbServerAddress=$4
 dbServerPort="1433"
 dbAccessSSLSuffix=";encryptionMethod=SSL;ValidateServerCertificate=true"
 dbServerCompleteAddress="$dbServerAddress:$dbServerPort"
