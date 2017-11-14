@@ -47,7 +47,7 @@
     "azureStorageName": {
       "type": "String"
     },
-    "azureStorageId": {
+    "azureStorageFqdn": {
       "type": "String"
     },
     "vnetId": {
@@ -93,7 +93,7 @@
         "storageProfile": {
           "storageaccounts": [
             {
-              "name": "[reference(parameters('azureStorageId')).primaryEndpoints.blob]",
+              "name": "[parameters('azureStorageFqdn')]",
               "isDefault": true,
               "container": "[parameters('hdinsightClusterName')]",
               "key": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('azureStorageName')), variables('defaultApiVersion')).keys[0].value]"

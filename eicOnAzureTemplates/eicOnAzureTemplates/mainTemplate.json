@@ -405,8 +405,8 @@
           "azureStorageName": {
             "value": "[parameters('azureStorageName')]"
           },
-          "azureStorageId": {
-            "value": "[variables('storageID')]"
+          "azureStorageFqdn": {
+            "value": "[reference(variables('storageId')).primaryEndpoints.blob]"
           },
           "vnetId": {
             "value": "[variables('vnetId')]"
@@ -512,8 +512,8 @@
           "informaticaNetworkSecurityGroupName": {
             "value": "[variables('informaticaNetworkSecurityGroupName')]"
           },
-          "azureStorageId": {
-            "value": "[variables('storageID')]"
+          "azureStorageFqdn": {
+            "value": "[reference(variables('storageId')).primaryEndpoints.blob]"
           },
           "informaticaLicenseFullPath": {
             "value": "[parameters('informaticaLicenseFullPath')]"

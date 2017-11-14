@@ -23,7 +23,7 @@
     "informaticaNetworkSecurityGroupName": {
       "type": "String"
     },
-    "azureStorageId": {
+    "azureStorageFqdn": {
       "type": "String"
     },
     "informaticaLicenseFullPath": {
@@ -188,7 +188,7 @@
             "caching": "ReadWrite",
             "createOption": "FromImage",
             "vhd": {
-              "uri": "[concat('https://', reference(parameters('azureStorageId')).primaryEndpoints.blob, '/vhds/', parameters('informaticaDomainHostName'),uniquestring(resourceGroup().id), '.osdisk.vhd')]"
+              "uri": "[concat('https://', parameters('azureStorageFqdn'), '/vhds/', parameters('informaticaDomainHostName'),uniquestring(resourceGroup().id), '.osdisk.vhd')]"
             }
           }
         },
