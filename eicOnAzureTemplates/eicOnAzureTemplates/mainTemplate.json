@@ -222,7 +222,6 @@
     },
     "storageID": "[variables('storageIDs')[parameters('storageExistingOrNew')]]",
 
-
     "virtualNetworkDeployTemplateUri": "[concat(variables('baseuri'), 'virtualnetworkdeploynew.json')]",
     "vnetIDs": {
       "existing": "[resourceId(parameters('existingVnetRG'), 'Microsoft.Network/virtualNetworks', parameters('informaticaVirtualNetworkName'))]",
@@ -406,8 +405,8 @@
           "azureStorageName": {
             "value": "[parameters('azureStorageName')]"
           },
-          "fullAzureStorageName": {
-            "value": "[parameters('azureStorageName')]"
+          "azureStorageId": {
+            "value": "[variables('storageID')]"
           },
           "vnetId": {
             "value": "[variables('vnetId')]"
@@ -513,8 +512,8 @@
           "informaticaNetworkSecurityGroupName": {
             "value": "[variables('informaticaNetworkSecurityGroupName')]"
           },
-          "azureStorageName": {
-            "value": "[reference('Microsoft.Resources/deployments/storageSetup').fullyQualifiedDomainName]"
+          "azureStorageId": {
+            "value": "[variables('storageID')]"
           },
           "informaticaLicenseFullPath": {
             "value": "[parameters('informaticaLicenseFullPath')]"
