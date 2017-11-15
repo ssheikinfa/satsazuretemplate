@@ -21,7 +21,7 @@
       "value": "robtest"
     },
     "informaticaVirtualNetworkName": {
-      "value": "vnetrob1"
+      "value": "vnetrob7"
     },
     "vnetAddressPrefix": {
       "value": "10.8.0.0/24"
@@ -31,9 +31,6 @@
     },
     "subnetPrefix": {
       "value": "10.8.0.0/24"
-    },
-    "location": {
-      "value": "West US"
     },
     "informaticaDomainInstanceType": {
       "value": "Standard_D4_v2"
@@ -45,19 +42,16 @@
       "value": "low"
     },
     "importSampleData": {
-      "value": "false"
+      "value": "true"
     },
     "storageExistingOrNew": {
-      "value": "new"
+      "value": "existing"
     },
     "vnetExistingOrNew": {
-      "value": "new"
+      "value": "existing"
     },
     "sqlServerUsername": {
       "value": "dbuser1"
-    },
-    "location": {
-      "value": "West US"
     }
    
 
