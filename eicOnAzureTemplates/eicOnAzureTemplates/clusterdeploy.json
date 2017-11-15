@@ -58,14 +58,12 @@
     },
     "informaticaTags": {
       "type": "object"
-    },
-    "azureStorageName": {
-      "type": "String"
     }
   },
   "variables": {
     "defaultApiVersion": "2016-01-01",
-    "clusterApiVersion": "2015-03-01-preview"    
+    "clusterApiVersion": "2015-03-01-preview",
+    "formattedStorageName": "[ substring(parameters('azureStorageFqdn'),8,sub(length(parameters('azureStorageFqdn')),9)) ]"
   },
   "resources": [
 
@@ -96,7 +94,7 @@
         "storageProfile": {
           "storageaccounts": [
             {
-              "name": "[concat(parameters('azureStorageName'),'.blob.core.windows.net')]",
+              "name": "[variables('formattedStorageName')]",
               "isDefault": true,
               "container": "[parameters('hdinsightClusterName')]",
               "key": "[listKeys(parameters('azureStorageId'), variables('defaultApiVersion')).keys[0].value]"

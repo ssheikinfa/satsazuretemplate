@@ -408,9 +408,6 @@
           },
           "informaticaTags": {
             "value": "[parameters('informaticaTags')]"
-          },
-          "azureStorageName": {
-            "value": "[parameters('azureStorageName')]"
           }
         }
       }
@@ -465,7 +462,7 @@
         }
       }
     },
-
+    
 
 
     {
