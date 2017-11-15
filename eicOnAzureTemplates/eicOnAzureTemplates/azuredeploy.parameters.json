@@ -15,7 +15,7 @@
       "value": "robtest"
     },
     "azureStorageName": {
-      "value": "rstr"
+      "value": "rststr"
     },
     "existingVnetRG": {
       "value": "robtest"
