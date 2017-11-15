@@ -73,9 +73,75 @@
             "name": "informaticaServerInstanceSize",
             "type": "Microsoft.Compute.SizeSelector",
             "label": "Informatica Domain Instance Type",
+            "visible": "[equals(steps('infaDomainConfiguration').clusterSize, 'default')]",
             "toolTip": "The size of Informatica domain instance.",
             "recommendedSizes": [
               "Standard_D3_v2",
+              "Standard_D4_v2",
+              "Standard_D5_v2"
+            ],
+            "constraints": {
+              "excludedSizes": [
+                "Standard_D2s_v3",
+                "Standard_E2s_v3",
+                "Standard_D2s_v2",
+                "Standard_DS11_v2",
+                "Standard_D11_v2",
+                "Standard_DS11_v2_Promo",
+                "Standard_D11_v2_Promo",
+                "Standard_DS2_v2_Promo",
+                "Standard_D2_v2_Promo",
+                "Standard_B1s",
+                "Standard_B1ms",
+                "Standard_B2ms",
+                "Standard_A2m_v2",
+                "Standard_A5",
+                "Standard_B2s",
+                "Standard_DS11",
+                "Standard_D11",
+                "Standard_GS1",
+                "Standard_G1",
+                "Standard_D2_v3",
+                "Standard_E2_v3",
+                "Standard_D2_v2",
+                "Standard_DS2",
+                "Standard_D2",
+                "Standard_DS2_v2",
+                "Standard_DS1_v2",
+                "Standard_D1_v2",
+                "Standard_DS1",
+                "Standard_D1",
+                "Standard_A1_v2",
+                "Standard_A2_v2",
+                "Standard_A0",
+                "Standard_A1",
+                "Standard_A2",
+                "Standard_F1s",
+                "Standard_F2s",
+                "Standard_F1",
+                "Standard_F2",
+                "Basic_A0",
+                "Basic_A1",
+                "Basic_A2",
+                "Basic_A3"
+              ]
+            },
+            "osPlatform": "Linux",
+            "imageReference": {
+              "publisher": "informatica",
+              "offer": "eic-preview",
+              "sku": "eicvm"
+            }
+          },
+
+
+          {
+            "name": "informaticaServerInstanceSizeMedium",
+            "type": "Microsoft.Compute.SizeSelector",
+            "visible": "[equals(steps('infaDomainConfiguration').clusterSize, 'low')]",
+            "label": "Informatica Domain Instance Type",
+            "toolTip": "The size of Informatica domain instance.",
+            "recommendedSizes": [
               "Standard_D4_v2",
               "Standard_D5_v2"
             ],
