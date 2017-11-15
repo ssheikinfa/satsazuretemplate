@@ -219,12 +219,7 @@
     
 
     "virtualNetworkDeployTemplateUri": "[concat(variables('baseuri'), 'virtualnetworkdeploynew.json')]",
-    "vnetIDs": {
-      "existing": "[resourceId(parameters('existingVnetRG'), 'Microsoft.Network/virtualNetworks', parameters('informaticaVirtualNetworkName'))]",
-      "new": "[resourceId('Microsoft.Network/virtualNetworks', parameters('informaticaVirtualNetworkName'))]"
-    },
-    "vnetId": "[variables('vnetIDs')[parameters('vnetExistingOrNew')]]",
-    "subnetId": "[concat(variables('vnetID'), '/subnets/', parameters('informaticaSubnetName'))]",
+    
     "informaticaVirtualNetworkAddressPrefix": "[parameters('vnetAddressPrefix')]",
     "informaticaSubnetAddressPrefix": "[parameters('subnetPrefix')]"
   },
@@ -271,7 +266,6 @@
 
     {
       "name": "vnetSetup",
-      "condition": "[equals(parameters('vnetExistingOrNew'), 'new')]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2016-09-01",
       "dependsOn": [],
@@ -299,6 +293,9 @@
           },
           "existingVnetRG": {
             "value": "[parameters('existingVnetRG')]"
+          },
+          "vnetExistingOrNew": {
+            "value": "[parameters('vnetExistingOrNew')]"
           },
           "informaticaTags": {
             "value": "[parameters('informaticaTags')]"
@@ -404,10 +401,10 @@
             "value": "[reference('storageSetup').outputs.storageRef.value]"
           },
           "vnetId": {
-            "value": "[variables('vnetId')]"
+            "value": "[reference('vnetSetup').outputs.vnetId.value]"
           },
           "subnetId": {
-            "value": "[variables('subnetId')]"
+            "value": "[reference('vnetSetup').outputs.subnetId.value]"
           },
           "informaticaTags": {
             "value": "[parameters('informaticaTags')]"
@@ -502,7 +499,7 @@
             "value": "[variables('informaticaDomainHostSshPassword')]"
           },
           "subnetId": {
-            "value": "[variables('subnetId')]"
+            "value": "[reference('vnetSetup').outputs.subnetId.value]"
           },
           "informaticaNetworkSecurityGroupName": {
             "value": "[variables('informaticaNetworkSecurityGroupName')]"

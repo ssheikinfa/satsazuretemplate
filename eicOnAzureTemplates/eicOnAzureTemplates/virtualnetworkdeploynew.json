@@ -22,14 +22,23 @@
     },
     "informaticaTags": {
       "type": "object"
+    },
+    "vnetExistingOrNew": {
+      "type": "object"
     }
   },
   "variables": {
-
+    "vnetIDs": {
+      "existing": "[resourceId(parameters('existingVnetRG'), 'Microsoft.Network/virtualNetworks', parameters('informaticaVirtualNetworkName'))]",
+      "new": "[resourceId('Microsoft.Network/virtualNetworks', parameters('informaticaVirtualNetworkName'))]"
+    },
+    "vnetId": "[variables('vnetIDs')[parameters('vnetExistingOrNew')]]",
+    "subnetId": "[concat(variables('vnetID'), '/subnets/', parameters('informaticaSubnetName'))]"
   },
   "resources": [
     {
       "name": "[parameters('informaticaVirtualNetworkName')]",
+      "condition": "[equals(parameters('vnetExistingOrNew'), 'new')]",
       "type": "Microsoft.Network/virtualNetworks",
       "location": "[parameters('vnetLocation')]",
       "apiVersion": "2016-10-01",
@@ -59,7 +68,11 @@
   ],
   "outputs": {
     "vnetId": {
-      "value": "[resourceId('Microsoft.Network/virtualNetworks', parameters('informaticaVirtualNetworkName'))]",
+      "value": "[variables('vnetId')]",
+      "type": "string"
+    },
+    "subnetId": {
+      "value": "[variables('subnetId')]",
       "type": "string"
     }
   }
