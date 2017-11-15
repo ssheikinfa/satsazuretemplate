@@ -54,7 +54,7 @@
       "type": "string"
     },
     "storageRef": {
-      "value": "[reference(variables('storageID'))]",
+      "value": "[reference(variables('storageID'),variables('apiVersion')).primaryEndpoints.blob]",
       "type": "string"
     }
   }
