@@ -53,7 +53,7 @@
       "value": "[variables('storageID')]",
       "type": "string"
     },
-    "storageRef": {
+    "storageFqdn": {
       "value": "[reference(variables('storageID'),variables('apiVersion')).primaryEndpoints.blob]",
       "type": "string"
     }

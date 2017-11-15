@@ -132,8 +132,8 @@
     }
   ],
   "outputs": {
-    "sqlServerId": {
-      "value": "[resourceId('Microsoft.Sql/servers', variables('sqlServerName'))]",
+    "sqlServerFqdn": {
+      "value": "[reference(resourceId('Microsoft.Sql/servers', variables('sqlServerName'))).fullyQualifiedDomainName]",
       "type": "string"
     }
   }

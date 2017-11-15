@@ -398,7 +398,7 @@
             "value": "[reference('storageSetup').outputs.storageId.value]"
           },
           "azureStorageFqdn": {
-            "value": "[reference('storageSetup').outputs.storageRef.value]"
+            "value": "[reference('storageSetup').outputs.storageFqdn.value]"
           },
           "vnetId": {
             "value": "[reference('vnetSetup').outputs.vnetId.value]"
@@ -505,7 +505,7 @@
             "value": "[variables('informaticaNetworkSecurityGroupName')]"
           },
           "azureStorageFqdn": {
-            "value": "[reference('storageSetup').outputs.storageRef.value]"
+            "value": "[reference('storageSetup').outputs.storageFqdn.value]"
           },
           "informaticaLicenseFullPath": {
             "value": "[parameters('informaticaLicenseFullPath')]"
@@ -517,7 +517,7 @@
             "value": "[parameters('sqlServerPassword')]"
           },
           "sqlServerName": {
-            "value": "[reference('Microsoft.Resources/deployments/dbSetup').fullyQualifiedDomainName]"
+            "value": "[reference('dbSetup').outputs.sqlServerFqdn.value]"
           },
           "mrsDbName": {
             "value": "[variables('mrsDbName')]"
