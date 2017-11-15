@@ -24,7 +24,7 @@
       "type": "object"
     },
     "vnetExistingOrNew": {
-      "type": "object"
+      "type": "string"
     }
   },
   "variables": {
