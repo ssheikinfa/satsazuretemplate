@@ -21,7 +21,7 @@
       "value": "robtest"
     },
     "informaticaVirtualNetworkName": {
-      "value": "vnetrob"
+      "value": "vnetrob1"
     },
     "vnetAddressPrefix": {
       "value": "10.8.0.0/24"

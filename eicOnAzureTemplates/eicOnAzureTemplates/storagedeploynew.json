@@ -17,12 +17,17 @@
     "informaticaTags": {
       "type": "object"
     },
-    "storageID": {
+    "storageExistingOrNew": {
       "type": "string"
     }
   },
   "variables": {
-    "apiVersion": "2016-01-01"
+    "apiVersion": "2016-01-01",
+    "storageIDs": {
+      "existing": "[resourceId(parameters('existingStorageRG'), 'Microsoft.Storage/storageAccounts', parameters('azureStorageName'))]",
+      "new": "[resourceId('Microsoft.Storage/storageAccounts', parameters('azureStorageName'))]"
+    },
+    "storageID": "[variables('storageIDs')[parameters('storageExistingOrNew')]]"
   },
   "resources": [
     {
@@ -30,6 +35,7 @@
       "sku": {
         "name": "[parameters('azureStorageType')]"
       },
+      "condition": "[equals(parameters('storageExistingOrNew'), 'new')]",
       "kind": "Storage",
       "apiVersion": "[variables('apiVersion')]",
       "name": "[parameters('azureStorageName')]",
@@ -44,11 +50,11 @@
   ],
   "outputs": {
     "storageId": {
-      "value": "[resourceId('Microsoft.Storage/storageAccounts', parameters('azureStorageName'))]",
+      "value": "[variables('storageID')]",
       "type": "string"
     },
     "storageRef": {
-      "value": "[reference(resourceId('Microsoft.Storage/storageAccounts', parameters('azureStorageName'))).primaryEndpoints.blob]",
+      "value": "[reference(variables('storageID')).primaryEndpoints.blob]",
       "type": "string"
     }
   }

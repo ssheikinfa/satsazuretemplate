@@ -216,11 +216,7 @@
 
     "azureStorageDeployTemplateUri": "[concat(variables('baseuri'), 'storagedeploynew.json')]",
     "azureStorageType": "Standard_LRS",
-    "storageIDs": {
-      "existing": "[resourceId(parameters('existingStorageRG'), 'Microsoft.Storage/storageAccounts', parameters('azureStorageName'))]",
-      "new": "[resourceId('Microsoft.Storage/storageAccounts', parameters('azureStorageName'))]"
-    },
-    "storageID": "[variables('storageIDs')[parameters('storageExistingOrNew')]]",
+    
 
     "virtualNetworkDeployTemplateUri": "[concat(variables('baseuri'), 'virtualnetworkdeploynew.json')]",
     "vnetIDs": {
@@ -238,7 +234,6 @@
 
     {
       "name": "storageSetup",
-      "condition": "[equals(parameters('storageExistingOrNew'), 'new')]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2016-09-01",
       "dependsOn": [],
@@ -264,8 +259,8 @@
           "informaticaTags": {
             "value": "[parameters('informaticaTags')]"
           },
-          "storageID": {
-            "value": "[variables('storageID')]"
+          "storageExistingOrNew": {
+            "value": "[parameters('storageExistingOrNew')]"
           }
         }
       }
@@ -406,7 +401,7 @@
             "value": "[parameters('azureStorageName')]"
           },
           "azureStorageFqdn": {
-            "value": "[reference(variables('storageId')).primaryEndpoints.blob]"
+            "value": "[reference('storageSetup').outputs.storageRef.value]"
           },
           "vnetId": {
             "value": "[variables('vnetId')]"
@@ -513,7 +508,7 @@
             "value": "[variables('informaticaNetworkSecurityGroupName')]"
           },
           "azureStorageFqdn": {
-            "value": "[reference(variables('storageId')).primaryEndpoints.blob]"
+            "value": "[reference('storageSetup').outputs.storageRef.value]"
           },
           "informaticaLicenseFullPath": {
             "value": "[parameters('informaticaLicenseFullPath')]"
