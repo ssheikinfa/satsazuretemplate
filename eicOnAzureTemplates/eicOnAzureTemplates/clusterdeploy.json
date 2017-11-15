@@ -58,6 +58,9 @@
     },
     "informaticaTags": {
       "type": "object"
+    },
+    "azureStorageName": {
+      "type": "String"
     }
   },
   "variables": {
@@ -93,7 +96,7 @@
         "storageProfile": {
           "storageaccounts": [
             {
-              "name": "[parameters('azureStorageFqdn')]",
+              "name": "[concat(parameters('azureStorageName'),'.blob.core.windows.net')]",
               "isDefault": true,
               "container": "[parameters('hdinsightClusterName')]",
               "key": "[listKeys(parameters('azureStorageId'), variables('defaultApiVersion')).keys[0].value]"
