@@ -44,7 +44,7 @@
     "hdinsightClusterZookeeperNodeType": {
       "type": "String"
     },
-    "azureStorageName": {
+    "azureStorageId": {
       "type": "String"
     },
     "azureStorageFqdn": {
@@ -96,7 +96,7 @@
               "name": "[parameters('azureStorageFqdn')]",
               "isDefault": true,
               "container": "[parameters('hdinsightClusterName')]",
-              "key": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('azureStorageName')), variables('defaultApiVersion')).keys[0].value]"
+              "key": "[listKeys(parameters('azureStorageId'), variables('defaultApiVersion')).keys[0].value]"
             }
           ]
         },

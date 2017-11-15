@@ -394,8 +394,8 @@
           "hdinsightClusterZookeeperNodeType": {
             "value": "[variables('hdinsightClusterZookeeperNodeType')]"
           },
-          "azureStorageName": {
-            "value": "[parameters('azureStorageName')]"
+          "azureStorageId": {
+            "value": "[reference('storageSetup').outputs.storageId.value]"
           },
           "azureStorageFqdn": {
             "value": "[reference('storageSetup').outputs.storageRef.value]"
