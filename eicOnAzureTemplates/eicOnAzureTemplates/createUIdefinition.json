@@ -108,7 +108,6 @@
               "Standard_D5_v2"
             ],
             "constraints": {
-              "required": false,
               "excludedSizes": [
                 "Standard_D2s_v3",
                 "Standard_E2s_v3",
@@ -171,11 +170,10 @@
             "toolTip": "The size of Informatica domain instance.",
             "recommendedSizes": [
               "Standard_D4_v2",
-              "Standard_D3_v2",
-              "Standard_D5_v2"
+              "Standard_D5_v2",
+              "Standard_D13_v2"
             ],
             "constraints": {
-              "required": false,
               "excludedSizes": [
                 "Standard_D2s_v3",
                 "Standard_E2s_v3",
@@ -228,6 +226,96 @@
               "sku": "eicvm"
             }
           },
+
+          {
+            "name": "clusterHeadNodeInstanceSizeLarge",
+            "type": "Microsoft.Compute.SizeSelector",
+            "visible": "[equals(steps('infaDomainConfiguration').clusterSize, 'high')]",
+            "label": "Cluster Head Node Instance Type",
+            "toolTip": "The size of cluster head node instance.",
+            "recommendedSizes": [
+              "Standard_D4_v2",
+              "Standard_D5_v2",
+              "Standard_D13_v2"
+            ],
+            "constraints": {
+              "allowedSizes": [
+                "Standard_D4",
+                "Standard_D13",
+                "Standard_D14",
+                "Standard_D4_v2",
+                "Standard_D5_v2",
+                "Standard_D13_v2",
+                "Standard_D14_v2",
+                "Standard_A7",
+                "Standard_A10",
+                "Standard_A11"
+              ]
+            },
+            "osPlatform": "Linux"
+          },
+
+
+          {
+            "name": "clusterHeadNodeInstanceSizeOther",
+            "type": "Microsoft.Compute.SizeSelector",
+            "visible": "[not(equals(steps('infaDomainConfiguration').clusterSize, 'high'))]",
+            "label": "Cluster Head Node Instance Type",
+            "toolTip": "The size of cluster head node instance.",
+            "recommendedSizes": [
+              "Standard_D3_v2",
+              "Standard_D4_v2",
+              "Standard_D5_v2"
+            ],
+            "constraints": {
+              "allowedSizes": [
+                "Standard_D3",
+                "Standard_D4",
+                "Standard_D12",
+                "Standard_D13",
+                "Standard_D14",
+                "Standard_D4_v2",
+                "Standard_D5_v2",
+                "Standard_D12_v2",
+                "Standard_D13_v2",
+                "Standard_D14_v2",
+                "Standard_A4",
+                "Standard_A6",
+                "Standard_A7",
+                "Standard_A10",
+                "Standard_A11"
+              ]
+            },
+            "osPlatform": "Linux"
+          },
+
+          {
+            "name": "clusterWorkerNodeInstanceSize",
+            "type": "Microsoft.Compute.SizeSelector",
+            "label": "Cluster Worker Node Instance Type",
+            "toolTip": "The size of cluster worker node instance.",
+            "recommendedSizes": [
+              "Standard_D4_v2",
+              "Standard_D5_v2",
+              "Standard_D13_v2"
+            ],
+            "constraints": {
+              "allowedSizes": [
+                "Standard_D4",
+                "Standard_D13",
+                "Standard_D14",
+                "Standard_D4_v2",
+                "Standard_D5_v2",
+                "Standard_D13_v2",
+                "Standard_D14_v2",
+                "Standard_A7",
+                "Standard_A10",
+                "Standard_A11"
+              ]
+            },
+            "osPlatform": "Linux"
+          },
+
 
           {
             "name": "allowedIpRange",
@@ -359,9 +447,11 @@
       "informaticaAdministratorUsername": "[steps('infaDomainConfiguration').infaDomainUser]",
       "informaticaAdministratorPassword": "[steps('infaDomainConfiguration').infaDomainPassword]",
       "informaticaLicenseFullPath": "[steps('infaDomainConfiguration').infaDomainLicense]",
-      "informaticaDomainInstanceType": "[steps('infaDomainConfiguration').informaticaServerInstanceSize]",
-      "allowedIpRange": "[steps('infaDomainConfiguration').allowedIpRange]",
       "loadType": "[steps('infaDomainConfiguration').clusterSize]",
+      "informaticaDomainInstanceType": "[coalesce(steps('infaDomainConfiguration').informaticaServerInstanceSizeMinimum,steps('infaDomainConfiguration').informaticaServerInstanceSizeOther)]",
+      "clusterHeadNodeInstanceType": "[coalesce(steps('infaDomainConfiguration').clusterHeadNodeInstanceSizeLarge,steps('infaDomainConfiguration').clusterHeadNodeInstanceSizeOther)]",
+      "clusterWorkerNodeInstanceType": "[steps('infaDomainConfiguration').clusterWorkerNodeInstanceSize]",
+      "allowedIpRange": "[steps('infaDomainConfiguration').allowedIpRange]",
       "importSampleData": "[steps('infaDomainConfiguration').importSampleContents]",
 
       "sqlServerUsername": "[steps('infraConfiguration').sqlServerUsername]",
