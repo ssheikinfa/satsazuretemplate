@@ -169,7 +169,7 @@
             "label": "Informatica Domain Instance Type",
             "toolTip": "The size of Informatica domain instance.",
             "recommendedSizes": [
-              "[if(equals(steps('infaDomainConfiguration').clusterSize, 'low'),'Standard_D5_v2', 'Standard_D4_v2')]",
+              
               "Standard_D3_v2",
               "Standard_D5_v2"
             ],
