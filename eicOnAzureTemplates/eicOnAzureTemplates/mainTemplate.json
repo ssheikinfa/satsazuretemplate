@@ -60,14 +60,14 @@
       "defaultValue": "Standard_D4_v2",
       "type": "String",
       "metadata": {
-        "description": "The size of Informatica domain instance."
+        "description": "The size of cluster head node instance."
       }
     },
     "clusterWorkerNodeInstanceType": {
       "defaultValue": "Standard_D4_v2",
       "type": "String",
       "metadata": {
-        "description": "The size of Informatica domain instance."
+        "description": "The size of cluster worker node instance."
       }
     },
     "importSampleData": {
