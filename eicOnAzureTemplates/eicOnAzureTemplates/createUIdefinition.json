@@ -108,6 +108,7 @@
               "Standard_D5_v2"
             ],
             "constraints": {
+              "required": false,
               "excludedSizes": [
                 "Standard_D2s_v3",
                 "Standard_E2s_v3",
@@ -174,6 +175,7 @@
               "Standard_D5_v2"
             ],
             "constraints": {
+              "required": false,
               "excludedSizes": [
                 "Standard_D2s_v3",
                 "Standard_E2s_v3",
