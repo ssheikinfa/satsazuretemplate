@@ -97,7 +97,7 @@
           },
 
           {
-            "name": "informaticaServerInstanceSize",
+            "name": "informaticaServerInstanceSizeMinimum",
             "type": "Microsoft.Compute.SizeSelector",
             "label": "Informatica Domain Instance Type",
             "visible": "[equals(steps('infaDomainConfiguration').clusterSize, 'default')]",
@@ -163,13 +163,13 @@
 
 
           {
-            "name": "informaticaServerInstanceSizeMedium",
+            "name": "informaticaServerInstanceSizeOther",
             "type": "Microsoft.Compute.SizeSelector",
-            "visible": "[equals(steps('infaDomainConfiguration').clusterSize, 'low')]",
+            "visible": "[not(equals(steps('infaDomainConfiguration').clusterSize, 'default'))]",
             "label": "Informatica Domain Instance Type",
             "toolTip": "The size of Informatica domain instance.",
             "recommendedSizes": [
-              
+              "Standard_D4_v2",
               "Standard_D3_v2",
               "Standard_D5_v2"
             ],
