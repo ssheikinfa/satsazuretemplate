@@ -68,6 +68,33 @@
             "visible": true
           },
 
+          {
+            "name": "clusterSize",
+            "type": "Microsoft.Common.DropDown",
+            "toolTip": "Based on the size of the data set, select any of the following options to specify the size of the cluster required: (i) Minimum (Standard_D4_v2, one node) (ii) Small (Standard_D4_v2, three nodes) (iii) Medium (Standard_D4_v2, five nodes) (iv) Large (Standard_D4_v2, seven nodes) ",
+            "defaultValue": "Minimum",
+            "label": "Deployment Size",
+            "constraints": {
+              "allowedValues": [
+                {
+                  "label": "Minimum",
+                  "value": "default"
+                },
+                {
+                  "label": "Small",
+                  "value": "low"
+                },
+                {
+                  "label": "Medium",
+                  "value": "medium"
+                },
+                {
+                  "label": "Large",
+                  "value": "high"
+                }
+              ]
+            }
+          },
 
           {
             "name": "informaticaServerInstanceSize",
@@ -142,7 +169,8 @@
             "label": "Informatica Domain Instance Type",
             "toolTip": "The size of Informatica domain instance.",
             "recommendedSizes": [
-              "Standard_D4_v2",
+              "[if(equals(steps('infaDomainConfiguration').clusterSize, 'low'),'Standard_D5_v2', 'Standard_D4_v2')]",
+              "Standard_D3_v2",
               "Standard_D5_v2"
             ],
             "constraints": {
@@ -212,33 +240,6 @@
             }
           },
 
-          {
-            "name": "clusterSize",
-            "type": "Microsoft.Common.DropDown",
-            "toolTip": "Based on the size of the data set, select any of the following options to specify the size of the cluster required: (i) Minimum (Standard_D4_v2, one node) (ii) Small (Standard_D4_v2, three nodes) (iii) Medium (Standard_D4_v2, five nodes) (iv) Large (Standard_D4_v2, seven nodes) ",
-            "defaultValue": "Minimum",
-            "label": "Deployment Size",
-            "constraints": {
-              "allowedValues": [
-                {
-                  "label": "Minimum",
-                  "value": "default"
-                },
-                {
-                  "label": "Small",
-                  "value": "low"
-                },
-                {
-                  "label": "Medium",
-                  "value": "medium"
-                },
-                {
-                  "label": "Large",
-                  "value": "high"
-                }
-              ]
-            }
-          },
           {
             "name": "importSampleContents",
             "type": "Microsoft.Common.DropDown",
