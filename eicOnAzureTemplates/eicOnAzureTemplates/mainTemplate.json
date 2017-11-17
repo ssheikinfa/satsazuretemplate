@@ -30,7 +30,7 @@
       }
     },
     "informaticaDomainInstanceType": {
-      "defaultValue": "Standard_D5_v2",
+      "defaultValue": "Standard_D4_v2",
       "type": "String",
       "metadata": {
         "description": "The size of Informatica domain instance."
@@ -54,6 +54,20 @@
       "defaultValue": "default",
       "metadata": {
         "description": "Based on the size of the data set, select the size of the cluster required. (i) Default (Standard_D4_v2, two nodes) (ii) Small (Standard_D4_v2, three nodes) (iii) Medium (Standard_D4_v2, five nodes) (iv) High (Standard_D4_v2, seven nodes) "
+      }
+    },
+    "clusterHeadNodeInstanceType": {
+      "defaultValue": "Standard_D4_v2",
+      "type": "String",
+      "metadata": {
+        "description": "The size of Informatica domain instance."
+      }
+    },
+    "clusterWorkerNodeInstanceType": {
+      "defaultValue": "Standard_D4_v2",
+      "type": "String",
+      "metadata": {
+        "description": "The size of Informatica domain instance."
       }
     },
     "importSampleData": {
@@ -185,8 +199,8 @@
     },
     "hdinsightClusterWorkerNodeCount": "[variables('clusterWorkerNodeCounts')[parameters('loadType')]]",
     "hdinsightClusterHeadNodeCount": "2",
-    "hdinsightClusterHeadNodeType": "Standard_D3_v2",
-    "hdinsightClusterWorkerNodeType": "Standard_D4_v2",
+    "hdinsightClusterHeadNodeType": "[parameters('clusterHeadNodeInstanceType')]",
+    "hdinsightClusterWorkerNodeType": "[parameters('clusterWorkerNodeInstanceType')]",
     "hdinsightClusterZookeeperNodeCount": "3",
     "hdinsightClusterZookeeperNodeType": "Small",
     "hdinsightClusterVersion": "3.5",
