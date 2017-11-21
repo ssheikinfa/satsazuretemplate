@@ -217,22 +217,7 @@
             }
           ]
         }
-      },
-      "resources": [
-        {
-          "name": "scriptExtension",
-          "type": "extensions",
-          "location": "[parameters('infaDomainNodeLocation')]",
-          "apiVersion": "2015-06-15",
-          "tags": {
-            "displayName": "vmscriptext",
-            "provider": "[toUpper(parameters('informaticaTags').provider)]"
-          },
-          "dependsOn": [
-            "[concat('Microsoft.Compute/virtualMachines/', parameters('informaticaDomainHostName'))]"
-          ]
-        }
-      ]
+      }
     }
 
   ],

@@ -15,31 +15,31 @@
       "value": "robtest"
     },
     "azureStorageName": {
-      "value": "strrob7"
+      "value": "rbstr77"
     },
     "existingVnetRG": {
       "value": "robtest"
     },
     "informaticaVirtualNetworkName": {
-      "value": "vnetrb7"
+      "value": "vnetr2"
     },
     "vnetAddressPrefix": {
       "value": "10.7.0.0/24"
     },
     "informaticaSubnetName": {
-      "value": "rsubnet1"
+      "value": "rsubne"
     },
     "subnetPrefix": {
       "value": "10.7.0.0/24"
     },
     "informaticaDomainInstanceType": {
-      "value": "Standard_D3_v2"
+      "value": "Standard_D4_v2"
     },
     "allowedIpRange": {
       "value": "*"
     },
     "loadType": {
-      "value": "default"
+      "value": "low"
     },
     "importSampleData": {
       "value": "true"
