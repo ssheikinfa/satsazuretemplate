@@ -446,7 +446,7 @@
     "outputs": {
 
 
-      "resourcesDeployLocation": "[location()]",
+      "location": "[location()]",
       "informaticaAdministratorUsername": "[steps('infaDomainConfiguration').infaDomainUser]",
       "informaticaAdministratorPassword": "[steps('infaDomainConfiguration').infaDomainPassword]",
       "informaticaLicenseFullPath": "[steps('infaDomainConfiguration').infaDomainLicense]",
