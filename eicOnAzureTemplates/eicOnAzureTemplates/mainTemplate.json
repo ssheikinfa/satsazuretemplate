@@ -209,7 +209,7 @@
 
 
     "informaticaDomainHostName": "[toLower(concat('infadomainnode', uniqueString(resourceGroup().id)))]",
-    "infaDomainNodeDeployTemplateUri": "[concat(variables('baseUri'), 'linuxVMDeployForTest.json')]",
+    "infaDomainNodeDeployTemplateUri": "[concat(variables('baseUri'), 'infadomainnodedeploy.json')]",
     "informaticaDomainHostSshUsername": "sshuser",
     "informaticaDomainHostSshPassword": "[parameters('informaticaAdministratorPassword')]",
     "osVersion": "eicvm",
