@@ -262,7 +262,7 @@
           "azureStorageType": {
             "value": "[variables('azureStorageType')]"
           },
-          "existingStorageRG": {
+          "azureStorageRG": {
             "value": "[parameters('azureStorageRG')]"
           },
           "informaticaTags": {
@@ -305,7 +305,7 @@
           "informaticaSubnetAddressPrefix": {
             "value": "[variables('informaticaSubnetAddressPrefix')]"
           },
-          "existingVnetRG": {
+          "vnetRG": {
             "value": "[parameters('vnetRG')]"
           },
           "vnetExistingOrNew": {

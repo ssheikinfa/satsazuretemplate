@@ -11,13 +11,13 @@
     "sqlServerPassword": {
       "value": "Robtest12321#"
     },
-    "existingStorageRG": {
+    "azureStorageRG": {
       "value": "robtest"
     },
     "azureStorageName": {
-      "value": "rbstr717"
+      "value": "rbs77"
     },
-    "existingVnetRG": {
+    "vnetRG": {
       "value": "robtest"
     },
     "informaticaVirtualNetworkName": {
