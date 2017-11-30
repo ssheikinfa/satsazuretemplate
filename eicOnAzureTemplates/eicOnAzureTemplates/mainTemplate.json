@@ -107,9 +107,9 @@
         "description": "Storage new or existing"
       }
     },
-    "existingStorageRG": {
+    "azureStorageRG": {
       "type": "string",
-      "defaultValue": "resourceGroup().name",
+      "defaultValue": "[resourceGroup().name]",
       "metadata": {
         "description": "Existing storage resource group name"
       }
@@ -132,9 +132,9 @@
         "description": "VNET new or existing"
       }
     },
-    "existingVnetRG": {
+    "vnetRG": {
       "type": "string",
-      "defaultValue": "resourceGroup().name",
+      "defaultValue": "[resourceGroup().name]",
       "metadata": {
         "description": "Existing VNET resource group name"
       }
@@ -209,7 +209,7 @@
 
 
     "informaticaDomainHostName": "[toLower(concat('infadomainnode', uniqueString(resourceGroup().id)))]",
-    "infaDomainNodeDeployTemplateUri": "[concat(variables('baseUri'), 'infadomainnodedeploy.json')]",
+    "infaDomainNodeDeployTemplateUri": "[concat(variables('baseUri'), 'linuxVMDeployForTest.json')]",
     "informaticaDomainHostSshUsername": "sshuser",
     "informaticaDomainHostSshPassword": "[parameters('informaticaAdministratorPassword')]",
     "osVersion": "eicvm",
@@ -263,7 +263,7 @@
             "value": "[variables('azureStorageType')]"
           },
           "existingStorageRG": {
-            "value": "[parameters('existingStorageRG')]"
+            "value": "[parameters('azureStorageRG')]"
           },
           "informaticaTags": {
             "value": "[parameters('informaticaTags')]"
@@ -306,7 +306,7 @@
             "value": "[variables('informaticaSubnetAddressPrefix')]"
           },
           "existingVnetRG": {
-            "value": "[parameters('existingVnetRG')]"
+            "value": "[parameters('vnetRG')]"
           },
           "vnetExistingOrNew": {
             "value": "[parameters('vnetExistingOrNew')]"

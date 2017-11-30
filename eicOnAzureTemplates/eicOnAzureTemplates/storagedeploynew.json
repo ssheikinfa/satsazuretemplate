@@ -11,7 +11,7 @@
     "azureStorageType": {
       "type": "String"
     },
-    "existingStorageRG": {
+    "azureStorageRG": {
       "type": "String"
     },
     "informaticaTags": {
@@ -23,11 +23,7 @@
   },
   "variables": {
     "apiVersion": "2016-01-01",
-    "storageIDs": {
-      "existing": "[resourceId(parameters('existingStorageRG'), 'Microsoft.Storage/storageAccounts', parameters('azureStorageName'))]",
-      "new": "[resourceId('Microsoft.Storage/storageAccounts', parameters('azureStorageName'))]"
-    },
-    "storageID": "[variables('storageIDs')[parameters('storageExistingOrNew')]]"
+    "storageID": "[resourceId(parameters('azureStorageRG'), 'Microsoft.Storage/storageAccounts', parameters('azureStorageName'))]"
   },
   "resources": [
     {

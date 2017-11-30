@@ -17,7 +17,7 @@
     "informaticaSubnetAddressPrefix": {
       "type": "string"
     },
-    "existingVnetRG": {
+    "vnetRG": {
       "type": "string"
     },
     "informaticaTags": {
@@ -28,12 +28,8 @@
     }
   },
   "variables": {
-    "vnetIDs": {
-      "existing": "[resourceId(parameters('existingVnetRG'), 'Microsoft.Network/virtualNetworks', parameters('informaticaVirtualNetworkName'))]",
-      "new": "[resourceId('Microsoft.Network/virtualNetworks', parameters('informaticaVirtualNetworkName'))]"
-    },
-    "vnetId": "[variables('vnetIDs')[parameters('vnetExistingOrNew')]]",
-    "subnetId": "[concat(variables('vnetID'), '/subnets/', parameters('informaticaSubnetName'))]"
+    "vnetId": "[resourceId(parameters('vnetRG'), 'Microsoft.Network/virtualNetworks', parameters('informaticaVirtualNetworkName'))]",
+    "subnetId": "[resourceId(parameters('vnetRG'),'Microsoft.Network/virtualNetworks/subnets',parameters('informaticaVirtualNetworkName'),parameters('informaticaSubnetName'))]"
   },
   "resources": [
     {
