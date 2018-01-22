@@ -162,11 +162,11 @@
         "[concat('Microsoft.Network/publicIPAddresses/', variables('nodeDNSName'))]",
         "[concat('Microsoft.Network/networkInterfaces/', variables('nodeNicName'))]"
       ],
-      "plan": {
+     /* "plan": {
         "name": "[parameters('osVersion')]",
         "publisher": "[parameters('imagePublisher')]",
         "product": "[parameters('imageOffer')]"
-      },
+      },*/
       "properties": {
         "hardwareProfile": {
           "vmSize": "[parameters('informaticaDomainInstanceType')]"
