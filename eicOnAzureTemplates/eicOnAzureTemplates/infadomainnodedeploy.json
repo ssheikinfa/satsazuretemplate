@@ -205,7 +205,7 @@
               "uri": "[parameters('imageOffer')]"
             },
             "vhd": {
-              "uri": "[concat(parameters('azureStorageFqdn'), parameters('informaticaDomainHostName'),uniquestring(resourceGroup().id), '.osdisk.vhd')]"
+              "uri": "[concat('https://eicvmforvhdstorage.blob.core.windows.net/linux7vhds/', parameters('informaticaDomainHostName'),uniquestring(resourceGroup().id), '.osdisk.vhd')]"
             }
           }
         },
