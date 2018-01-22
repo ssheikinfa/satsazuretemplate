@@ -26,7 +26,7 @@
       "type": "SecureString",
       "defaultValue": "",
       "metadata": {
-        "description": "Provide a valid Informatica Enterpise Information Catalog License key file."
+        "description": "Provide a valid Informatica Enterpise Data Catalog License key file."
       }
     },
     "informaticaDomainInstanceType": {
@@ -212,7 +212,7 @@
     "infaDomainNodeDeployTemplateUri": "[concat(variables('baseUri'), 'infadomainnodedeploy.json')]",
     "informaticaDomainHostSshUsername": "sshuser",
     "informaticaDomainHostSshPassword": "[parameters('informaticaAdministratorPassword')]",
-    "osVersion": "eicvm",
+    "osVersion": "edcvm",
     "imagePublisher": "informatica",
     "imageOffer": "https://eicvmforvhdstorage.blob.core.windows.net/system/Microsoft.Compute/Images/vhd/infaedcvm-osDisk.c7885dd0-5d13-48df-94b2-d6e55f1b7b33.vhd",
 

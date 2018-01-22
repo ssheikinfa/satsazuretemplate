@@ -1,5 +1,5 @@
 #!/bin/bash
-#Purpose: To install EIC services
+#Purpose: To install EDC services
 #Author: robsharm
 
 #Installer Variables

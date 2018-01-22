@@ -7,7 +7,7 @@
     ],
     "steps": [
       {
-        "label": "Informatica Enterprise Information Catalog",
+        "label": "Informatica Enterprise Data Catalog",
         "name": "infaDomainConfiguration",
         "subLabel": {
           "preValidation": "Configure Settings",
@@ -15,7 +15,7 @@
         },
 
 
-        "bladeTitle": "Informatica Enterprise Information Catalog",
+        "bladeTitle": "Informatica Enterprise Data Catalog",
         "elements": [
 
           {
@@ -53,8 +53,8 @@
           {
             "name": "infaDomainLicense",
             "type": "Microsoft.Common.FileUpload",
-            "label": "Informatica Enterpise Information Catalog License Key",
-            "toolTip": "Provide a valid Informatica Enterpise Information Catalog License key file.",
+            "label": "Informatica Enterpise Data Catalog License Key",
+            "toolTip": "Provide a valid Informatica Enterpise Data Catalog License key file.",
             "constraints": {
               "required": true,
               "accept": ".key"
@@ -157,8 +157,8 @@
             "osPlatform": "Linux",
             "imageReference": {
               "publisher": "informatica",
-              "offer": "eic-preview",
-              "sku": "eicvm"
+              "offer": "edc",
+              "sku": "edcvm"
             }
           },
 
@@ -223,8 +223,8 @@
             "osPlatform": "Linux",
             "imageReference": {
               "publisher": "informatica",
-              "offer": "eic-preview",
-              "sku": "eicvm"
+              "offer": "edc",
+              "sku": "edcvm"
             }
           },
 
