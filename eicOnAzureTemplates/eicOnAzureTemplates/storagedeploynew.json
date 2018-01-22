@@ -40,7 +40,16 @@
         "displayName": "storage",
         "provider": "[toUpper(parameters('informaticaTags').provider)]"
       },
-      "properties": {},
+      "properties": {
+        "encryption": {
+          "keySource": "Microsoft.Storage",
+          "services": {
+            "blob": {
+              "enabled": "true"
+            }
+          }
+        }
+      },
       "dependsOn": []
     }
   ],

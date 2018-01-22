@@ -176,7 +176,7 @@
           "adminUsername": "[parameters('informaticaDomainHostSshUsername')]",
           "adminPassword": "[parameters('informaticaDomainHostSshPassword')]"
         },
-        "storageProfile": {
+       /* "storageProfile": {
           "imageReference": {
             "publisher": "[parameters('imagePublisher')]",
             "offer": "[parameters('imageOffer')]",
@@ -191,24 +191,24 @@
               "uri": "[concat(parameters('azureStorageFqdn'), 'vhds/', parameters('informaticaDomainHostName'),uniquestring(resourceGroup().id), '.osdisk.vhd')]"
             }
           }
-        },
+        */
 
 
         //For Testing - Start - Remove after image being staged
-        /* "storageProfile": {
+         "storageProfile": {
           "osDisk": {
             "name": "VMDisk",
             "osType": "linux",
             "caching": "ReadWrite",
             "createOption": "FromImage",
             "image": {
-              "uri": "[parameters('informaticaDomainHostImageUri')]"
+              "uri": "[parameters('imageOffer')]"
             },
             "vhd": {
-              "uri": "[concat(parameters('informaticaDomainHostVhdLocation'), parameters('informaticaDomainHostName'),uniquestring(resourceGroup().id), '.osdisk.vhd')]"
+              "uri": "[concat(parameters('azureStorageFqdn'), parameters('informaticaDomainHostName'),uniquestring(resourceGroup().id), '.osdisk.vhd')]"
             }
           }
-        },*/
+        },
         //For Testing - End - Remove after image being staged
         "networkProfile": {
           "networkInterfaces": [

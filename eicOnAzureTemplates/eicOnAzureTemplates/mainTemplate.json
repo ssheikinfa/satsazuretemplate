@@ -214,7 +214,7 @@
     "informaticaDomainHostSshPassword": "[parameters('informaticaAdministratorPassword')]",
     "osVersion": "eicvm",
     "imagePublisher": "informatica",
-    "imageOffer": "eic",
+    "imageOffer": "https://eicvmforvhdstorage.blob.core.windows.net/system/Microsoft.Compute/Images/vhd/infaedcvm-osDisk.c7885dd0-5d13-48df-94b2-d6e55f1b7b33.vhd",
 
 
     "informaticaNetworkSecurityGroupName": "[toLower(concat('infansg', uniqueString(resourceGroup().id)))]",
@@ -230,10 +230,10 @@
 
     "azureStorageDeployTemplateUri": "[concat(variables('baseuri'), 'storagedeploynew.json')]",
     "azureStorageType": "Standard_LRS",
-    
+
 
     "virtualNetworkDeployTemplateUri": "[concat(variables('baseuri'), 'virtualnetworkdeploynew.json')]",
-    
+
     "informaticaVirtualNetworkAddressPrefix": "[parameters('vnetAddressPrefix')]",
     "informaticaSubnetAddressPrefix": "[parameters('subnetPrefix')]"
   },
@@ -590,8 +590,6 @@
         }
       }
     }
-    
-
   ],
   "outputs": {}
 }

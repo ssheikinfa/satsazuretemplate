@@ -8,7 +8,7 @@ installedLocation=/opt/Informatica/10.2.0/installed
 licenseLocation=$1
 encrptKeyDestLocation=$installedLocation/isp/config/keys/
 licenseName="10.2.0_Services_License"
-javaBinDir=/opt/java/jdk1.8.0_144/bin
+javaBinDir=$installerLocation/source/java/jre/bin/
 
 #DB Variables
 dbServerUser=$2
