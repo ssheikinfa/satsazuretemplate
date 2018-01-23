@@ -318,7 +318,7 @@
       }
     },
 
-    /*
+    
     {
       "name": "nsgSetup",
       "type": "Microsoft.Resources/deployments",
@@ -427,7 +427,7 @@
       }
     },
 
-    */
+    
 
 
     {
@@ -486,8 +486,8 @@
       "dependsOn": [
         "Microsoft.Resources/deployments/storageSetup",
         "Microsoft.Resources/deployments/vnetSetup",
-       // "Microsoft.Resources/deployments/clusterSetup",
-        //"Microsoft.Resources/deployments/nsgSetup",
+        "Microsoft.Resources/deployments/clusterSetup",
+        "Microsoft.Resources/deployments/nsgSetup",
         "Microsoft.Resources/deployments/dbSetup"
       ],
       "properties": {
