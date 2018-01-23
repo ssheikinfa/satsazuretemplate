@@ -30,7 +30,7 @@
       }
     },
     "informaticaDomainInstanceType": {
-      "defaultValue": "Standard_D4_v2",
+      "defaultValue": "Standard_DS4_v2",
       "type": "String",
       "metadata": {
         "description": "The size of Informatica domain instance."
