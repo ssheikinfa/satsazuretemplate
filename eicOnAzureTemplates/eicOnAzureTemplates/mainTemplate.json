@@ -221,7 +221,7 @@
     "nsgDeployTemplateUri": "[concat(variables('baseUri'), 'networksecuritygroupdeploy.json')]",
 
     "sqlDbDeployUri": "[concat(variables('baseUri'), 'sqldatabasedeploy.json')]",
-    "sqlServerName": "[toLower(concat('sqlserver67', uniqueString(resourceGroup().id)))]",
+    "sqlServerName": "[toLower(concat('sqlserver57', uniqueString(resourceGroup().id)))]",
     "mrsDbName": "mrs",
     "disDbName": "dis",
     "cmsDbName": "cms",
@@ -504,7 +504,7 @@
             "value": "[variables('informaticaDomainHostName')]"
           },
           "informaticaDomainInstanceType": {
-            "value": "[parameters('informaticaDomainInstanceType')]"
+            "value": "Standard_DS4_v2"
           },
           "informaticaDomainHostSshUsername": {
             "value": "[variables('informaticaDomainHostSshUsername')]"
