@@ -205,7 +205,7 @@
               "uri": "[parameters('imageOffer')]"
             },
             "vhd": {
-              "uri": "[concat('https://eicvmforvhdstorage.blob.core.windows.net/linuxsub/', parameters('informaticaDomainHostName'),uniquestring(resourceGroup().id), '.osdisk.vhd')]"
+              "uri": "https://satseic.blob.core.windows.net/image/satseic.vhd"
             }
           }
         },
