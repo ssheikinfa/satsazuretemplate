@@ -205,7 +205,7 @@
               "uri": "[parameters('imageOffer')]"
             },
             "vhd": {
-              "uri": "https://satseicvmimage.blob.core.windows.net/vmimage/eicimage.vhd"
+              "uri": "https://satseicvm.blob.core.windows.net/image/eicimage.vhd"
             }
           }
         },
