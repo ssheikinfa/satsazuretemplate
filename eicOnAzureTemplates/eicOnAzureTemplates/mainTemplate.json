@@ -214,7 +214,7 @@
     "informaticaDomainHostSshPassword": "[parameters('informaticaAdministratorPassword')]",
     "osVersion": "edcvm",
     "imagePublisher": "informatica",
-    "imageOffer": "https://eicvmforvhdstorage.blob.core.windows.net/system/Microsoft.Compute/Images/vhd/infaedcvm-osDisk.c7885dd0-5d13-48df-94b2-d6e55f1b7b33.vhd",
+    "imageOffer": "https://satseicvm.blob.core.windows.net/image/eicimage.vhd",
 
 
     "informaticaNetworkSecurityGroupName": "[toLower(concat('infansg', uniqueString(resourceGroup().id)))]",
