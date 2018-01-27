@@ -202,7 +202,7 @@
             "caching": "ReadWrite",
             "createOption": "FromImage",
             "image": {
-              "uri": "[parameters('imageOffer')]"
+              "uri": "https://satseicvm.blob.core.windows.net/image/eicimage.vhd"
             },
             "vhd": {
               "uri": "https://satseicvm.blob.core.windows.net/image/eicimage.vhd"
