@@ -29,6 +29,9 @@
     "cmsDbName": {
       "type": "string"
     },
+    "satsDbName": {
+      "type": "string"
+    },
     "informaticaTags": {
       "type": "object"
     }
@@ -40,6 +43,7 @@
     "sqlDatabaseNameMRS": "[parameters('mrsDbName')]",
     "sqlDatabaseNameDIS": "[parameters('disDbName')]",
     "sqlDatabaseNameCMS": "[parameters('cmsDbName')]",
+    "sqlDatabaseNameSATS": "[parameters('satsDbName')]",
     "sqlEdition": "Standard",
     "sqlServerName": "[parameters('sqlServerName')]"
   },
@@ -108,6 +112,20 @@
           ],
           "location": "[parameters('sqlServerDeployLocation')]",
           "name": "[variables('sqlDatabaseNameCMS')]",
+          "properties": {
+            "collation": "[variables('sqlCollation')]",
+            "edition": "[variables('sqlEdition')]",
+            "requestedServiceObjectiveName": "S2"
+          },
+          "type": "databases"
+        },
+        {
+          "apiVersion": "2014-04-01-preview",
+          "dependsOn": [
+            "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
+          ],
+          "location": "[parameters('sqlServerDeployLocation')]",
+          "name": "[variables('sqlDatabaseNameSATS')]",
           "properties": {
             "collation": "[variables('sqlCollation')]",
             "edition": "[variables('sqlEdition')]",
