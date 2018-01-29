@@ -225,6 +225,7 @@
     "mrsDbName": "mrs",
     "disDbName": "dis",
     "cmsDbName": "cms",
+    "satsDbName": "sats",
     "domainDbName": "domain",
 
 
@@ -469,6 +470,9 @@
           },
           "cmsDbName": {
             "value": "[variables('cmsDbName')]"
+          },
+          "satsDbName": {
+            "value": "[variables('satsDbName')]"
           },
           "informaticaTags": {
             "value": "[parameters('informaticaTags')]"
