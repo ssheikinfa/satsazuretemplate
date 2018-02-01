@@ -549,6 +549,9 @@
           "cmsDbName": {
             "value": "[variables('cmsDbName')]"
           },
+          "satsDbName": {
+            "value": "[variables('satsDbName')]"
+          },
           "baseUrl": {
             "value": "[variables('baseUri')]"
           },
