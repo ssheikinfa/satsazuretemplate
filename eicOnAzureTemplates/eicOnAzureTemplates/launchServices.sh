@@ -200,7 +200,7 @@ sed -i -e "s/Content_Management_Service/$cmsName/g" $installerLocation/config_te
 
 sed -i -e "s/importsampledata/$importSampleData/g" $installerLocation/config_template.xml
 
-
+echo "current time:"+`date`
 
 echo "Running Informatica Installer..."
 $javaBinDir/java -jar $installerLocation/mercuryInstaller/mercury_setup.jar -cf $installerLocation/config_template.xml -s -uei
@@ -245,3 +245,5 @@ $installedLocation/isp/bin/infacmd.sh sats createContents -dn $domainName -sdn N
 echo "Enabling the Secure@Source service"
 rm -rf $installedLocation/tomcat/temp/$satsName
 $installedLocation/isp/bin/infacmd.sh enableService -dn $domainName -un $domainUsername -pd $domainPassword -sdn Native -sn $satsName
+
+echo "current time:"+`date`
