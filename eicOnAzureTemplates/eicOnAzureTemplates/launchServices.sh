@@ -69,6 +69,10 @@ clusterSshAddress="$clusterSshAddressPrefix$clusterNameSuffix"
 clusterSshUser=${16}
 clusterSshPassword=${17}
 
+#Secure@Source Variables
+satsName=SATS
+satsDB=${18}
+
 #Analyst Service Variables
 analystServiceName=Analyst_Service
 
@@ -228,3 +232,16 @@ $installedLocation/isp/bin/infacmd.sh  assignLicense -dn $domainName -un $domain
 
 echo "Enabling Analyst Service..."
 $installedLocation/isp/bin/infacmd.sh enableService -dn $domainName -un $domainUsername -pd $domainPassword -sn $analystServiceName
+
+echo "Creating the service Secure@Source"
+$installedLocation/isp/bin/infacmd.sh sats createService -dn $domainName -un $domainUsername -pd $domainPassword -sdn Native -sn $satsName -nn $domainNode -dt SQLSERVER -du $dbServerUser -dp $dbServerPassword -ds $satsDB -dl 'jdbc:informatica:sqlserver://$dbServerCompleteAddress;DatabaseName=$satsDB$dbAccessSSLSuffix' -csn Catalog_Service -csun $domainUsername -cspd $domainPassword -HttpPort 6200 -ll INFO
+
+echo "Assiging the license to the serice Secure@Source"
+$installedLocation/isp/bin/infacmd.sh  assignLicense -dn $domainName -un $domainUsername -pd $domainPassword -ln $licenseName -sn $satsName
+
+echo "Creating the Secure@Source contents"
+$installedLocation/isp/bin/infacmd.sh sats createContents -dn $domainName -sdn Native -un $domainUsername -pd $domainPassword -sn $satsName -re 300 -ll INFO
+
+echo "Enabling the Secure@Source service"
+rm -rf $installedLocation/tomcat/temp/$satsName
+$installedLocation/isp/bin/infacmd.sh enableService -dn $domainName -un $domainUsername -pd $domainPassword -sdn Native -sn $satsName
