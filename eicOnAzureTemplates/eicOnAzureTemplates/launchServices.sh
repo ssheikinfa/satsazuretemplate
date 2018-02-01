@@ -233,6 +233,15 @@ $installedLocation/isp/bin/infacmd.sh  assignLicense -dn $domainName -un $domain
 echo "Enabling Analyst Service..."
 $installedLocation/isp/bin/infacmd.sh enableService -dn $domainName -un $domainUsername -pd $domainPassword -sn $analystServiceName
 
+cd /opt/Informatica/10.2.0/sats-installer
+
+echo "Installing the service Secure@Source"
+./silentinstall.sh
+
+$installedLocation/isp/bin/infacmd.sh disableService -dn $domainName -un $domainUsername -pd $domainPassword -sdn Native -sn _AdminConsole -mo ABORT -re 360
+sleep 120
+$installedLocation/isp/bin/infacmd.sh enableService -dn $domainName -un $domainUsername -pd $domainPassword -sdn Native -sn _AdminConsole
+
 echo "Creating the service Secure@Source"
 $installedLocation/isp/bin/infacmd.sh sats createService -dn $domainName -un $domainUsername -pd $domainPassword -sdn Native -sn $satsName -nn $domainNode -dt SQLSERVER -du $dbServerUser -dp $dbServerPassword -ds $satsDB -dl 'jdbc:informatica:sqlserver://$dbServerCompleteAddress;DatabaseName=$satsDB$dbAccessSSLSuffix' -csn Catalog_Service -csun $domainUsername -cspd $domainPassword -HttpPort 6200 -ll INFO
 
