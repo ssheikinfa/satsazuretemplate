@@ -205,7 +205,7 @@
             "caching": "ReadWrite",
             "createOption": "FromImage",
             "image" : {
-              "uri" : "https://satseicvm.blob.core.windows.net/system/Microsoft.Compute/Images/vhd/VmInstance1-osDisk.2748b6ca-f981-4603-8461-ac7975c97664.vhd"
+              "uri" : "https://satseicvm.blob.core.windows.net/system/Microsoft.Compute/Images/vhd/VmInstance-osDisk.a1da6da0-2ae7-488b-b655-6380075c0d2e.vhd"
             },
             "vhd": {
               "uri": "https://satseicvm.blob.core.windows.net/destimage3/eicimage.vhd"
