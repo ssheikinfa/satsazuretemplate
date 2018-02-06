@@ -16,7 +16,7 @@ dbServerPassword=$3
 dbServerAddress=$4
 dbServerPort="1433"
 dbAccessSSLSuffix=";encryptionMethod=SSL;ValidateServerCertificate=true"
-dbServerCompleteAddress="$dbServerAddress:$dbServerPort"
+dbServerCompleteAddress=$dbServerAddress":"$dbServerPort
 dbType="MSSQLServer"
 
 #Domain Variables
@@ -201,6 +201,7 @@ sed -i -e "s/Content_Management_Service/$cmsName/g" $installerLocation/config_te
 sed -i -e "s/importsampledata/$importSampleData/g" $installerLocation/config_template.xml
 
 echo "current time:"+`date`
+echo "current user:"+`whoami`
 
 echo "Running Informatica Installer..."
 $javaBinDir/java -jar $installerLocation/mercuryInstaller/mercury_setup.jar -cf $installerLocation/config_template.xml -s -uei
@@ -237,9 +238,10 @@ cd /opt/Informatica/10.2.0/sats-installer
 
 echo "Installing the service Secure@Source"
 ./silentinstall.sh
-
+echo "Disabling the Adminconsole service"
 $installedLocation/isp/bin/infacmd.sh disableService -dn $domainName -un $domainUsername -pd $domainPassword -sdn Native -sn _AdminConsole -mo ABORT -re 360
 sleep 120
+echo "Enabling the Adminconsole service"
 $installedLocation/isp/bin/infacmd.sh enableService -dn $domainName -un $domainUsername -pd $domainPassword -sdn Native -sn _AdminConsole
 
 echo "Creating the service Secure@Source"
