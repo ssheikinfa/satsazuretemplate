@@ -243,7 +243,14 @@ export LAX_DEBUG=true
 echo $LAX_DEBUG
 
 echo "Installing the service Secure@Source"
-./silentinstall.sh
+./silentinstall.sh &
+
+install_pid=$!
+echo "Silent Installer process id:"$install_pid
+sleep 180
+pkill -TERM -P $install_pid
+
+
 echo "Disabling the Adminconsole service"
 $installedLocation/isp/bin/infacmd.sh disableService -dn $domainName -un $domainUsername -pd $domainPassword -sdn Native -sn _AdminConsole -mo ABORT -re 360
 sleep 120
