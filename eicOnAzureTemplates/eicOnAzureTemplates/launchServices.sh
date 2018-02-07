@@ -83,6 +83,9 @@ sed -i -e "s/infasqldb.database.windows.net/$dbServerAddress/g" $installedLocati
 sed -i -e "s/cms/$cmsDB/g" $installedLocation/ODBC7.1/odbc.ini
 sed -i -e "s/dis/$disDB/g" $installedLocation/ODBC7.1/odbc.ini
 
+#enabling debugging option in S@S installer.
+sed -i -e 's/WriteToDebugLog=false/WriteToDebugLog=true/' /opt/Informatica/10.2.0/sats-installer/properties/DebugConfigurator.properties
+
 #Getting License
 curl -o License.key "$licenseLocation"
 mv License.key $installedLocation
@@ -235,6 +238,9 @@ echo "Enabling Analyst Service..."
 $installedLocation/isp/bin/infacmd.sh enableService -dn $domainName -un $domainUsername -pd $domainPassword -sn $analystServiceName
 
 cd /opt/Informatica/10.2.0/sats-installer
+
+export LAX_DEBUG=true
+echo $LAX_DEBUG
 
 echo "Installing the service Secure@Source"
 ./silentinstall.sh
