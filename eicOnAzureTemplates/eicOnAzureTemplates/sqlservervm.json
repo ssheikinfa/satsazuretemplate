@@ -2,17 +2,6 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "storagetestType": {
-      "type": "string",
-      "defaultValue": "Standard_LRS",
-      "allowedValues": [
-        "Standard_LRS",
-        "Standard_ZRS",
-        "Standard_GRS",
-        "Standard_RAGRS",
-        "Premium_LRS"
-      ]
-    },
     "vmName": {
       "type": "string",
       "minLength": 1
@@ -23,10 +12,44 @@
     },
     "vmAdminPassword": {
       "type": "securestring"
+    },
+    "subnetId": {
+      "type": "string"
+    },
+    "nsgId": {
+      "type": "string"
+    },
+    "sqlServerPassword": {
+      "type": "securestring"
+    },
+    "location": {
+      "type": "string"
+    },
+    "sqlServerUserName": {
+      "type": "string"
+    },
+    "domainDbName": {
+      "type": "string"
+    },
+    "mrsDbName": {
+      "type": "string"
+    },
+    "disDbName": {
+      "type": "string"
+    },
+    "cmsDbName": {
+      "type": "string"
+    },
+    "satsDbName": {
+      "type": "string"
+    },
+    "informaticaTags": {
+      "type": "string"
     }
-},
+  },
   "variables": {
     "storageName": "[concat('storage', uniqueString(resourceGroup().id))]",
+    "storagetestType": "Standard_LRS",
     "publicIpAddressName": "[concat('publicip',uniqueString(resourceGroup().id))]",
     "vmVnetName": "[concat('vnet',uniqueString(resourceGroup().id))]",
     "vmNicName": "[concat(parameters('vmName'), 'NetworkInterface')]",
@@ -51,7 +74,7 @@
       "apiVersion": "2017-06-01",
       "name": "[variables('publicIpAddressName')]",
       "type": "Microsoft.Network/publicIPAddresses",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('location')]",
       "properties": {
         "publicIPAllocationMethod": "[variables('publicIpAddressType')]",
         "dnsSettings": {
@@ -60,38 +83,10 @@
       }
     },
     {
-      "name": "[variables('vmVnetName')]",
-      "type": "Microsoft.Network/virtualNetworks",
-      "location": "[resourceGroup().location]",
-      "apiVersion": "2016-03-30",
-      "dependsOn": [],
-      "tags": {
-        "displayName": "vnet"
-      },
-      "properties": {
-        "addressSpace": {
-          "addressPrefixes": [
-            "[variables('vnetPrefix')]"
-          ]
-        },
-        "subnets": [
-          {
-            "name": "[variables('vnetSubnetName')]",
-            "properties": {
-              "addressPrefix": "[variables('vnetSubnetPrefix')]"
-            }
-          }
-        ]
-      }
-    },
-    {
       "name": "[variables('vmNicName')]",
       "type": "Microsoft.Network/networkInterfaces",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('location')]",
       "apiVersion": "2016-10-01",
-      "dependsOn": [
-        "[resourceId('Microsoft.Network/virtualNetworks', variables('vmVnetName'))]"
-      ],
       "tags": {
         "displayName": "vmNic"
       },
@@ -105,78 +100,23 @@
                 "id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIpAddressName'))]"
               },
               "subnet": {
-                "id": "[variables('vmSubnetRef')]"
+                "id": "[parameters('subnetId')]"
               }
             }
           }
         ],
         "networkSecurityGroup": {
-          "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('vmNsgName'))]"
+          "id": "[parameters('nsgId')]"
         }
       }
     },
     {
-      "apiVersion": "2016-10-01",
-      "type": "Microsoft.Network/networkSecurityGroups",
-      "name": "[variables('vmNsgName')]",
-      "location": "[resourceGroup().location]",
-      "tags": {
-        "displayName": "NetworkSecurityGroup"
-      },
-      "properties": {
-        "securityRules": [
-          {
-            "name": "InformaticaService",
-            "properties": {
-              "description": "Enabling ports required for Informatica.",
-              "protocol": "TCP",
-              "sourcePortRange": "*",
-              "destinationPortRange": "1433",
-              "sourceAddressPrefix": "*",
-              "destinationAddressPrefix": "*",
-              "access": "Allow",
-              "priority": 100,
-              "direction": "Inbound"
-            }
-          },
-          {
-            "name": "SSH",
-            "properties": {
-              "description": "Enabling port for SSH",
-              "protocol": "TCP",
-              "sourcePortRange": "*",
-              "destinationPortRange": "22",
-              "sourceAddressPrefix": "*",
-              "destinationAddressPrefix": "*",
-              "access": "Allow",
-              "priority": 110,
-              "direction": "Inbound"
-            }
-          },
-          {
-            "name": "RDP",
-            "properties": {
-              "description": "Enabling port for RDP",
-              "protocol": "TCP",
-              "sourcePortRange": "*",
-              "destinationPortRange": "3389",
-              "sourceAddressPrefix": "*",
-              "destinationAddressPrefix": "*",
-              "access": "Allow",
-              "priority": 111,
-              "direction": "Inbound"
-            }
-          }
-        ]
-      }
-      },
-      {
             "name": "[variables('storageName')]",
             "type": "Microsoft.Storage/storageAccounts",
-            "location": "[resourceGroup().location]",
+            "location": "[parameters('location')]",
             "apiVersion": "2016-01-01",
             "sku": {
-              "name": "[parameters('storagetestType')]"
+              "name": "[variables('storagetestType')]"
             },
             "dependsOn": [],
             "tags": {
@@ -187,7 +127,7 @@
           {
             "name": "[parameters('vmName')]",
             "type": "Microsoft.Compute/virtualMachines",
-            "location": "[resourceGroup().location]",
+            "location": "[parameters('location')]",
             "apiVersion": "2015-06-15",
             "dependsOn": [
               "[resourceId('Microsoft.Storage/storageAccounts',variables('storageName'))]",
@@ -233,7 +173,7 @@
               {
                 "name": "ScriptExtDB",
                 "type": "extensions",
-                "location": "[resourceGroup().location]",
+                "location": "[parameters('location')]",
                 "apiVersion": "2016-03-30",
                 "dependsOn": [
                   "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
@@ -248,11 +188,11 @@
                   "autoUpgradeMinorVersion": false,
                   "settings": {
                     "fileUris": [
-                      "https://raw.githubusercontent.com/ssheikinfa/satsazuretemplate/master/eicOnAzureTemplates/eicOnAzureTemplates/databaseconfiguration.ps1"
+                      "https://raw.githubusercontent.com/ssheikinfa/azuretemplate-rearch/master/infapc1011hf2/databaseconfiguration.ps1"
                     ]
                   },
                   "protectedSettings": {
-                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ', 'databaseconfiguration.ps1', ' -osUsername \"', parameters('vmAdminUserName'), '\" -osPassword \"', parameters('vmAdminPassword'), '\" -dbUsername \"', 'dbuser', '\" -dbPassword \"', 'infa@1234', '\" -pcrsdbName \"', 'pcrsdb' , '\" -mrsdbName \"','mrsdb', '\" -cmsdbName \"', 'cmsdb', '\" -disdbName \"', 'disdb', '\" -satsdbName \"', 'satsdb', '\" -tdmdbName \"', 'tdmdb' ,'\"')]"
+                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ', 'databaseconfiguration.ps1', ' -osUsername \"', parameters('vmAdminUserName'), '\" -osPassword \"', parameters('vmAdminPassword'), '\" -dbUsername \"', parameters('sqlServerUserName'), '\" -dbPassword \"', parameters('sqlServerPassword'), '\" -pcrsdbName \"', parameters('domainDbName') , '\" -mrsdbName \"',parameters('mrsDbName'), '\" -cmsdbName \"', parameters('cmsDbName'), '\" -disdbName \"', parameters('disDbName'), '\" -satsdbName \"', parameters('satsDbName'), '\" -tdmdbName \"', parameters('satsDbName') ,'\"')]"
                   }
                 }
               },
@@ -260,7 +200,7 @@
                 "apiVersion": "2015-06-15",
                 "type": "Microsoft.Compute/virtualMachines/extensions",
                 "name": "[concat(parameters('vmName'), '/SqlIaasExtension')]",
-                "location": "[resourceGroup().location]",
+                "location": "[parameters('location')]",
                 "dependsOn": [
                   "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]",
                   "ScriptExtDB"
@@ -272,7 +212,7 @@
                   "autoUpgradeMinorVersion": true,
                   "settings": {
                     "AutoTelemetrySettings": {
-                      "Region": "[resourceGroup().location]"
+                      "Region": "[parameters('location')]"
                     },
                     "KeyVaultCredentialSettings": {
                       "Enable": false,
