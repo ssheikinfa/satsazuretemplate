@@ -3,6 +3,7 @@ Param(
   [string]$osPassword,
   [string]$dbUsername,
   [string]$dbPassword,
+  [string]$domaindbName,
   [string]$pcrsdbName,
   [string]$mrsdbName,
   [string]$cmsdbName,
@@ -19,11 +20,12 @@ echo $osUsername $osPassword $dbUsername $dbPassword $pcrsdbName $mrsdbName $cms
 Enable-PSRemoting -Force
 $credential = New-Object System.Management.Automation.PSCredential @(($env:COMPUTERNAME + "\" + $osUsername), (ConvertTo-SecureString -String $osPassword -AsPlainText -Force))
 
-Invoke-Command -Credential $credential -ComputerName $env:COMPUTERNAME -ArgumentList $dbUsername,$dbPassword,$pcrsdbName,$mrsdbName,$cmsdbName,$disdbName,$satsdbName,$tdmdbName -ScriptBlock {
+Invoke-Command -Credential $credential -ComputerName $env:COMPUTERNAME -ArgumentList $dbUsername,$dbPassword,$domaindbName,$pcrsdbName,$mrsdbName,$cmsdbName,$disdbName,$satsdbName,$tdmdbName -ScriptBlock {
     Param 
     (
         [string]$dbUsername,
         [string]$dbPassword,
+	[string]$domaindbName,
 	[string]$pcrsdbName,
 	[string]$mrsdbName,
         [string]$cmsdbName,
@@ -123,6 +125,10 @@ Invoke-Command -Credential $credential -ComputerName $env:COMPUTERNAME -Argument
 			writeLog "Creating db user: $dbUsername" 
 			executeStatement $newLogin $pcrsdbName
 			
+			executeStatement $newUser $domaindbName
+			executeStatement $updateUserRole $domaindbName
+			executeStatement $newSchema $domaindbName
+			
 			executeStatement $newUser $pcrsdbName
 			executeStatement $updateUserRole $pcrsdbName
 			executeStatement $newSchema $pcrsdbName
@@ -158,6 +164,7 @@ Invoke-Command -Credential $credential -ComputerName $env:COMPUTERNAME -Argument
     mkdir -Path C:\SQL_DATA
     
 	waitTillDatabaseIsAlive master
+	createDatabase $domaindbName
 	createDatabase $pcrsdbName
 	createDatabase $mrsdbName
 	createDatabase $cmsdbName
