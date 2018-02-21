@@ -15,7 +15,7 @@
     },
     "vmName": {
       "type": "string",
-      "defaultValue":"dvm"
+      "defaultValue":"dvm",
       "minLength": 1
     },
     "vmAdminUserName": {
