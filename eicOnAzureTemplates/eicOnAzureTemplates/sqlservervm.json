@@ -249,7 +249,7 @@
                   "autoUpgradeMinorVersion": false,
                   "settings": {
                     "fileUris": [
-                      "https://raw.githubusercontent.com/ssheikinfa/azuretemplate-rearch/master/infapc1011hf2/databaseconfiguration.ps1"
+                      "https://raw.githubusercontent.com/ssheikinfa/satsazuretemplate/master/eicOnAzureTemplates/eicOnAzureTemplates/databaseconfiguration.ps1"
                     ]
                   },
                   "protectedSettings": {
