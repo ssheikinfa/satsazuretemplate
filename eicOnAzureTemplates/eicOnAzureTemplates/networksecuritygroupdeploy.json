@@ -42,6 +42,20 @@
               "destinationAddressPrefix": "*"
             }
           },
+           {
+            "name": "SqlServerDB",
+            "properties": {
+              "description": "Enabling ports required for SqlServer Database.",
+              "protocol": "TCP",
+              "sourcePortRange": "*",
+              "destinationPortRange": "1433",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 100,
+              "direction": "Inbound"
+            }
+          },
           {
             "name": "MinMaxports",
             "properties": {
