@@ -1,4 +1,4 @@
-﻿Param(
+Param(
   [string]$osUsername,
   [string]$osPassword,
   [string]$dbUsername,
@@ -121,10 +121,33 @@ Invoke-Command -Credential $credential -ComputerName $env:COMPUTERNAME -Argument
 			$newSchema = "CREATE SCHEMA """ + $dbUsername + """ AUTHORIZATION """ + $dbUsername + """"
 
 			writeLog "Creating db user: $dbUsername" 
-			executeStatement $newLogin $dbName
-			executeStatement $newUser $dbName
-			executeStatement $updateUserRole $dbName
-			executeStatement $newSchema $dbName
+			executeStatement $newLogin $pcrsdbName
+			
+			executeStatement $newUser $pcrsdbName
+			executeStatement $updateUserRole $pcrsdbName
+			executeStatement $newSchema $pcrsdbName
+			
+			executeStatement $newUser $mrsdbName
+			executeStatement $updateUserRole $mrsdbName
+			executeStatement $newSchema $mrsdbName
+			
+			executeStatement $newUser $cmsdbName
+			executeStatement $updateUserRole $cmsdbName
+			executeStatement $newSchema $cmsdbName
+			
+			executeStatement $newUser $disdbName
+			executeStatement $updateUserRole $disdbName
+			executeStatement $newSchema $disdbName
+			
+			executeStatement $newUser $satsdbName
+			executeStatement $updateUserRole $satsdbName
+			executeStatement $newSchema $satsdbName
+			
+			executeStatement $newUser $tdmdbName
+			executeStatement $updateUserRole $tdmdbName
+			executeStatement $newSchema $tdmdbName
+				
+			
 		}
 	}
  
@@ -135,12 +158,13 @@ Invoke-Command -Credential $credential -ComputerName $env:COMPUTERNAME -Argument
     mkdir -Path C:\SQL_DATA
     
 	waitTillDatabaseIsAlive master
-	createDatabaseUser $dbUsername $dbPassword
 	createDatabase $pcrsdbName
 	createDatabase $mrsdbName
 	createDatabase $cmsdbName
 	createDatabase $disdbName
 	createDatabase $satsdbName
 	createDatabase $tdmdbName
+	createDatabaseUser $dbUsername $dbPassword
+	
 	
 }
