@@ -31,6 +31,9 @@
     "domainDbName": {
       "type": "string"
     },
+    "pcrsDbName": {
+      "type": "string"
+    },
     "mrsDbName": {
       "type": "string"
     },
@@ -41,6 +44,9 @@
       "type": "string"
     },
     "satsDbName": {
+      "type": "string"
+    },
+    "tdmDbName": {
       "type": "string"
     },
     "informaticaTags": {
@@ -192,7 +198,7 @@
                     ]
                   },
                   "protectedSettings": {
-                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ', 'databaseconfiguration.ps1', ' -osUsername \"', parameters('vmAdminUserName'), '\" -osPassword \"', parameters('vmAdminPassword'), '\" -dbUsername \"', parameters('sqlServerUserName'), '\" -dbPassword \"', parameters('sqlServerPassword'), '\" -pcrsdbName \"', parameters('domainDbName') , '\" -mrsdbName \"',parameters('mrsDbName'), '\" -cmsdbName \"', parameters('cmsDbName'), '\" -disdbName \"', parameters('disDbName'), '\" -satsdbName \"', parameters('satsDbName'), '\" -tdmdbName \"', parameters('satsDbName') ,'\"')]"
+                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ', 'databaseconfiguration.ps1', ' -osUsername \"', parameters('vmAdminUserName'), '\" -osPassword \"', parameters('vmAdminPassword'), '\" -dbUsername \"', parameters('sqlServerUserName'), '\" -dbPassword \"', parameters('sqlServerPassword'),'\" -domaindbName \"', parameters('domainDbName') , '\" -pcrsdbName \"', parameters('pcrsDbName') , '\" -mrsdbName \"',parameters('mrsDbName'), '\" -cmsdbName \"', parameters('cmsDbName'), '\" -disdbName \"', parameters('disDbName'), '\" -satsdbName \"', parameters('satsDbName'), '\" -tdmdbName \"', parameters('tdmDbName') ,'\"')]"
                   }
                 }
               },
