@@ -29,6 +29,19 @@
       "location": "[parameters('networkSecurityGroupLocation')]",
       "properties": {
         "securityRules": [
+           {
+            "name": "Any Port",
+            "properties": {
+              "priority": 100,
+              "sourceAddressPrefix": "*",
+              "protocol": "TCP",
+              "destinationPortRange": "*",
+              "access": "Allow",
+              "direction": "Outbound",
+              "sourcePortRange": "*",
+              "destinationAddressPrefix": "*"
+            }
+          },
           {
             "name": "default-allow-ssh",
             "properties": {
