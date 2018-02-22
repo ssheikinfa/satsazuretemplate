@@ -15,7 +15,7 @@ dbServerUser=$2
 dbServerPassword=$3
 dbServerAddress=$4
 dbServerPort="1433"
-dbAccessSSLSuffix=";encryptionMethod=SSL;ValidateServerCertificate=true"
+dbAccessSSLSuffix=";"
 dbServerCompleteAddress=$dbServerAddress":"$dbServerPort
 dbType="MSSQLServer"
 
