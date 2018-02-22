@@ -97,7 +97,7 @@
         "displayName": "vmNic"
       },
       "dependsOn": [
-        "[concat('Microsoft.Network/publicIPAddresses',variables('publicIpAddressName'))]"
+        "[concat('Microsoft.Network/publicIPAddresses/',variables('publicIpAddressName'))]"
       ],
       "properties": {
         "ipConfigurations": [
