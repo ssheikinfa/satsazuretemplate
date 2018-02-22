@@ -30,9 +30,9 @@
       "properties": {
         "securityRules": [
            {
-            "name": "AnyPort",
+            "name": "outbound-rule",
             "properties": {
-              "priority": 100,
+              "priority": 101,
               "sourceAddressPrefix": "*",
               "protocol": "TCP",
               "destinationPortRange": "*",
