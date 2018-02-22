@@ -96,6 +96,9 @@
       "tags": {
         "displayName": "vmNic"
       },
+      "dependsOn": [
+        "[concat('Microsoft.Network/publicIPAddresses',variables('publicIpAddressName'))]"
+      ],
       "properties": {
         "ipConfigurations": [
           {
@@ -117,124 +120,124 @@
       }
     },
     {
-            "name": "[variables('storageName')]",
-            "type": "Microsoft.Storage/storageAccounts",
-            "location": "[parameters('location')]",
-            "apiVersion": "2016-01-01",
-            "sku": {
-              "name": "[variables('storagetestType')]"
-            },
-            "dependsOn": [],
-            "tags": {
-              "displayName": "storagetest"
-            },
-            "kind": "Storage"
+      "name": "[variables('storageName')]",
+      "type": "Microsoft.Storage/storageAccounts",
+      "location": "[parameters('location')]",
+      "apiVersion": "2016-01-01",
+      "sku": {
+        "name": "[variables('storagetestType')]"
+      },
+      "dependsOn": [],
+      "tags": {
+        "displayName": "storagetest"
+      },
+      "kind": "Storage"
+    },
+    {
+      "name": "[parameters('vmName')]",
+      "type": "Microsoft.Compute/virtualMachines",
+      "location": "[parameters('location')]",
+      "apiVersion": "2015-06-15",
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts',variables('storageName'))]",
+        "[resourceId('Microsoft.Network/networkInterfaces', variables('vmNicName'))]"
+      ],
+      "tags": {
+        "displayName": "linuxvm"
+      },
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "[variables('vmVmSize')]"
+        },
+        "osProfile": {
+          "computerName": "[parameters('vmName')]",
+          "adminUsername": "[parameters('vmAdminUsername')]",
+          "adminPassword": "[parameters('vmAdminPassword')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "[variables('vmImagePublisher')]",
+            "offer": "[variables('vmImageOffer')]",
+            "sku": "[variables('vmOSVersion')]",
+            "version": "latest"
           },
-          {
-            "name": "[parameters('vmName')]",
-            "type": "Microsoft.Compute/virtualMachines",
-            "location": "[parameters('location')]",
-            "apiVersion": "2015-06-15",
-            "dependsOn": [
-              "[resourceId('Microsoft.Storage/storageAccounts',variables('storageName'))]",
-              "[resourceId('Microsoft.Network/networkInterfaces', variables('vmNicName'))]"
-            ],
-            "tags": {
-              "displayName": "linuxvm"
+          "osDisk": {
+            "name": "infaDBOSDisk",
+            "vhd": {
+              "uri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), '2016-01-01').primaryEndpoints.blob,'vhds/' ,parameters('vmName'), variables('vmOSDiskName'), '.vhd')]"
             },
-            "properties": {
-              "hardwareProfile": {
-                "vmSize": "[variables('vmVmSize')]"
-              },
-              "osProfile": {
-                "computerName": "[parameters('vmName')]",
-                "adminUsername": "[parameters('vmAdminUsername')]",
-                "adminPassword": "[parameters('vmAdminPassword')]"
-              },
-              "storageProfile": {
-                "imageReference": {
-                  "publisher": "[variables('vmImagePublisher')]",
-                  "offer": "[variables('vmImageOffer')]",
-                  "sku": "[variables('vmOSVersion')]",
-                  "version": "latest"
-                },
-                "osDisk": {
-                  "name": "infaDBOSDisk",
-                  "vhd": {
-                    "uri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts', variables('storageName')), '2016-01-01').primaryEndpoints.blob,'vhds/' ,parameters('vmName'), variables('vmOSDiskName'), '.vhd')]"
-                  },
-                  "caching": "ReadWrite",
-                  "createOption": "FromImage"
-                }
-              },
-              "networkProfile": {
-                "networkInterfaces": [
-                  {
-                    "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('vmNicName'))]"
-                  }
-                ]
-              }
-            },
-            "resources": [
-              {
-                "name": "ScriptExtDB",
-                "type": "extensions",
-                "location": "[parameters('location')]",
-                "apiVersion": "2016-03-30",
-                "dependsOn": [
-                  "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
-                ],
-                "tags": {
-                  "displayName": "informaticadbextension"
-                },
-                "properties": {
-                  "publisher": "Microsoft.Compute",
-                  "type": "CustomScriptExtension",
-                  "typeHandlerVersion": "1.7",
-                  "autoUpgradeMinorVersion": false,
-                  "settings": {
-                    "fileUris": [
-                      "https://raw.githubusercontent.com/ssheikinfa/azuretemplate-rearch/master/infapc1011hf2/databaseconfiguration.ps1"
-                    ]
-                  },
-                  "protectedSettings": {
-                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ', 'databaseconfiguration.ps1', ' -osUsername \"', parameters('vmAdminUserName'), '\" -osPassword \"', parameters('vmAdminPassword'), '\" -dbUsername \"', parameters('sqlServerUserName'), '\" -dbPassword \"', parameters('sqlServerPassword'),'\" -domaindbName \"', parameters('domainDbName') , '\" -pcrsdbName \"', parameters('pcrsDbName') , '\" -mrsdbName \"',parameters('mrsDbName'), '\" -cmsdbName \"', parameters('cmsDbName'), '\" -disdbName \"', parameters('disDbName'), '\" -satsdbName \"', parameters('satsDbName'), '\" -tdmdbName \"', parameters('tdmDbName') ,'\"')]"
-                  }
-                }
-              },
-              {
-                "apiVersion": "2015-06-15",
-                "type": "Microsoft.Compute/virtualMachines/extensions",
-                "name": "[concat(parameters('vmName'), '/SqlIaasExtension')]",
-                "location": "[parameters('location')]",
-                "dependsOn": [
-                  "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]",
-                  "ScriptExtDB"
-                ],
-                "properties": {
-                  "type": "SqlIaaSAgent",
-                  "publisher": "Microsoft.SqlServer.Management",
-                  "typeHandlerVersion": "1.2",
-                  "autoUpgradeMinorVersion": true,
-                  "settings": {
-                    "AutoTelemetrySettings": {
-                      "Region": "[parameters('location')]"
-                    },
-                    "KeyVaultCredentialSettings": {
-                      "Enable": false,
-                      "CredentialName": ""
-                    }
-                  },
-                  "protectedSettings": {
-                    "SQLAuthUpdateUserName": "[parameters('vmAdminUserName')]",
-                    "SQLAuthUpdatePassword": "[parameters('vmAdminPassword')]"
-                  }
-                }
-              }
-            ]
+            "caching": "ReadWrite",
+            "createOption": "FromImage"
           }
-        ],
-        "outputs": {
-
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('vmNicName'))]"
+            }
+          ]
         }
-      }
+      },
+      "resources": [
+        {
+          "name": "ScriptExtDB",
+          "type": "extensions",
+          "location": "[parameters('location')]",
+          "apiVersion": "2016-03-30",
+          "dependsOn": [
+            "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
+          ],
+          "tags": {
+            "displayName": "informaticadbextension"
+          },
+          "properties": {
+            "publisher": "Microsoft.Compute",
+            "type": "CustomScriptExtension",
+            "typeHandlerVersion": "1.7",
+            "autoUpgradeMinorVersion": false,
+            "settings": {
+              "fileUris": [
+                "https://raw.githubusercontent.com/ssheikinfa/azuretemplate-rearch/master/infapc1011hf2/databaseconfiguration.ps1"
+              ]
+            },
+            "protectedSettings": {
+              "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ', 'databaseconfiguration.ps1', ' -osUsername \"', parameters('vmAdminUserName'), '\" -osPassword \"', parameters('vmAdminPassword'), '\" -dbUsername \"', parameters('sqlServerUserName'), '\" -dbPassword \"', parameters('sqlServerPassword'),'\" -domaindbName \"', parameters('domainDbName') , '\" -pcrsdbName \"', parameters('pcrsDbName') , '\" -mrsdbName \"',parameters('mrsDbName'), '\" -cmsdbName \"', parameters('cmsDbName'), '\" -disdbName \"', parameters('disDbName'), '\" -satsdbName \"', parameters('satsDbName'), '\" -tdmdbName \"', parameters('tdmDbName') ,'\"')]"
+            }
+          }
+        },
+        {
+          "apiVersion": "2015-06-15",
+          "type": "Microsoft.Compute/virtualMachines/extensions",
+          "name": "[concat(parameters('vmName'), '/SqlIaasExtension')]",
+          "location": "[parameters('location')]",
+          "dependsOn": [
+            "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]",
+            "ScriptExtDB"
+          ],
+          "properties": {
+            "type": "SqlIaaSAgent",
+            "publisher": "Microsoft.SqlServer.Management",
+            "typeHandlerVersion": "1.2",
+            "autoUpgradeMinorVersion": true,
+            "settings": {
+              "AutoTelemetrySettings": {
+                "Region": "[parameters('location')]"
+              },
+              "KeyVaultCredentialSettings": {
+                "Enable": false,
+                "CredentialName": ""
+              }
+            },
+            "protectedSettings": {
+              "SQLAuthUpdateUserName": "[parameters('vmAdminUserName')]",
+              "SQLAuthUpdatePassword": "[parameters('vmAdminPassword')]"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "outputs": {
+
+  }
+}
