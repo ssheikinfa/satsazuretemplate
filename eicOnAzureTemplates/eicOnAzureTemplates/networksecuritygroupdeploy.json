@@ -30,7 +30,7 @@
       "properties": {
         "securityRules": [
            {
-            "name": "Any Port",
+            "name": "AnyPort",
             "properties": {
               "priority": 100,
               "sourceAddressPrefix": "*",
