@@ -208,7 +208,7 @@
               "uri" : "https://satsimages.blob.core.windows.net/system/Microsoft.Compute/Images/vhd/SATSVMT-osDisk.144bc702-f367-42fe-a667-eb79a01417c7.vhd"
             },
             "vhd": {
-              "uri": "https://satsimages.blob.core.windows.net/destimages/satsimage2.vhd"
+              "uri": "https://satsimages.blob.core.windows.net/destimages/satsimage3.vhd"
             }
           }
         },
