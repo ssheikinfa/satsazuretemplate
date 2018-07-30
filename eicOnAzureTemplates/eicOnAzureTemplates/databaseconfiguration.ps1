@@ -127,31 +127,31 @@ Invoke-Command -Credential $credential -ComputerName $env:COMPUTERNAME -Argument
 			
 			executeStatement $newUser $domaindbName
 			executeStatement $updateUserRole $domaindbName
-			#executeStatement $newSchema $domaindbName
+			executeStatement $newSchema $domaindbName
 			
 			executeStatement $newUser $pcrsdbName
 			executeStatement $updateUserRole $pcrsdbName
-			#executeStatement $newSchema $pcrsdbName
+			executeStatement $newSchema $pcrsdbName
 			
 			executeStatement $newUser $mrsdbName
 			executeStatement $updateUserRole $mrsdbName
-			#executeStatement $newSchema $mrsdbName
+			executeStatement $newSchema $mrsdbName
 			
 			executeStatement $newUser $cmsdbName
 			executeStatement $updateUserRole $cmsdbName
-			#executeStatement $newSchema $cmsdbName
+			executeStatement $newSchema $cmsdbName
 			
 			executeStatement $newUser $disdbName
 			executeStatement $updateUserRole $disdbName
-			#executeStatement $newSchema $disdbName
+			executeStatement $newSchema $disdbName
 			
 			executeStatement $newUser $satsdbName
 			executeStatement $updateUserRole $satsdbName
-			#executeStatement $newSchema $satsdbName
+			executeStatement $newSchema $satsdbName
 			
 			executeStatement $newUser $tdmdbName
 			executeStatement $updateUserRole $tdmdbName
-			#executeStatement $newSchema $tdmdbName
+			executeStatement $newSchema $tdmdbName
 				
 			
 		}
