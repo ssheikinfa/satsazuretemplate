@@ -112,11 +112,11 @@ Invoke-Command -Credential $credential -ComputerName $env:COMPUTERNAME -Argument
 	}
 
 	function createDatabaseUser {
-		Param([String] $dbUsername, [String] $dbPassword)
+		Param([String] $dbUsername, [String] $dbPassword, [String] $defaultSchema)
 
 		if(-not [string]::IsNullOrEmpty($dbUsername) -and -not [string]::IsNullOrEmpty($dbPassword)) {
 			$newLogin = "CREATE LOGIN """ + $dbUsername +  """ WITH PASSWORD = '" + ($dbPassword -replace "'","''") + "'"
-			$newUser = "CREATE USER """ + $dbUsername + """ FOR LOGIN """ + $dbUsername + """ WITH DEFAULT_SCHEMA = """ + dbo +""""
+			$newUser = "CREATE USER """ + $dbUsername + """ FOR LOGIN """ + $dbUsername + """ WITH DEFAULT_SCHEMA = """ + $defaultSchema +""""
 			$updateUserRole = "ALTER ROLE db_datareader ADD MEMBER """ + $dbUsername + """;" + 
 							"ALTER ROLE db_datawriter ADD MEMBER """ + $dbUsername + """;" + 
 							"ALTER ROLE db_ddladmin ADD MEMBER """ + $dbUsername + """"
@@ -127,31 +127,31 @@ Invoke-Command -Credential $credential -ComputerName $env:COMPUTERNAME -Argument
 			
 			executeStatement $newUser $domaindbName
 			executeStatement $updateUserRole $domaindbName
-			executeStatement $newSchema $domaindbName
+			#executeStatement $newSchema $domaindbName
 			
 			executeStatement $newUser $pcrsdbName
 			executeStatement $updateUserRole $pcrsdbName
-			executeStatement $newSchema $pcrsdbName
+			#executeStatement $newSchema $pcrsdbName
 			
 			executeStatement $newUser $mrsdbName
 			executeStatement $updateUserRole $mrsdbName
-			executeStatement $newSchema $mrsdbName
+			#executeStatement $newSchema $mrsdbName
 			
 			executeStatement $newUser $cmsdbName
 			executeStatement $updateUserRole $cmsdbName
-			executeStatement $newSchema $cmsdbName
+			#executeStatement $newSchema $cmsdbName
 			
 			executeStatement $newUser $disdbName
 			executeStatement $updateUserRole $disdbName
-			executeStatement $newSchema $disdbName
+			#executeStatement $newSchema $disdbName
 			
 			executeStatement $newUser $satsdbName
 			executeStatement $updateUserRole $satsdbName
-			executeStatement $newSchema $satsdbName
+			#executeStatement $newSchema $satsdbName
 			
 			executeStatement $newUser $tdmdbName
 			executeStatement $updateUserRole $tdmdbName
-			executeStatement $newSchema $tdmdbName
+			#executeStatement $newSchema $tdmdbName
 				
 			
 		}
@@ -171,7 +171,7 @@ Invoke-Command -Credential $credential -ComputerName $env:COMPUTERNAME -Argument
 	createDatabase $disdbName
 	createDatabase $satsdbName
 	createDatabase $tdmdbName
-	createDatabaseUser $dbUsername $dbPassword
+	createDatabaseUser $dbUsername $dbPassword "dbo"
 	
 	
 }
