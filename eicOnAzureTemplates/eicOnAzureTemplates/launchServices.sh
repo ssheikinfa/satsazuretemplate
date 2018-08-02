@@ -235,5 +235,35 @@ $installedLocation/isp/bin/infacmd.sh  assignLicense -dn $domainName -un $domain
  echo "Enabling Analyst Service..."
 $installedLocation/isp/bin/infacmd.sh enableService -dn $domainName -un $domainUsername -pd $domainPassword -sn $analystServiceName
 
+cd /opt/Informatica/10.2.0/sats-installer
+export LAX_DEBUG=true
+echo $LAX_DEBUG
 
+ echo "Installing the service Secure@Source"
+./silentinstall.sh &
+ install_pid=$!
+ echo "Silent Installer process id:"$install_pid
+ sleep 180
+ pkill -TERM -P $install_pid
+ 
+ echo "Disabling the Adminconsole service"
+ $installedLocation/isp/bin/infacmd.sh disableService -dn $domainName -un $domainUsername -pd $domainPassword -sdn Native -sn _AdminConsole -mo ABORT -re 360
+ sleep 120
+
+echo "Enabling the Adminconsole service"
+$installedLocation/isp/bin/infacmd.sh enableService -dn $domainName -un $domainUsername -pd $domainPassword -sdn Native -sn _AdminConsole
+
+echo "Creating the service Secure@Source"
+$installedLocation/isp/bin/infacmd.sh sats createService -dn $domainName -un $domainUsername -pd $domainPassword -sdn Native -sn $satsName -nn $domainNode -dt SQLSERVER -du $dbServerUser -dp $dbServerPassword -ds $satsDB -dl "jdbc:informatica:sqlserver://$dbServerAddress:$dbServerPort;DatabaseName=$satsDB$dbAccessSSLSuffix" -csn Catalog_Service -csun $domainUsername -cspd $domainPassword -HttpPort 6200 -ll INFO
+
+echo "Assiging the license to the serice Secure@Source"
+$installedLocation/isp/bin/infacmd.sh  assignLicense -dn $domainName -un $domainUsername -pd $domainPassword -ln $licenseName -sn $satsName
+
+echo "Creating the Secure@Source contents"
+$installedLocation/isp/bin/infacmd.sh sats createContents -dn $domainName -sdn Native -un $domainUsername -pd $domainPassword -sn $satsName -re 300 -ll INFO
+
+echo "Enabling the Secure@Source service"
+rm -rf $installedLocation/tomcat/temp/$satsName
+$installedLocation/isp/bin/infacmd.sh enableService -dn $domainName -un $domainUsername -pd $domainPassword -sdn Native -sn $satsName
+ 
 echo "current time:"+`date`
